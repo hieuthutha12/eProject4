@@ -19,8 +19,6 @@ public class UserDTO {
 
     private String address;
     private String phone;
-    private String accountStatus;
-    private Integer roleId;
 
 
     public UserDTO() {
@@ -56,14 +54,7 @@ public class UserDTO {
     }
 
 
-    public String getAccountStatus() {
-        return accountStatus;
-    }
 
-
-    public Integer getRoleId() {
-        return roleId;
-    }
 
 
 }

@@ -1,16 +1,19 @@
 <div class="wrapper"> 
     <div class="form-box">
         <div class="login-container">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="top">
                 <span>Don't have an account? <a [routerLink]="['/customer/register']">Register</a></span>
                 <header>Login</header>
             </div>
             <div class="input-box">
-                <input type="text" class="input-field" placeholder="Username or Email">        
+                <input type="text" class="input-field" formControlName="email" placeholder="Username or Email"> 
+                <div *ngIf="emailError" class="error">{{ emailError }}</div>       
                 <!-- <fa-icon [icon]="faUser"></fa-icon>        -->
             </div>
             <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
+                <input type="text" class="input-field" formControlName="password" placeholder="Password">
+                <div *ngIf="passwordError" class="error">{{ passwordError }}</div>
                 <!-- <fa-icon [icon]="faLock"></fa-icon>  -->
             </div>
             <div class="input-box">
@@ -24,7 +27,8 @@
                 <div class="two">
                     <label><a href="#">Forgot password?</a></label>
                 </div>
-            </div>             
+            </div> 
+        </form>            
         </div>
     </div>
 </div>   

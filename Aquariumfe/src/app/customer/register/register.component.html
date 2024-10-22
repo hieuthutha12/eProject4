@@ -5,26 +5,31 @@
                 <span>Already have an account? <a [routerLink]="['/customer/login']">Login</a></span>
                 <header>Sign Up</header>
             </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
             <div class="two-forms">
                 <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Full name">
+                    <input type="text" class="input-field" formControlName="firstName" placeholder="First name">
+                    <div *ngIf="firstNameError" class="error">{{ firstNameError }}</div>       
                     <!-- <fa-icon [icon]="faUser"></fa-icon>  -->
                 </div>
                 <div class="input-box">
-                    <input type="text" class="input-field" placeholder="User name">
+                    <input type="text" class="input-field" formControlName="lastName" placeholder="Last name">
+                    <div *ngIf="lastNameError" class="error">{{ lastNameError }}</div>       
                     <!-- <fa-icon [icon]="faUser"></fa-icon>  -->
                 </div>
             </div>
             <div class="input-box">
-                <input type="text" class="input-field" placeholder="Email">
+                <input type="text" class="input-field" formControlName="email" placeholder="Email">
+                <div *ngIf="emailError" class="error">{{ emailError }}</div>       
                 <!-- <fa-icon [icon]="faEnvelope"></fa-icon> -->
             </div>
             <div class="input-box">
-                <input type="text" class="input-field" placeholder="Phone number">
+                <input type="text" class="input-field" formControlName="phone" placeholder="Phone number">
                 <!-- <fa-icon [icon]="faPhone"></fa-icon> -->
             </div>
             <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
+                <input type="password" class="input-field" formControlName="password" placeholder="Password">
+                <div *ngIf="passwordError" class="error">{{ passwordError }}</div>       
                 <!-- <fa-icon [icon]="faLock"></fa-icon>  -->
             </div>
             <div class="input-box">
@@ -39,6 +44,7 @@
                     <label><a href="#">Terms & conditions</a></label>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 </div>   

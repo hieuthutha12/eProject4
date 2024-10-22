@@ -6,6 +6,7 @@ import com.example.aquarium.bean.request.UserDTO;
 import com.example.aquarium.bean.response.AuthResponse;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.model.Role;
+import com.example.aquarium.model.Status;
 import com.example.aquarium.model.User;
 import com.example.aquarium.repository.RoleRepository;
 import com.example.aquarium.repository.UserRepository;
@@ -51,7 +52,7 @@ public class AuthService {
             throw new Exception("Username is already taken!");
         }
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        Optional<Role> optionalRole = roleRepository.findById(userDto.getRoleId());
+        Optional<Role> optionalRole = Optional.ofNullable(roleRepository.findById(1));
         Role role = optionalRole.get();
         User user = new User();
         user.setFirstName(userDto.getFirstName());
@@ -60,7 +61,7 @@ public class AuthService {
         user.setPassword(encodedPassword);
         user.setAddress(userDto.getAddress());
         user.setPhone(userDto.getPhone());
-        user.setAccountStatus(userDto.getAccountStatus());
+        user.setAccountStatus(Status.ACTIVE.toString());
         user.setRole(role);
         userRepository.save(user);
 
