@@ -11,12 +11,12 @@
                        <div class="input-field">
                             <input type="text" class="input" id="email" formControlName="email" required autocomplete="off">
                             <label for="email">Email</label> 
-                            <div *ngIf="emailError" class="error">{{ emailError }}</div>
+                            <div *ngIf="emailError" class="error">*{{ emailError }}</div>
                         </div> 
                        <div class="input-field">
                             <input type="text" class="input" id="pass" formControlName="password" required>
                             <label for="pass">Password</label>
-                            <div *ngIf="passwordError" class="error">{{ passwordError }}</div>
+                            <div *ngIf="passwordError" class="error">*{{ passwordError }}</div>
                         </div> 
                        <div class="input-field">                      
                             <input type="submit" class="submit" value="Login">

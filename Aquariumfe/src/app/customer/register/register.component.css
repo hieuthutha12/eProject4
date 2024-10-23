@@ -43,7 +43,7 @@ body{
     align-items: center;
     justify-content: center;
     width: 512px;
-    height: 500px;  
+    height: 600px;  
     overflow: hidden;
     z-index: 2;
 }
@@ -95,7 +95,7 @@ header{
 ::-webkit-input-placeholder{
     color: #fff;
 }
-.input-box fa-icon{
+.input-box i{
     position: relative;
     top: -35px;
     left: 17px;
@@ -152,4 +152,9 @@ header{
         flex-direction: column;
         gap: 0;
     }
+}
+.input-box .error {
+    font-size: 15px;
+    color: red;
+    padding-bottom: 10px;
 }
