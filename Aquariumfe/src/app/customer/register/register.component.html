@@ -9,28 +9,28 @@
             <div class="two-forms">
                 <div class="input-box">
                     <input type="text" class="input-field" formControlName="firstName" placeholder="First name">
-                    <div *ngIf="firstNameError" class="error">{{ firstNameError }}</div>       
-                    <!-- <fa-icon [icon]="faUser"></fa-icon>  -->
+                    <i class="bi bi-person"></i> 
+                    <div *ngIf="firstNameError" class="error">*{{ firstNameError }}</div>       
                 </div>
                 <div class="input-box">
                     <input type="text" class="input-field" formControlName="lastName" placeholder="Last name">
-                    <div *ngIf="lastNameError" class="error">{{ lastNameError }}</div>       
-                    <!-- <fa-icon [icon]="faUser"></fa-icon>  -->
+                    <i class="bi bi-person"></i> 
+                    <div *ngIf="lastNameError" class="error">*{{ lastNameError }}</div>       
                 </div>
             </div>
             <div class="input-box">
                 <input type="text" class="input-field" formControlName="email" placeholder="Email">
-                <div *ngIf="emailError" class="error">{{ emailError }}</div>       
-                <!-- <fa-icon [icon]="faEnvelope"></fa-icon> -->
+                <i class="bi bi-envelope"></i>
+                <div *ngIf="emailError" class="error">*{{ emailError }}</div>       
             </div>
             <div class="input-box">
                 <input type="text" class="input-field" formControlName="phone" placeholder="Phone number">
-                <!-- <fa-icon [icon]="faPhone"></fa-icon> -->
+                <i class="bi bi-telephone"></i>
             </div>
             <div class="input-box">
                 <input type="password" class="input-field" formControlName="password" placeholder="Password">
-                <div *ngIf="passwordError" class="error">{{ passwordError }}</div>       
-                <!-- <fa-icon [icon]="faLock"></fa-icon>  -->
+                <i class="bi bi-lock"></i>
+                <div *ngIf="passwordError" class="error">*{{ passwordError }}</div>       
             </div>
             <div class="input-box">
                 <input type="submit" class="submit" value="Register">

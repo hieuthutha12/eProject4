@@ -99,7 +99,7 @@ header{
 ::-webkit-input-placeholder{
     color: #fff;
 }
-.input-box fa-icon{
+.input-box i{
     position: relative;
     top: -35px;
     left: 17px;
@@ -154,13 +154,9 @@ header{
     }
 }
 
-/* .login-banner:after {
-    content: "";
-    background-color: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-} */
+.input-box .error {
+    font-size: 15px;
+    color: red;
+    padding-bottom: 10px;
+}
+
