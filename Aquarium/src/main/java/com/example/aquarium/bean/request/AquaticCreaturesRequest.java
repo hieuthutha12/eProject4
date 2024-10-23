@@ -13,26 +13,11 @@ public class AquaticCreaturesRequest {
     @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
 
-    @Size(max = 50, message = "Species cannot exceed 50 characters")
-    private String species;
-
-    @Size(max = 50, message = "Habitat cannot exceed 50 characters")
-    private String habitat;
-
-    @Size(max = 100, message = "Diet cannot exceed 100 characters")
-    private String diet;
-
     @PositiveOrZero(message = "Weight must be positive or zero")
     private float weight;
 
     @PositiveOrZero(message = "Length must be positive or zero")
     private float length;
-
-    @Min(value = 1, message = "Lifespan must be at least 1 year")
-    private int averageLifespan;
-
-    @Size(max = 255, message = "Special characteristics cannot exceed 255 characters")
-    private String specialCharacteristics;
 
     private LocalDateTime entryDate;
 
@@ -43,24 +28,19 @@ public class AquaticCreaturesRequest {
     @NotNull(message = "User ID is mandatory")
     private Integer userId;
 
-    @NotNull(message = "Area ID is mandatory")
-    private Integer areaId;
+    @NotNull(message = "Species ID is mandatory")
+    private Integer speciesId;
 
     private List<MultipartFile> images;
 
-    public AquaticCreaturesRequest(String name, String species, String habitat, String diet, float weight, float length, int averageLifespan, String specialCharacteristics, LocalDateTime entryDate, String exhibitStatus, Integer userId, Integer areaId, List<MultipartFile> images) {
+    public AquaticCreaturesRequest(String name, float weight, float length, LocalDateTime entryDate, String exhibitStatus, Integer userId, Integer speciesId, List<MultipartFile> images) {
         this.name = name;
-        this.species = species;
-        this.habitat = habitat;
-        this.diet = diet;
         this.weight = weight;
         this.length = length;
-        this.averageLifespan = averageLifespan;
-        this.specialCharacteristics = specialCharacteristics;
         this.entryDate = entryDate;
         this.exhibitStatus = exhibitStatus;
         this.userId = userId;
-        this.areaId = areaId;
+        this.speciesId = speciesId;
         this.images = images;
     }
 
@@ -75,29 +55,7 @@ public class AquaticCreaturesRequest {
         this.name = name;
     }
 
-    public @Size(max = 50, message = "Species cannot exceed 50 characters") String getSpecies() {
-        return species;
-    }
 
-    public void setSpecies(@Size(max = 50, message = "Species cannot exceed 50 characters") String species) {
-        this.species = species;
-    }
-
-    public @Size(max = 50, message = "Habitat cannot exceed 50 characters") String getHabitat() {
-        return habitat;
-    }
-
-    public void setHabitat(@Size(max = 50, message = "Habitat cannot exceed 50 characters") String habitat) {
-        this.habitat = habitat;
-    }
-
-    public @Size(max = 100, message = "Diet cannot exceed 100 characters") String getDiet() {
-        return diet;
-    }
-
-    public void setDiet(@Size(max = 100, message = "Diet cannot exceed 100 characters") String diet) {
-        this.diet = diet;
-    }
 
     @PositiveOrZero(message = "Weight must be positive or zero")
     public float getWeight() {
@@ -117,26 +75,17 @@ public class AquaticCreaturesRequest {
         this.length = length;
     }
 
-    @Min(value = 1, message = "Lifespan must be at least 1 year")
-    public int getAverageLifespan() {
-        return averageLifespan;
-    }
-
-    public void setAverageLifespan(@Min(value = 1, message = "Lifespan must be at least 1 year") int averageLifespan) {
-        this.averageLifespan = averageLifespan;
-    }
-
-    public @Size(max = 255, message = "Special characteristics cannot exceed 255 characters") String getSpecialCharacteristics() {
-        return specialCharacteristics;
-    }
-
-    public void setSpecialCharacteristics(@Size(max = 255, message = "Special characteristics cannot exceed 255 characters") String specialCharacteristics) {
-        this.specialCharacteristics = specialCharacteristics;
-    }
-
 
     public LocalDateTime getEntryDate() {
         return entryDate;
+    }
+
+    public @NotNull(message = "Species ID is mandatory") Integer getSpeciesId() {
+        return speciesId;
+    }
+
+    public void setSpeciesId(@NotNull(message = "Species ID is mandatory") Integer speciesId) {
+        this.speciesId = speciesId;
     }
 
     public void setEntryDate(LocalDateTime entryDate) {
@@ -159,13 +108,6 @@ public class AquaticCreaturesRequest {
         this.userId = userId;
     }
 
-    public @NotNull(message = "Area ID is mandatory") Integer getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(@NotNull(message = "Area ID is mandatory") Integer areaId) {
-        this.areaId = areaId;
-    }
 
     public List<MultipartFile> getImages() {
         return images;

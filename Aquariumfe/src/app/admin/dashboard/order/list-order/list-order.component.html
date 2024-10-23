@@ -1,0 +1,21 @@
+<h2>List of Orders</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.item }}</td>
+      <td>{{ order.date }}</td>
+      <td>{{ order.status }}</td>
+      <td>
+        <button class="btn btn-info" (click)="viewOrderDetails(order.id)">View Details</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

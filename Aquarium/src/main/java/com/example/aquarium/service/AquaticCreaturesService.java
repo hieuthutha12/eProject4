@@ -6,10 +6,7 @@ import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.mapper.AquaticCreaturesMapper;
 import com.example.aquarium.model.AquaticCreatures;
 import com.example.aquarium.model.Img;
-import com.example.aquarium.repository.AquaticCreaturesRepository;
-import com.example.aquarium.repository.AreaRepository;
-import com.example.aquarium.repository.ImgRepository;
-import com.example.aquarium.repository.UserRepository;
+import com.example.aquarium.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,15 +28,14 @@ public class AquaticCreaturesService {
     private final AquaticCreaturesRepository aquaticCreaturesRepository;
     private final AquaticCreaturesMapper aquaticCreaturesMapper;
     private final UserRepository userRepository;
-    private final AreaRepository areaRepository;
-    private final ImgRepository imgRepository;
+    private final SpeciesRespository speciesRespository;
 
 
     public AquaticCreatures createAquaticCreature(AquaticCreaturesRequest aquaticCreaturesRequest) throws IOException {
         AquaticCreatures aquaticCreatures = aquaticCreaturesMapper.mapToEntityWithImages(
                 aquaticCreaturesRequest,
                 userRepository.findById(aquaticCreaturesRequest.getUserId()),
-                areaRepository.findById(aquaticCreaturesRequest.getAreaId())
+                speciesRespository.findById(aquaticCreaturesRequest.getSpeciesId())
         );
 
         return aquaticCreaturesRepository.save(aquaticCreatures);
@@ -66,17 +62,13 @@ public class AquaticCreaturesService {
                 .orElseThrow(() -> new ResourceNotFoundException("Aquatic Creature not found"));
 
         aquaticCreatures.setName(aquaticCreaturesRequest.getName());
-        aquaticCreatures.setSpecies(aquaticCreaturesRequest.getSpecies());
-        aquaticCreatures.setHabitat(aquaticCreaturesRequest.getHabitat());
-        aquaticCreatures.setDiet(aquaticCreaturesRequest.getDiet());
         aquaticCreatures.setWeight(aquaticCreaturesRequest.getWeight());
         aquaticCreatures.setLength(aquaticCreaturesRequest.getLength());
-        aquaticCreatures.setAverageLifespan(aquaticCreaturesRequest.getAverageLifespan());
-        aquaticCreatures.setSpecialCharacteristics(aquaticCreaturesRequest.getSpecialCharacteristics());
+
         aquaticCreatures.setEntryDate(aquaticCreaturesRequest.getEntryDate());
         aquaticCreatures.setExhibitStatus(aquaticCreaturesRequest.getExhibitStatus());
         aquaticCreatures.setUser(userRepository.findById(aquaticCreaturesRequest.getUserId()).orElse(null));
-        aquaticCreatures.setArea(areaRepository.findById(aquaticCreaturesRequest.getAreaId()).orElse(null));
+        aquaticCreatures.setSpecies(speciesRespository.findById(aquaticCreaturesRequest.getSpeciesId()).orElse(null));
 
         aquaticCreatures.getImages().clear();
 

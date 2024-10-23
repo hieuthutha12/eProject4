@@ -1,9 +1,7 @@
 package com.example.aquarium.controller;
 
-import com.example.aquarium.bean.request.AreaRequest;
 import com.example.aquarium.bean.request.BuyRequest;
 import com.example.aquarium.bean.response.MessageResponse;
-import com.example.aquarium.model.Area;
 import com.example.aquarium.service.BuyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

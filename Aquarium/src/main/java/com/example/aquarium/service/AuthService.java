@@ -29,9 +29,6 @@ public class AuthService {
 
     private final PasswordEncoder passwordEncoder;
 
-
-
-
     public MessageResponse loginUser(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail());
 

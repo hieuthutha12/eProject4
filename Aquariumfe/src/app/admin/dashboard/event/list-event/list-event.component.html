@@ -1,0 +1,21 @@
+<h2>List of Events</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of events">
+      <td>{{ event.title }}</td>
+      <td>{{ event.date }}</td>
+      <td>{{ event.location }}</td>
+      <td>
+        <button class="btn btn-warning" (click)="editEvent(event.id)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

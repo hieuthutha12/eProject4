@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface AquaticCreaturesRepository extends JpaRepository<AquaticCreatures, Integer> {
-    boolean existsByAreaId(Integer areaId);
+    boolean existsBySpeciesId(Integer speciesId);
     @Modifying
     @Transactional
-    @Query("UPDATE AquaticCreatures a SET a.area.status = 'INACTIVE' WHERE a.area.id = ?1")
-    void updateAreaIdToNullByAreaId(int areaId);
+    @Query("UPDATE AquaticCreatures a SET a.species.status = 'INACTIVE' WHERE a.species.id = ?1")
+    void updateAreaIdToNullBySpeciesId(int speceisId);
 }

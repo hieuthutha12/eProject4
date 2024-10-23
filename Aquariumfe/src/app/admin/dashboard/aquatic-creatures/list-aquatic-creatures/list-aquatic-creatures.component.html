@@ -1,0 +1,21 @@
+<h2>List of Aquatic Creatures</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Habitat</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let creature of creatures">
+      <td>{{ creature.name }}</td>
+      <td>{{ creature.type }}</td>
+      <td>{{ creature.habitat }}</td>
+      <td>
+        <button class="btn btn-warning" (click)="editCreature(creature.id)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,19 @@
+<h2>List of Types</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let type of types">
+      <td>{{ type.name }}</td>
+      <td>{{ type.description }}</td>
+      <td>
+        <button class="btn btn-warning" (click)="editType(type.id)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

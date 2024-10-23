@@ -1,62 +1,44 @@
 package com.example.aquarium.model;
 
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Aquatic_Creatures")
+@Table(name = "aquatic_creatures")
 public class AquaticCreatures {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "species", length = 50)
-    private String species;
-
-    @Column(name = "habitat", length = 50)
-    private String habitat;
-
-    @Column(name = "diet", length = 100)
-    private String diet;
+    @ManyToOne
+    @JoinColumn(name = "species_id", nullable = false)
+    private Species species;  // Tham chiếu đến loài
 
     @Column(name = "weight")
-    private float weight;
+    private Float weight;
 
     @Column(name = "length")
-    private float length;
+    private Float length;
 
-    @Column(name = "averageLifespan")
-    private int averageLifespan;
-
-    @Column(name = "specialCharacteristics", length = 255)
-    private String specialCharacteristics;
-
-    @Column(name = "entryDate")
+    @Column(name = "entry_date")
     private LocalDateTime entryDate;
 
-    @Column(name = "exhibitStatus", length = 50)
+    @Column(name = "exhibit_status")
     private String exhibitStatus;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "area_id")
-    private Area area;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user; // Tham chiếu đến người dùng
 
     @OneToMany(mappedBy = "aquaticCreatures", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Img> images;
-
-    public AquaticCreatures() {
-    }
 
     public Integer getId() {
         return id;
@@ -70,44 +52,8 @@ public class AquaticCreatures {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSpecies() {
-        return species;
-    }
-
-    public void setSpecies(String species) {
-        this.species = species;
-    }
-
-    public String getHabitat() {
-        return habitat;
-    }
-
-    public void setHabitat(String habitat) {
-        this.habitat = habitat;
-    }
-
-    public String getDiet() {
-        return diet;
-    }
-
-    public void setDiet(String diet) {
-        this.diet = diet;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public float getLength() {
-        return length;
+    public void setEntryDate(LocalDateTime entryDate) {
+        this.entryDate = entryDate;
     }
 
     public List<Img> getImages() {
@@ -118,25 +64,38 @@ public class AquaticCreatures {
         this.images = images;
     }
 
-    public void setLength(float length) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Species getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
+
+    public LocalDateTime getEntryDate() {
+        return entryDate;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public Float getLength() {
+        return length;
+    }
+
+    public void setLength(Float length) {
         this.length = length;
     }
 
-    public int getAverageLifespan() {
-        return averageLifespan;
-    }
-
-    public void setAverageLifespan(int averageLifespan) {
-        this.averageLifespan = averageLifespan;
-    }
-
-    public String getSpecialCharacteristics() {
-        return specialCharacteristics;
-    }
-
-    public void setSpecialCharacteristics(String specialCharacteristics) {
-        this.specialCharacteristics = specialCharacteristics;
-    }
 
     public String getExhibitStatus() {
         return exhibitStatus;
@@ -144,23 +103,6 @@ public class AquaticCreatures {
 
     public void setExhibitStatus(String exhibitStatus) {
         this.exhibitStatus = exhibitStatus;
-    }
-
-
-    public LocalDateTime getEntryDate() {
-        return entryDate;
-    }
-
-    public void setEntryDate(LocalDateTime entryDate) {
-        this.entryDate = entryDate;
-    }
-
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
     }
 
     public User getUser() {
@@ -171,4 +113,3 @@ public class AquaticCreatures {
         this.user = user;
     }
 }
-

@@ -8,7 +8,6 @@ public class AquaticCreaturesResponse {
 
     private int id;
     private String name;
-    private String species;
     private String habitat;
     private String diet;
     private float weight;
@@ -17,18 +16,31 @@ public class AquaticCreaturesResponse {
     private String specialCharacteristics;
     private LocalDateTime entryDate;
     private String exhibitStatus;
-    private String area;
+    private String species;
     private String user;
     private List<String> imgName;
-
-
-    public AquaticCreaturesResponse() {
-    }
 
 
     public String getSpecies() {
         return species;
     }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public AquaticCreaturesResponse() {
+    }
+
+
 
     public String getName() {
         return name;
@@ -74,17 +86,11 @@ public class AquaticCreaturesResponse {
         return exhibitStatus;
     }
 
-    public String getArea() {
-        return area;
-    }
-
     public List<String> getImgName() {
         return imgName;
     }
 
-    public String getUser() {
-        return user;
-    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -101,9 +107,6 @@ public class AquaticCreaturesResponse {
     }
 
 
-    public void setSpecies(String species) {
-        this.species = species;
-    }
 
 
     public void setDiet(String diet) {
@@ -131,22 +134,11 @@ public class AquaticCreaturesResponse {
     }
 
 
-
-
-
     public void setExhibitStatus(String exhibitStatus) {
         this.exhibitStatus = exhibitStatus;
     }
 
 
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-
-    public void setUser(String user) {
-        this.user = user;
-    }
 
 
     public void setImgName(List<String> imgName) {
