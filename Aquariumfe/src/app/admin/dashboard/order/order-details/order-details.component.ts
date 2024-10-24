@@ -7,15 +7,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./order-details.component.css']
 })
 export class OrderDetailsComponent implements OnInit {
-  orderId: string | null = null; // To hold the order ID
-  orderDetails: any; // Placeholder for the order details
+  orderId: string | null = null; 
+  orderDetails: any; 
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.orderId = params.get('id'); // Get the ID from route params
-      // Fetch the order details by ID (e.g., from a service)
+      this.orderId = params.get('id'); 
+      
       this.orderDetails = {
         id: this.orderId,
         item: 'Event Ticket 1',
@@ -23,7 +23,7 @@ export class OrderDetailsComponent implements OnInit {
         status: 'Completed',
         buyer: 'John Doe',
         paymentMethod: 'Credit Card'
-      }; // Mock data for demonstration
+      }; 
     });
   }
 }

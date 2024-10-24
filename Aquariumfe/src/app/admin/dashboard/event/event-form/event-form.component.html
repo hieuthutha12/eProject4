@@ -1,0 +1,67 @@
+<div class="event-form-container">
+  <h2 *ngIf="isUpdateMode">Cập nhật sự kiện</h2>
+  <h2 *ngIf="!isUpdateMode">Thêm sự kiện mới</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="eventName">Tên sự kiện:</label>
+      <input 
+        id="eventName" 
+        [(ngModel)]="eventForm.eventName" 
+        name="eventName" 
+        type="text" 
+        required 
+        aria-describedby="eventNameError" />
+      <div *ngIf="eventNameError" id="eventNameError" class="error">*{{ eventNameError }}</div>
+    </div>
+
+    <div>
+      <label for="description">Mô tả:</label>
+      <textarea 
+        id="description" 
+        [(ngModel)]="eventForm.description" 
+        name="description" 
+        required 
+        aria-describedby="descriptionError"></textarea>
+      <div *ngIf="descriptionError" id="descriptionError" class="error">*{{ descriptionError }}</div>
+    </div>
+
+    <div>
+      <label for="startDate">Ngày bắt đầu:</label>
+      <input 
+        id="startDate" 
+        [ngModel]="formattedStartDate" 
+        (ngModelChange)="onStartDateChange($event)" 
+        name="startDate" 
+        type="datetime-local" 
+        required 
+        aria-describedby="startDateError" />
+      <div *ngIf="startDateError" id="startDateError" class="error">*{{ startDateError }}</div>
+    </div>
+
+    <div>
+      <label for="endDate">Ngày kết thúc:</label>
+      <input 
+        id="endDate" 
+        [ngModel]="formattedEndDate" 
+        (ngModelChange)="onEndDateChange($event)" 
+        name="endDate" 
+        type="datetime-local" 
+        required 
+        aria-describedby="endDateError" />
+      <div *ngIf="endDateError" id="endDateError" class="error">*{{ endDateError }}</div>
+    </div>
+    
+    <div>
+      <label for="img">Upload Image:</label>
+      <input 
+        type="file" 
+        id="img" 
+        (change)="onFileChange($event)" 
+        aria-describedby="imgError" />
+      <div *ngIf="imgError" id="imgError" class="error">*{{ imgError }}</div>
+    </div>
+
+    <button type="submit">Gửi</button>
+  </form>
+</div>

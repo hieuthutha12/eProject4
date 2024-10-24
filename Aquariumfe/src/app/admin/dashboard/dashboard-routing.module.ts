@@ -19,6 +19,15 @@ const routes: Routes = [
         path: 'aquatic-creatures',
         loadChildren: () => import('./aquatic-creatures/aquatic-creatures.module').then(m => m.AquaticCreaturesModule)
       },
+      {
+        path: 'type',
+        loadChildren: () => import('./type/type.module').then(m => m.TypeModule)
+      },
+      {
+        path: 'order',
+        loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
+      },
+     
     ]
   }
 ];

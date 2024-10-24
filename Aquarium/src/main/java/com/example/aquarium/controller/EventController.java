@@ -2,6 +2,7 @@ package com.example.aquarium.controller;
 import com.example.aquarium.bean.request.EventRequest;
 import com.example.aquarium.bean.response.EventResponse;
 import com.example.aquarium.bean.response.MessageResponse;
+import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.model.AquaticCreatures;
 import com.example.aquarium.model.Event;
 import com.example.aquarium.service.EventService;
@@ -47,12 +48,13 @@ public class EventController {
     public ResponseEntity<MessageResponse> updateEvent(@PathVariable Integer id, @Valid @ModelAttribute EventRequest eventRequest) {
         try {
             eventService.updateEvent(id, eventRequest);
-            return new ResponseEntity<>(new MessageResponse("Successfully!"), HttpStatus.OK);
+            return ResponseEntity.ok(new MessageResponse("Event updated successfully!")); // HTTP 200 OK
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse(e.getMessage()));
         } catch (Exception e) {
-            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("An error occurred: " + e.getMessage()));
         }
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Integer id) {
         eventService.deleteById(id);

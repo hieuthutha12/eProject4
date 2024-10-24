@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     provideHttpClient(withFetch())

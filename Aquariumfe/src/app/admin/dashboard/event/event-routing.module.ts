@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddEventComponent } from './add-event/add-event.component';
-import { UpdateEventComponent } from './update-event/update-event.component';
 import { ListEventComponent } from './list-event/list-event.component';
-
+import { EventFormComponent } from './event-form/event-form.component';
 const routes: Routes = [
-  { path: 'add', component: AddEventComponent },
-  { path: 'update/:id', component: UpdateEventComponent },
   { path: 'list', component: ListEventComponent },
+  { path: 'event/form', component: EventFormComponent },
+  { path: 'event/form/:id', component: EventFormComponent },
   { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 

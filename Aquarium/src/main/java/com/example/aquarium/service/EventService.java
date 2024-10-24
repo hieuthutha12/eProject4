@@ -47,20 +47,29 @@ public class EventService {
 
     public Event updateEvent(Integer id, EventRequest eventDetails) throws Exception {
         Event existingEvent = eventRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
+
 
         existingEvent.setEventName(eventDetails.getEventName());
         existingEvent.setDescription(eventDetails.getDescription());
+
+
         if (eventDetails.getImg() != null && !eventDetails.getImg().isEmpty()) {
             String imgFilename = eventMapper.saveImage(eventDetails.getImg());
             existingEvent.setImg(imgFilename);
         }
-        existingEvent.setStartDate(eventDetails.getStartDate());
-        existingEvent.setEndDate(eventDetails.getEndDate());
+
+
+        existingEvent.setStartDate(eventMapper.parseDate(eventDetails.getStartDate()));
+        existingEvent.setEndDate(eventMapper.parseDate(eventDetails.getEndDate()));
+
+
         existingEvent.setUser(userRepository.findById(eventDetails.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found")));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + eventDetails.getUserId())));
+
 
         return eventRepository.save(existingEvent);
     }
+
 }
 

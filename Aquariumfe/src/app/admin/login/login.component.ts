@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { AdminComponent } from '../admin.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private admin: AdminComponent
   ) {
     this.loginForm = this.formBuilder.group({
       email: [''], 
@@ -29,7 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-   
     this.emailError = '';
     this.passwordError = '';
     this.generalErrorMessage = '';
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
         console.log('Login successful:', response);
         const token = response.token;
       localStorage.setItem('authToken', token);
+      //this.admin.userId = response.user.id;
         this.router.navigate(['/admin/dashboard']);
       },
       error: (error) => {

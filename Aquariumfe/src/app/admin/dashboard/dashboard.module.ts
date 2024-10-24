@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component'; 
 import { SidebarComponent } from './sidebar/sidebar.component';
-// import { EventModule } from './event/event.module';
-import { ProfileModule } from './profile/profile.module';
+import { EventRoutingModule } from './event/event-routing.module';
+import { ProfileRoutingModule } from './profile/profile-routing.module';
+import { OrderRoutingModule } from './order/order-routing.module';
+import { AquaticCreaturesRoutingModule } from './aquatic-creatures/aquatic-creatures-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,9 +15,11 @@ import { ProfileModule } from './profile/profile.module';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule ,
-    // EventModule,
-    ProfileModule
+    DashboardRoutingModule,
+    EventRoutingModule,
+    ProfileRoutingModule,
+    OrderRoutingModule,
+    AquaticCreaturesRoutingModule
   ]
 })
 export class DashboardModule { }
