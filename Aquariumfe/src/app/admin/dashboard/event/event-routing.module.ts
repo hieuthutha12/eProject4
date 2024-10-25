@@ -4,8 +4,8 @@ import { ListEventComponent } from './list-event/list-event.component';
 import { EventFormComponent } from './event-form/event-form.component';
 const routes: Routes = [
   { path: 'list', component: ListEventComponent },
-  { path: 'event/form', component: EventFormComponent },
-  { path: 'event/form/:id', component: EventFormComponent },
+  { path: 'form', component: EventFormComponent },
+  { path: 'form/:id', component: EventFormComponent },
   { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 
