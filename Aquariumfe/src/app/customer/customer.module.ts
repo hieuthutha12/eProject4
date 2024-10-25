@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './home/header/header.component';
 import { FooterComponent } from './home/footer/footer.component';
+import { AnimalsComponent } from './home/animals/animals.component';
+import { HomepageComponent } from './home/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FooterComponent } from './home/footer/footer.component';
     RegisterComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AnimalsComponent,
+    HomepageComponent
   ],
   imports: [
     CommonModule,
