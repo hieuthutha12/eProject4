@@ -64,8 +64,6 @@ public class AquaticCreaturesService {
         aquaticCreatures.setName(aquaticCreaturesRequest.getName());
         aquaticCreatures.setWeight(aquaticCreaturesRequest.getWeight());
         aquaticCreatures.setLength(aquaticCreaturesRequest.getLength());
-
-        aquaticCreatures.setEntryDate(aquaticCreaturesRequest.getEntryDate());
         aquaticCreatures.setExhibitStatus(aquaticCreaturesRequest.getExhibitStatus());
         aquaticCreatures.setUser(userRepository.findById(aquaticCreaturesRequest.getUserId()).orElse(null));
         aquaticCreatures.setSpecies(speciesRespository.findById(aquaticCreaturesRequest.getSpeciesId()).orElse(null));

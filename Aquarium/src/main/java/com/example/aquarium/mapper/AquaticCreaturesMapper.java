@@ -3,6 +3,7 @@ package com.example.aquarium.mapper;
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
 import com.example.aquarium.model.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class AquaticCreaturesMapper {
+
     public static AquaticCreatures mapToEntity(AquaticCreaturesRequest request, Optional<User> user, Optional<Species> species) {
         AquaticCreatures aquaticCreatures = new AquaticCreatures();
 
@@ -24,7 +28,7 @@ public class AquaticCreaturesMapper {
         aquaticCreatures.setSpecies(species.orElse(null));
         aquaticCreatures.setWeight(request.getWeight());
         aquaticCreatures.setLength(request.getLength());
-        aquaticCreatures.setEntryDate(request.getEntryDate());
+        aquaticCreatures.setEntryDate(LocalDateTime.now());
         aquaticCreatures.setExhibitStatus(request.getExhibitStatus());
 
         aquaticCreatures.setUser(user.orElse(null));

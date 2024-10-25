@@ -1,0 +1,63 @@
+<form (ngSubmit)="onSubmit()" #speciesFormDirective="ngForm">
+    <div>
+      <label for="name">Tên loài:</label>
+      <input 
+        type="text" 
+        id="name" 
+        [(ngModel)]="speciesForm.name" 
+        name="name" 
+        required 
+        aria-describedby="nameError">
+      <div *ngIf="nameError" id="nameError" class="error">*{{ nameError }}</div>
+    </div>
+  
+    <div>
+      <label for="habitat">Môi trường:</label>
+      <textarea 
+        id="habitat" 
+        [(ngModel)]="speciesForm.habitat" 
+        name="habitat" 
+        required 
+        aria-describedby="habitatError"></textarea>
+      <div *ngIf="habitatError" id="habitatError" class="error">*{{ habitatError }}</div>
+    </div>
+  
+    <div>
+      <label for="diet">Chế độ ăn:</label>
+      <input 
+        type="text" 
+        id="diet" 
+        [(ngModel)]="speciesForm.diet" 
+        name="diet" 
+        required 
+        aria-describedby="dietError">
+      <div *ngIf="dietError" id="dietError" class="error">*{{ dietError }}</div>
+    </div>
+  
+    <div>
+      <label for="averageLifespan">Tuổi thọ trung bình:</label>
+      <input 
+        type="number" 
+        id="averageLifespan" 
+        [(ngModel)]="speciesForm.averageLifespan" 
+        name="averageLifespan" 
+        required 
+        aria-describedby="averageLifespanError">
+      <div *ngIf="averageLifespanError" id="averageLifespanError" class="error">*{{ averageLifespanError }}</div>
+    </div>
+  
+    <div>
+      <label for="specialCharacteristics">Đặc điểm nổi bật:</label>
+      <textarea 
+        id="specialCharacteristics" 
+        [(ngModel)]="speciesForm.specialCharacteristics" 
+        name="specialCharacteristics" 
+        required 
+        aria-describedby="specialCharacteristicsError"></textarea>
+      <div *ngIf="specialCharacteristicsError" id="specialCharacteristicsError" class="error">*{{ specialCharacteristicsError }}</div>
+    </div>
+  
+    <button type="submit">{{ isUpdateMode ? 'Cập nhật' : 'Tạo mới' }}</button>
+    <div *ngIf="generalErrorMessage" class="error">*{{ generalErrorMessage }}</div>
+  </form>
+  

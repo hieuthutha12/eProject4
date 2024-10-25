@@ -35,7 +35,7 @@ public class AquaticCreatures {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user; // Tham chiếu đến người dùng
+    private User user;
 
     @OneToMany(mappedBy = "aquaticCreatures", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Img> images;

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/species")
@@ -37,6 +38,11 @@ public class SpeciesController {
     public ResponseEntity<MessageResponse> updateSpecies(@PathVariable int id, @Valid @RequestBody SpeciesRequest speciesRequest) {
         Species updatedSpecies = speciesService.update(id, speciesRequest);
         return new ResponseEntity<>(new MessageResponse("Successfully"), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<SpeciesResponse> getSpeciesById(@PathVariable int id) {
+        return speciesService.findById(id);
     }
 
     @DeleteMapping("/{id}")

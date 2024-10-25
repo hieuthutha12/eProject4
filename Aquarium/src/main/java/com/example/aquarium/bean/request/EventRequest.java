@@ -33,6 +33,5 @@ public class EventRequest {
     private MultipartFile img;
 
     private Integer userId;
-
 }
 

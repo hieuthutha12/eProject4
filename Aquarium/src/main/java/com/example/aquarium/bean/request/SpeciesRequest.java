@@ -2,7 +2,15 @@ package com.example.aquarium.bean.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class SpeciesRequest {
 
     @NotBlank(message = "Species name is required")
@@ -22,26 +30,4 @@ public class SpeciesRequest {
     @Size(max = 255, message = "Special characteristics must not exceed 255 characters")
     private String specialCharacteristics;
 
-    public SpeciesRequest() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getHabitat() {
-        return habitat;
-    }
-
-    public String getDiet() {
-        return diet;
-    }
-
-    public Integer getAverageLifespan() {
-        return averageLifespan;
-    }
-
-    public String getSpecialCharacteristics() {
-        return specialCharacteristics;
-    }
 }

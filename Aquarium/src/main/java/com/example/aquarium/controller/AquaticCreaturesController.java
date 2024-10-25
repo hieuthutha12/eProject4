@@ -39,7 +39,7 @@ public class AquaticCreaturesController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/aquatic-creatures/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AquaticCreaturesResponse> getAquaticCreatureById(@PathVariable int id) {
         AquaticCreaturesResponse response = service.getAquaticCreatureById(id);
         return ResponseEntity.ok(response);

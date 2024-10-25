@@ -28,7 +28,7 @@ export class EventFormComponent implements OnInit {
   eventNameError: string = ''; 
   descriptionError: string = ''; 
   startDateError: string = ''; 
-  endDateError: string = ''; // Declare this property
+  endDateError: string = '';
   imgError: string = '';
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;

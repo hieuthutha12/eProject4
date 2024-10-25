@@ -1,0 +1,14 @@
+html, body {
+    height: 100%; /* Full height for body and html */
+    margin: 0; /* Remove default margin */
+}
+
+body {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Column layout */
+}
+
+
+.main-content {
+    flex: 1; /* Take up remaining space */
+}

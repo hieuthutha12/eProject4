@@ -22,10 +22,6 @@ public class EventMapper {
     @Value("${custom.date-format}")
     private String dateFormat;
 
-//    public String formatDate(LocalDateTime date) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-//        return date.format(formatter);
-//    }
 
     public LocalDateTime parseDate(String dateStr) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
