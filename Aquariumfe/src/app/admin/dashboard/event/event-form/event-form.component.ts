@@ -13,7 +13,7 @@ interface EventForm {
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
-  styleUrls: ['./event-form.component.css']
+  styleUrl: './event-form.component.css'
 })
 export class EventFormComponent implements OnInit {
   eventForm: EventForm = {
