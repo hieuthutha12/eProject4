@@ -37,9 +37,18 @@
 
 /* Header Styles */
 .header {
-    background-color: #011822;
-    color: #fff;
+    /* background-color: #011822;
+    color: #fff; */
     padding: 1rem 2rem 0 1rem;
+    background-color: #011822;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 150px;
+    border-radius: 0px 50px 100px 50px / 100px 0px 50px 75px;
+    width: 95%;
+    margin-left: 31px;
 }
 
 /* Header Flex Layout */
@@ -185,7 +194,7 @@
     display: flex;
     align-items: center;
     transition: border-bottom 0.3s ease, color 0.3s ease;
-    border-bottom: 4px solid #00121a;
+    border-bottom: 4px solid #011822;
 }
 
 .dropbtn:hover {
@@ -315,7 +324,7 @@ transition: background-color 0.3s ease;
     background-color: #007bff;
     color: #ededed;
     font-size: 16px;
-    padding: 10px 20px;
+    padding: 7px 10px;
     border: none;
     border-radius: 8px;
     text-transform: uppercase;
