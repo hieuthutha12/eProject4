@@ -1,25 +1,29 @@
-
-<h2>Event List</h2>
-<button (click)="addEvent()">Add New Event</button>
-<table>
-  <thead>
-    <tr>
-      <th>Event Name</th>
-      <th>Description</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let event of events">
-      <td>{{ event.eventName }}</td>
-      <td>{{ event.description }}</td>
-      <td>{{ event.startDate | date:'yyyy-MM-dd HH:mm' }}</td>
-      <td>{{ event.endDate | date:'yyyy-MM-dd HH:mm' }}</td>
-      <td>
-        <button (click)="editEvent(event.id)">Edit</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="content">
+  <div class="mt-5">
+    <h2>Event List</h2>
+    <button (click)="addEvent()" class="btn btn-primary">Add New Event</button>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.eventName }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.startDate | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ event.endDate | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>
+            <button (click)="editEvent(event.id)" class="btn btn-primary btn-sm">Edit</button>
+            <button (click)="editEvent(event.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
