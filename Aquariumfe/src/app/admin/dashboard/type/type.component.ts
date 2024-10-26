@@ -41,6 +41,7 @@ export class TypeComponent implements OnInit {
   }
 
   editType(id: number) {
+    this.toggleForm();
     this.typeId = id;
     this.isUpdateMode = true;
     this.getTypeData(this.typeId);
@@ -118,4 +119,11 @@ export class TypeComponent implements OnInit {
     };
     this.isUpdateMode = false;
   }
+  toggleForm(): void {
+    const formContainer = document.getElementById("formContainer") as HTMLElement;
+    if (formContainer) {
+        formContainer.style.display = formContainer.style.display === "none" ? "block" : "none";
+    }
+  }
 }
+

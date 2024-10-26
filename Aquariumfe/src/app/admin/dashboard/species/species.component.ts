@@ -15,12 +15,14 @@ export class SpeciesComponent implements OnInit {
     diet: '',
     averageLifespan: null,
     specialCharacteristics: '',
+    status: '',
   };
   speciesId: number | null = null;
   nameError: string = '';
   habitatError: string = '';
   dietError: string = '';
   averageLifespanError: string = '';
+  statusError: string = '';
   specialCharacteristicsError: string = '';
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;
@@ -43,6 +45,7 @@ export class SpeciesComponent implements OnInit {
   }
 
   editSpecies(id: number) {
+    this.toggleForm();
     this.speciesId = id;
     this.isUpdateMode = true;
     this.getSpeciesData(this.speciesId);
@@ -57,6 +60,7 @@ export class SpeciesComponent implements OnInit {
           diet: speciesData.diet,
           averageLifespan: speciesData.averageLifespan,
           specialCharacteristics: speciesData.specialCharacteristics,
+          status: speciesData.status,
         };
       },
       (error) => {
@@ -74,6 +78,7 @@ export class SpeciesComponent implements OnInit {
       diet: this.speciesForm.diet,
       averageLifespan: this.speciesForm.averageLifespan,
       specialCharacteristics: this.speciesForm.specialCharacteristics,
+      status: this.speciesForm.status,
     };
 
     const speciesObservable = this.isUpdateMode && this.speciesId
@@ -101,6 +106,7 @@ export class SpeciesComponent implements OnInit {
       this.dietError = error.error.errors.diet || '';
       this.averageLifespanError = error.error.errors.averageLifespan || '';
       this.specialCharacteristicsError = error.error.errors.specialCharacteristics || '';
+      this.statusError = error.error.errors.status || '';
     } else {
       this.generalErrorMessage = 'An unknown error occurred. Please try again later.';
     }
@@ -113,6 +119,7 @@ export class SpeciesComponent implements OnInit {
     this.averageLifespanError = '';
     this.specialCharacteristicsError = '';
     this.generalErrorMessage = '';
+    this.statusError = '';
   }
 
   resetForm() {
@@ -122,8 +129,16 @@ export class SpeciesComponent implements OnInit {
       diet: '',
       averageLifespan: null,
       specialCharacteristics: '',
+      status:'',
     };
     this.speciesId = null;
     this.isUpdateMode = false;
   }
+  toggleForm(): void {
+    const formContainer = document.getElementById("formContainer") as HTMLElement;
+    if (formContainer) {
+        formContainer.style.display = formContainer.style.display === "none" ? "block" : "none";
+    }
+  }
 }
+
