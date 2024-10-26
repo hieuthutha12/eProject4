@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerModule } from './customer/customer.module';
 import { AdminModule } from './admin/admin.module';
+import { SpeciesComponent } from './species/species.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SpeciesComponent
   ],
   imports: [
     BrowserModule,

@@ -3,16 +3,20 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
       <th>Habitat</th>
+      <th>Diet</th>
+      <th>Average Lifespan</th>
+      <th>Special Characteristics</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let creature of creatures">
       <td>{{ creature.name }}</td>
-      <td>{{ creature.type }}</td>
       <td>{{ creature.habitat }}</td>
+      <td>{{ creature.diet }}</td>
+      <td>{{ creature.averageLifespan }}</td>
+      <td>{{ creature.specialCharacteristics }}</td>
       <td>
         <button class="btn btn-warning" (click)="editCreature(creature.id)">Edit</button>
       </td>
