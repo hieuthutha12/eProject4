@@ -1,0 +1,80 @@
+<h2>Type List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Type Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let type of typeList">
+      <td>{{ type.typeName }}</td>
+      <td>{{ type.price | currency }}</td>
+      <td>{{ type.description }}</td>
+      <td>{{ type.status }}</td>
+      <td>
+        <button (click)="editType(type.id)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>{{ isUpdateMode ? 'Edit Type' : 'Add Type' }}</h2>
+<form (ngSubmit)="onSubmit()" #typeFormDirective="ngForm">
+  <div>
+    <label for="price">Price:</label>
+    <input 
+      type="number" 
+      id="price" 
+      [(ngModel)]="typeForm.price" 
+      name="price" 
+      required 
+      min="0.01" 
+      aria-describedby="priceError">
+    <div *ngIf="priceError" id="priceError" class="error">*{{ priceError }}</div>
+  </div>
+  
+  <div>
+    <label for="typeName">Type Name:</label>
+    <input 
+      type="text" 
+      id="typeName" 
+      [(ngModel)]="typeForm.typeName" 
+      name="typeName" 
+      required 
+      maxlength="20" 
+      aria-describedby="typeNameError">
+    <div *ngIf="typeNameError" id="typeNameError" class="error">*{{ typeNameError }}</div>
+  </div>
+  
+  <div>
+    <label for="description">Description:</label>
+    <textarea 
+      id="description" 
+      [(ngModel)]="typeForm.description" 
+      name="description" 
+      maxlength="100" 
+      aria-describedby="descriptionError"></textarea>
+    <div *ngIf="descriptionError" id="descriptionError" class="error">*{{ descriptionError }}</div>
+  </div>
+  
+  <div>
+    <label for="status">Status:</label>
+    <select 
+      id="status" 
+      [(ngModel)]="typeForm.status" 
+      name="status" 
+      required 
+      aria-describedby="statusError">
+      <option value="ACTIVE">ACTIVE</option>
+      <option value="INACTIVE">INACTIVE</option>
+    </select>
+    <div *ngIf="statusError" id="statusError" class="error">*{{ statusError }}</div>
+  </div>
+  
+  <button type="submit">{{ isUpdateMode ? 'Update' : 'Create' }}</button>
+  <div *ngIf="generalErrorMessage" class="error">*{{ generalErrorMessage }}</div>
+</form>

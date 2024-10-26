@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { SpeciesComponent } from './species/species.component';
+import { TypeComponent } from './type/type.component';
 
 const routes: Routes = [
   {
@@ -20,17 +22,17 @@ const routes: Routes = [
         loadChildren: () => import('./aquatic-creatures/aquatic-creatures.module').then(m => m.AquaticCreaturesModule)
       },
       {
-        path: 'type',
-        loadChildren: () => import('./type/type.module').then(m => m.TypeModule)
-      },
-      {
         path: 'order',
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
       },
-      // {
-      //   path: 'species',
-        
-      // },
+      {
+        path: 'species',
+        component:SpeciesComponent
+      },
+      {
+        path: 'type',
+        component:TypeComponent
+      },
      
     ]
   }
