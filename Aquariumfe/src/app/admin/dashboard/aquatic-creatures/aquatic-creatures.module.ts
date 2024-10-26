@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AquaticCreaturesRoutingModule } from './aquatic-creatures-routing.module';
 import { ListAquaticCreaturesComponent } from './list-aquatic-creatures/list-aquatic-creatures.component';
 import { AquaticCreaturesFormComponent } from './aquatic-creatures-form/aquatic-creatures-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AquaticCreaturesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
+
   ]
 })
 export class AquaticCreaturesModule {}

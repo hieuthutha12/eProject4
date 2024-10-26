@@ -13,10 +13,11 @@
   <tbody>
     <tr *ngFor="let creature of creatures">
       <td>{{ creature.name }}</td>
-      <td>{{ creature.habitat }}</td>
-      <td>{{ creature.diet }}</td>
-      <td>{{ creature.averageLifespan }}</td>
-      <td>{{ creature.specialCharacteristics }}</td>
+      <td>{{ creature.weight }}</td>
+      <td>{{ creature.length }}</td>
+      <td>{{ creature.entryDate }}</td>
+      <td>{{ creature.exhibitStatus }}</td>
+      <td>{{ creature.species }}</td>
       <td>
         <button class="btn btn-warning" (click)="editCreature(creature.id)">Edit</button>
       </td>

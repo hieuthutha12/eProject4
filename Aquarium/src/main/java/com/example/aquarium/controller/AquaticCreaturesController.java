@@ -3,8 +3,10 @@ package com.example.aquarium.controller;
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
 import com.example.aquarium.bean.response.MessageResponse;
+import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.model.AquaticCreatures;
 import com.example.aquarium.service.AquaticCreaturesService;
+import com.example.aquarium.service.SpeciesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ public class AquaticCreaturesController {
 
 
     private final AquaticCreaturesService service;
+    private final SpeciesService service2;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createAquaticCreature(@Valid @ModelAttribute AquaticCreaturesRequest creature) {
@@ -36,6 +39,11 @@ public class AquaticCreaturesController {
     @GetMapping()
     public ResponseEntity<List<AquaticCreaturesResponse>> getAllAquaticCreatures() {
         List<AquaticCreaturesResponse> response = service.getAllAquaticCreatures();
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/species")
+    public ResponseEntity<List<SpeciesResponse2>> getAllSpecies() {
+        List<SpeciesResponse2> response = service2.getAllSpecies2();
         return ResponseEntity.ok(response);
     }
 

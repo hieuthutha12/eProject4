@@ -72,7 +72,6 @@ public class AquaticCreaturesMapper {
         response.setLength(entity.getLength());
         response.setEntryDate(entity.getEntryDate());
         response.setExhibitStatus(entity.getExhibitStatus());
-        response.setUser(entity.getUser().getEmail());
         List<String> imgNames = entity.getImages().stream()
                 .map(Img::getImgName)
                 .collect(Collectors.toList());

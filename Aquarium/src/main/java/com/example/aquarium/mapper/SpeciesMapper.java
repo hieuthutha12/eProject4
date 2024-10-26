@@ -2,6 +2,7 @@ package com.example.aquarium.mapper;
 
 import com.example.aquarium.bean.request.SpeciesRequest;
 import com.example.aquarium.bean.response.SpeciesResponse;
+import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.model.Species;
 import com.example.aquarium.model.Status;
 
@@ -25,6 +26,12 @@ public class SpeciesMapper {
         });
         response.setAquaticCreaturesName(aquaticCreaturesNames);
 
+        return response;
+    }
+    public static SpeciesResponse2 toResponse2(Species entity) {
+        SpeciesResponse2 response = new SpeciesResponse2();
+        response.setId(entity.getId());
+        response.setName(entity.getName());
         return response;
     }
 

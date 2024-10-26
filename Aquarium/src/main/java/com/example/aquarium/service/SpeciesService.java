@@ -1,6 +1,7 @@
 package com.example.aquarium.service;
 import com.example.aquarium.bean.request.SpeciesRequest;
 import com.example.aquarium.bean.response.SpeciesResponse;
+import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.mapper.SpeciesMapper;
 import com.example.aquarium.model.Species;
@@ -33,6 +34,12 @@ public class SpeciesService {
         List<Species> speciesList = speciesRepository.findAll();
         return speciesList.stream()
                 .map(SpeciesMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+    public List<SpeciesResponse2> getAllSpecies2() {
+        List<Species> speciesList = speciesRepository.findAll();
+        return speciesList.stream()
+                .map(SpeciesMapper::toResponse2)
                 .collect(Collectors.toList());
     }
 

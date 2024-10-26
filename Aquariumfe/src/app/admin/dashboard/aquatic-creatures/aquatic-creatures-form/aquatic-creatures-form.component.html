@@ -1,0 +1,109 @@
+<div class="container">
+    <h2>{{ isUpdateMode ? 'Update Aquatic Creature' : 'Create Aquatic Creature' }}</h2>
+    <form (ngSubmit)="onSubmit()">
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="aquaticCreaturesForm.name"
+          name="name"
+          class="form-control"
+          required
+          maxlength="100"
+        />
+        <div *ngIf="nameError" class="text-danger">{{ nameError }}</div>
+      </div>
+  
+      <!-- Weight Field -->
+<div class="form-group">
+    <label for="weight">Weight</label>
+    <input
+      type="number"
+      id="weight"
+      [(ngModel)]="aquaticCreaturesForm.weight"
+      name="weight"
+      class="form-control"
+      min="0"
+      required
+    />
+    <div *ngIf="weightError" class="text-danger">{{ weightError }}</div>
+  </div>
+  
+  <!-- Length Field -->
+  <div class="form-group">
+    <label for="length">Length</label>
+    <input
+      type="number"
+      id="length"
+      [(ngModel)]="aquaticCreaturesForm.length"
+      name="length"
+      class="form-control"
+      min="0"
+      required
+    />
+    <div *ngIf="lengthError" class="text-danger">{{ lengthError }}</div>
+  </div>
+  
+  <!-- Exhibit Status Field -->
+  <div class="form-group">
+    <label for="exhibitStatus">Exhibit Status</label>
+    <input
+      type="text"
+      id="exhibitStatus"
+      [(ngModel)]="aquaticCreaturesForm.exhibitStatus"
+      name="exhibitStatus"
+      class="form-control"
+      required
+      maxlength="50"
+    />
+    <div *ngIf="exhibitStatusError" class="text-danger">{{ exhibitStatusError }}</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="speciesId">Species</label>
+    <select
+      id="speciesId"
+      [(ngModel)]="aquaticCreaturesForm.speciesId"
+      name="speciesId"
+      class="form-control"
+      required
+    >
+        <option value="" disabled>Select a species</option>
+      <option *ngFor="let species of speciesList" [value]="species.id">
+        {{ species.name }}
+      </option>
+    </select>
+    <div *ngIf="speciesIdError" class="text-danger">{{ speciesIdError }}</div>
+  </div>
+      <!-- Images Upload -->
+      <div class="form-group">
+        <label for="images">Images</label>
+        <input
+          type="file"
+          id="images"
+          (change)="onFileChange($event)"
+          class="form-control"
+          multiple
+          accept="image/*"
+        />
+      </div>
+  
+      <!-- Preview Selected Images -->
+      <div class="image-preview-container" *ngIf="imagePreviews.length">
+        <div class="image-preview" *ngFor="let image of imagePreviews; let i = index">
+          <img [src]="image" alt="Preview" class="preview-img" />
+          <button type="button" (click)="removeImage(i)" class="btn btn-danger btn-sm">
+            &times;
+          </button>
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">
+        {{ isUpdateMode ? 'Update' : 'Create' }}
+      </button>
+    </form>
+  </div>
+  

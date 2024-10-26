@@ -35,6 +35,7 @@ public class AquaticCreaturesRequest {
     private Integer userId;
 
     @NotNull(message = "Species ID is mandatory")
+    @Min(value = 1, message = "Species ID is mandatory")
     private Integer speciesId;
 
     private List<MultipartFile> images;

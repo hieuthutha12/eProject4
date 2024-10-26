@@ -25,4 +25,7 @@ export class AquaticCreaturesService {
   getCreatureById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
+  getAllSpecies(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/species`);
+  }
 }
