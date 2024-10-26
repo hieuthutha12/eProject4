@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpeciesFormComponent } from './species-form.component';
+import { EventPageComponent } from './event-page.component';
 
-describe('SpeciesFormComponent', () => {
-  let component: SpeciesFormComponent;
-  let fixture: ComponentFixture<SpeciesFormComponent>;
+describe('EventPageComponent', () => {
+  let component: EventPageComponent;
+  let fixture: ComponentFixture<EventPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpeciesFormComponent]
+      declarations: [EventPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SpeciesFormComponent);
+    fixture = TestBed.createComponent(EventPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

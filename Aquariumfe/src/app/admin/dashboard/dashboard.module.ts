@@ -7,7 +7,7 @@ import { EventRoutingModule } from './event/event-routing.module';
 import { ProfileRoutingModule } from './profile/profile-routing.module';
 import { OrderRoutingModule } from './order/order-routing.module';
 import { AquaticCreaturesRoutingModule } from './aquatic-creatures/aquatic-creatures-routing.module';
-import { SpeciesRoutingModule } from './species/species-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +21,6 @@ import { SpeciesRoutingModule } from './species/species-routing.module';
     ProfileRoutingModule,
     OrderRoutingModule,
     AquaticCreaturesRoutingModule,
-    SpeciesRoutingModule
   ]
 })
 export class DashboardModule { }

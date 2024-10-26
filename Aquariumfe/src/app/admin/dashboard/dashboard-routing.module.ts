@@ -27,10 +27,10 @@ const routes: Routes = [
         path: 'order',
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
       },
-      {
-        path: 'species',
-        loadChildren: () => import('./species/species.module').then(m => m.SpeciesModule)
-      },
+      // {
+      //   path: 'species',
+        
+      // },
      
     ]
   }

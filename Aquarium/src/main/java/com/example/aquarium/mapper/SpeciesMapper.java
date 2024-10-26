@@ -12,6 +12,7 @@ public class SpeciesMapper {
 
     public static SpeciesResponse toResponse(Species entity) {
         SpeciesResponse response = new SpeciesResponse();
+        response.setId(entity.getId());
         response.setName(entity.getName());
         response.setHabitat(entity.getHabitat());
         response.setDiet(entity.getDiet());
