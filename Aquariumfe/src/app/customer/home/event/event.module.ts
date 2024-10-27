@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventPageComponent } from './event-page/event-page.component';
 import { EventDetailPageComponent } from './event-detail-page/event-detail-page.component';
+import { EventRoutingModule } from './event-routing.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +13,9 @@ import { EventDetailPageComponent } from './event-detail-page/event-detail-page.
     EventDetailPageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    EventRoutingModule,
+    FormsModule
   ]
 })
 export class EventModule { }

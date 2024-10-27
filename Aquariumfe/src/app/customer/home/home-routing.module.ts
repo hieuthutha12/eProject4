@@ -11,7 +11,11 @@ const routes: Routes = [
        {
         path: '',
         component: HomepageComponent,
-       }
+       },
+       {
+        path: 'event',
+        loadChildren: () => import('./event/event.module').then(m => m.EventModule)
+      },
      ]
   },
 ];

@@ -46,6 +46,17 @@ public class TypeService {
                 .collect(Collectors.toList());
     }
 
+    public List<TypeResponse> getAllTypesOnActive() {
+        List<Type> types = typeRepository.findAll();
+        List<Type> activeTypes = types.stream()
+                .filter(type -> type.getStatus() == Status.ACTIVE)
+                .collect(Collectors.toList());
+        return activeTypes.stream()
+                .map(typeMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+
     public TypeResponse updateType(Integer id, TypeRequest request) {
         Type existingType = typeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Type not found with id: " + id));

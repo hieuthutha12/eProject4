@@ -50,4 +50,9 @@ public class TypeController {
         typeService.deleteType(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("customer")
+    public ResponseEntity<List<TypeResponse>> getAllTypesOnActive() {
+        List<TypeResponse> responses = typeService.getAllTypesOnActive();
+        return ResponseEntity.ok(responses);
+    }
 }

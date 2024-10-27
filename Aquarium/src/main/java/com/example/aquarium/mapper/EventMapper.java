@@ -66,7 +66,6 @@ public class EventMapper {
         response.setStartDate(event.getStartDate());
         response.setEndDate(event.getEndDate());
         response.setImg(event.getImg());
-        response.setNameU(event.getUser() != null ? event.getUser().getFirstName()+" "+ event.getUser().getLastName() : null);
         return response;
     }
 }

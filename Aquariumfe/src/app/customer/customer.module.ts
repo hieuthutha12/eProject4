@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerRoutingModule } from './customer-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,6 +18,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
     FormsModule,
     ReactiveFormsModule,
     CustomerRoutingModule,
+    RouterModule
   ]
 })
 export class CustomerModule { }
