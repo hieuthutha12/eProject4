@@ -1,0 +1,21 @@
+<div class="search-container">
+    <input
+        type="text"
+        [(ngModel)]="searchValue"
+        (input)="filterAnimals()"
+        placeholder="Search for an animal..." />
+</div>
+
+<div class="animal-list">
+    <div *ngFor="let animal of filteredAnimals" class="animal-item">
+        <img [src]="animal.image" [alt]="animal.name" />
+        <h3>{{ animal.name }}</h3>
+    </div>
+</div>
+
+<div class="pagination">
+    <button (click)="previousPage()"
+        [disabled]="!hasPreviousPage()">Previous</button>
+    <span>Page {{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="!hasNextPage()">Next</button>
+</div>
