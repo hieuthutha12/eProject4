@@ -10,6 +10,7 @@ import { AquaticCreaturesRoutingModule } from './aquatic-creatures/aquatic-creat
 import { SpeciesComponent } from './species/species.component';
 import { FormsModule } from '@angular/forms';
 import { TypeComponent } from './type/type.component';
+import { CustomerComponent } from './customer/customer.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TypeComponent } from './type/type.component';
     SidebarComponent,
     SpeciesComponent,
     TypeComponent,
+    CustomerComponent,
   ],
   imports: [
     FormsModule,
