@@ -79,7 +79,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
           length: creatureData.length,
           exhibitStatus: creatureData.exhibitStatus,
           userId: parseInt('1', 10),//id User
-          speciesId: parseInt(creatureData.speciesId, 10),
+          speciesId: creatureData.speciesId,
           images: null,
         };
       },
@@ -176,6 +176,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
     this.speciesIdError = '';
     this.generalErrorMessage = '';
   }
+
 }
 
 

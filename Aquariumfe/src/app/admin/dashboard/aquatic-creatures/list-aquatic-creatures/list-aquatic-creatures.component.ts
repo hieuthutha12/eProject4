@@ -30,4 +30,7 @@ export class ListAquaticCreaturesComponent implements OnInit {
   editCreature(id: number) {
     this.router.navigate(['/aquatic-creatures/update', id]); 
   }
+  addCreature() {
+    this.router.navigate(['/admin/dashboard/aquatic-creatures/form']);
+}
 }
