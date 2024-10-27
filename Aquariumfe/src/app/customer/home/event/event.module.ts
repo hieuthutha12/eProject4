@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     EventRoutingModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class EventModule { }

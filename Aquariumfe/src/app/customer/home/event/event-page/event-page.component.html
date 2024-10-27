@@ -36,19 +36,18 @@
       <div class="details">
         <p class="ib">
           <span class="ico">
-            <!-- SVG icon for date -->
+
           </span>
           {{ event.startDate | date: 'dd MMM yyyy' }} – {{ event.endDate | date: 'dd MMM yyyy' }}
         </p>
         <p class="ib">
           <span class="ico">
-            <!-- SVG icon for time -->
           </span>
           {{ event.startDate | date: 'HH:mm' }} - {{ event.endDate | date: 'HH:mm' }}
         </p>
       </div>
       <div class="cta-event">
-        <a class="cta cta-yellow" href="#">See event details</a>
+        <a class="cta cta-yellow" href="customer/event/details/{{ event.id }}">See event details</a>
       </div>
     </div>
     <div class="col-md-5 order-md-1 img-event">

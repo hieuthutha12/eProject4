@@ -23,18 +23,14 @@ export class EventPageComponent implements OnInit {
   fetchEvents() {
     this.eventService.getAllEvents().subscribe(
       (data: any[]) => {
-        const currentDate = new Date();
-        this.originalEvents = data.filter(event => {
-          const endDate = new Date(event.endDate);
-          return endDate >= currentDate;//
-        });
-        this.events = this.originalEvents.slice(0, this.eventsPerPage);
+        this.events = data.slice(0, this.eventsPerPage);
       },
       error => {
         console.error('Error fetching events:', error);
       }
     );
   }
+  
 
   onSearch() {
     if (this.searchTerm) {
@@ -46,7 +42,6 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  // Pagination methods
   goToNextPage() {
     this.currentPage++;
     this.updateEvents();

@@ -4,7 +4,7 @@ import { EventPageComponent } from './event-page/event-page.component';
 import { EventDetailPageComponent } from './event-detail-page/event-detail-page.component';
 const routes: Routes = [
   { path: 'list', component: EventPageComponent },
-  { path: 'details', component: EventDetailPageComponent },
+  { path: 'details/:id', component: EventDetailPageComponent },
   { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 

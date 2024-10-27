@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,7 +45,7 @@ public class AquaticCreaturesMapper {
                     String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
 
                     try {
-                        Path path = Paths.get("uploads/" + newFilename);
+                        Path path = Paths.get("E:/Img/" + newFilename);
                         Files.write(path, image.getBytes());
                     } catch (IOException e) {
                     }
@@ -78,10 +77,6 @@ public class AquaticCreaturesMapper {
         response.setImgName(imgNames);
         return response;
     }
-    private static List<String> mapImgNames(List<Img> images) {
-        return images.stream()
-                .map(Img::getImgName)
-                .collect(Collectors.toList());
-    }
+
 
 }

@@ -10,6 +10,7 @@ import com.example.aquarium.repository.EventRepository;
 import com.example.aquarium.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +24,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
     private final EventMapper eventMapper;
+    private final ImgService imgService;
 
     public List<EventResponse> findAll() {
         return eventRepository.findAll().stream()
@@ -36,8 +38,9 @@ public class EventService {
     }
 
     public Event createEvent(EventRequest eventRequest) throws IOException {
-        User u = userRepository.findById(eventRequest.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));;
-        Event event = eventMapper.toEntity(eventRequest, u);
+        User user = userRepository.findById(eventRequest.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Event event = eventMapper.toEntity(eventRequest, user);
         return eventRepository.save(event);
     }
 
@@ -49,27 +52,20 @@ public class EventService {
         Event existingEvent = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
 
-
         existingEvent.setEventName(eventDetails.getEventName());
         existingEvent.setDescription(eventDetails.getDescription());
 
-
         if (eventDetails.getImg() != null && !eventDetails.getImg().isEmpty()) {
-            String imgFilename = eventMapper.saveImage(eventDetails.getImg());
+            String imgFilename = imgService.saveImage(eventDetails.getImg());
             existingEvent.setImg(imgFilename);
         }
-
 
         existingEvent.setStartDate(eventMapper.parseDate(eventDetails.getStartDate()));
         existingEvent.setEndDate(eventMapper.parseDate(eventDetails.getEndDate()));
 
-
         existingEvent.setUser(userRepository.findById(eventDetails.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + eventDetails.getUserId())));
 
-
         return eventRepository.save(existingEvent);
     }
-
 }
-
