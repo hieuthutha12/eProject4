@@ -7,7 +7,7 @@
 
 /* General Footer Styling */
 footer {
-    background-color: #003a4e;
+    background-color: rgb(21, 21, 84); 
     color: #ffffff;
     position: relative;
 }
@@ -191,7 +191,6 @@ footer {
         align-items: center; /* Center alignment */
     }
 }
-
 .icon {
     text-align: center; /* Center align icons */
     margin-top: 20px; /* Space between the donate button and icons */
@@ -199,11 +198,40 @@ footer {
 
 .icon i {
     margin: 0 10px; /* Spacing between icons */
-    font-size: 24px; /* Adjust size as needed */
+    font-size: 30px; /* Adjust size as needed */
     color: #cbcbcbe8; /* Color for the icons */
     transition: color 0.3s; /* Transition for icon color */
 }
 
 .icon i:hover {
     color: #00121a; /* Change color on hover */
+}
+.sups {
+    padding: 30px 10px 0 0;
+}
+footer .footer-soc .sups a {
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+footer .footer-soc a {
+    display: inline-block;
+    margin-right: 20px;
+}
+footer .footer-soc .sups img {
+    height: 86px;
+    vertical-align: middle;
+}
+footer .footer-soc .icon {
+    padding-top: 30px;
+    padding-right: 30px;
+}
+footer .footer-soc .icon i{
+    padding-left: 10px;
+}
+.footer-soc .sups a img:hover{
+    transform: scale(0.8);
+    transition: 1s ease;
+    } 
+.banner {
+    max-width: 1320px;
 }
