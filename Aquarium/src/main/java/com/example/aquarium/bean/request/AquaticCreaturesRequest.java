@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,10 @@ public class AquaticCreaturesRequest {
     @Min(value = 1, message = "Species ID is mandatory")
     private Integer speciesId;
 
-    private List<MultipartFile> images;
+    @NotEmpty(message = "Images cannot be empty")
+    private List<MultipartFile> images = new ArrayList<>();
 
+    @NotEmpty(message = "Descriptions cannot be empty")
+    private List<String> descriptions = new ArrayList<>();
 }
 

@@ -26,7 +26,7 @@ public class AquaticCreaturesController {
     private final SpeciesService service2;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> createAquaticCreature(@Valid @ModelAttribute AquaticCreaturesRequest creature) {
+    public ResponseEntity<?> createAquaticCreature(@Valid @ModelAttribute AquaticCreaturesRequest creature) {
         try {
             AquaticCreatures createdCreature = service.createAquaticCreature(creature);
             return new ResponseEntity<>(new MessageResponse("Successfully!"), HttpStatus.CREATED);

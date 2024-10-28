@@ -21,8 +21,8 @@ public class AquaticCreaturesResponse {
     private float length;
     private LocalDateTime entryDate;
     private String exhibitStatus;
-    private String species;
-    private List<String> imgName;
+    private SpeciesResponse2 species;
+    private List<ImgResponse> img;
 
 }
 

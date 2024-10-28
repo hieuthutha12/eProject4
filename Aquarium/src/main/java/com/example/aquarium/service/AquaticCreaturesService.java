@@ -3,6 +3,7 @@ package com.example.aquarium.service;
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
 import com.example.aquarium.exception.ResourceNotFoundException;
+import com.example.aquarium.exception.UniqueConstraintViolationException;
 import com.example.aquarium.mapper.AquaticCreaturesMapper;
 import com.example.aquarium.model.AquaticCreatures;
 import com.example.aquarium.model.Img;
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +34,9 @@ public class AquaticCreaturesService {
 
 
     public AquaticCreatures createAquaticCreature(AquaticCreaturesRequest aquaticCreaturesRequest) throws IOException {
+        if (aquaticCreaturesRepository.existsAquaticCreaturesByName(aquaticCreaturesRequest.getName())) {
+            throw new UniqueConstraintViolationException("name '" + aquaticCreaturesRequest.getName() + "' already exists.");
+        }
         AquaticCreatures aquaticCreatures = aquaticCreaturesMapper.mapToEntityWithImages(
                 aquaticCreaturesRequest,
                 userRepository.findById(aquaticCreaturesRequest.getUserId()),
@@ -69,21 +74,27 @@ public class AquaticCreaturesService {
 
         aquaticCreatures.getImages().clear();
 
-        List<Img> images = aquaticCreaturesRequest.getImages().stream()
-                .filter(image -> !image.isEmpty())
-                .map(image -> {
+        List<Img> images = IntStream.range(0, aquaticCreaturesRequest.getImages().size())
+                .filter(i -> !aquaticCreaturesRequest.getImages().get(i).isEmpty())
+                .mapToObj(i -> {
+                    MultipartFile image = aquaticCreaturesRequest.getImages().get(i);
+                    String description = aquaticCreaturesRequest.getDescriptions().get(i);
+
                     String imageName = null;
                     try {
                         imageName = imgService.saveImage(image);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+
                     Img img = new Img();
                     img.setImgName(imageName);
+                    img.setDescription(description);
                     img.setAquaticCreatures(aquaticCreatures);
                     return img;
                 })
                 .collect(Collectors.toList());
+
 
         aquaticCreatures.setImages(images);
 

@@ -8,9 +8,9 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./event-page.component.css']
 })
 export class EventPageComponent implements OnInit {
-  events: any[] = [];  // Events displayed on the current page
-  originalEvents: any[] = [];  // Full list of all events from the server
-  filteredEvents: any[] = [];  // Events after applying the search filter
+  events: any[] = [];  
+  originalEvents: any[] = [];
+  filteredEvents: any[] = [];
   searchTerm: string = '';
   currentPage: number = 1;
   eventsPerPage: number = 3;

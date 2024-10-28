@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ImgResponse {
-
     private Integer id;
     private String imgName;
+    private String description;
 }
 

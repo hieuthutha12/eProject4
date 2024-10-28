@@ -11,7 +11,7 @@
     <div class="animal-detail-card">
         <div class="animal-top-card">
             <div class="animal-image">
-                <img [src]="images[currentImageIndex]" alt="Abalone" />
+                <img [src]="'assets/imgUpload/'+animal.img[currentImageIndex].imgName" alt="Abalone" />
                 <div class="slide-controls">
                     <button (click)="prevImage()">&#10094;</button>
                     <button (click)="nextImage()">&#10095;</button>
@@ -19,23 +19,9 @@
             </div>
 
             <div class="animal-info">
-                <h2>Meet the abalone</h2>
+                <h2>Meet the {{animal.name}}</h2>
                 <p class="description">
-                    A flattened spiral shell protects this marine snail's
-                    muscular
-                    foot
-                    — a
-                    highly prized dish on seafood menus. Those holes on the edge
-                    of
-                    the
-                    shell
-                    serve several functions: they release eggs or sperm,
-                    discharge
-                    metabolic
-                    wastes, and allow water to flow out after passing through
-                    the
-                    animal's
-                    gill chamber.
+                    {{animal.img[currentImageIndex].description}}
                 </p>
             </div>
         </div>
@@ -44,38 +30,36 @@
                 <div class="detail">
                     <span class="detail-title"><i
                             class="bi bi-tag detail-icon"></i>Animal Type</span>
-                    <p>Invertebrates</p>
+                    <p>{{animal.species.name}}</p>
                 </div>
                 <div class="detail">
                     <span class="detail-title"><i
                             class="bi bi-egg detail-icon"></i>Diet</span>
-                    <p>Algae</p>
+                    <p>{{animal.species.diet}}</p>
                 </div>
             </div>
             <div class="row-detail-middle">
                 <div class="detail">
                     <span class="detail-title"><i
                             class="bi bi-water detail-icon"></i>Habitat</span>
-                    <p>Coastal waters</p>
+                    <p>{{animal.species.habitat}}</p>
                 </div>
                 <div class="detail">
                     <span class="detail-title"><i
                             class="bi bi-activity detail-icon"></i>Lifespan</span>
-                    <p>About 35 to 40 years</p>
+                    <p>About {{animal.species.diet}}</p>
                 </div>
             </div>
             <div class="row-detail">
                 <div class="detail">
                     <span class="detail-title"><i
                             class="bi bi-rulers detail-icon"></i>Size</span>
-                    <p>20mm to 200mm</p>
+                    <p>Weight: {{animal.weight}} and Length: {{animal.length}}  </p>
                 </div>
                 <div class="detail">
                     <span class="detail-title"><i
                             class="bi bi-suit-heart-fill detail-icon"></i>Characteristics</span>
-                    <p>Their body is large and fleshy, with a broad, muscular
-                        foot that is used to attach itself to reefs or rocks
-                        using suction</p>
+                    <p>{{animal.species.specialCharacteristics}}</p>
                 </div>
             </div>
         </div>
@@ -89,71 +73,17 @@
 </section>
 <div class="similar-species">
     <h1>similar species</h1>
-    <p>Abalone</p>
+    <p>{{animal.species.name}}</p>
 </div>
 <section class="animal-section">
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/a1.jpg" alt="Sea Otter">
+    <div *ngFor="let a of otherAnimal" class="animal-card">
+        <a href="customer/animal/details/{{a.id}}" class="card-link">
+            <img [src]="'/assets/imgUpload/'+ a.img[1].imgName" alt="Sea Otter">
             <div class="animal-content">
                 <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
+                <h3 class="name">{{a.name}}</h3>
+                <p class="content ellipsis">{{a.exhibitStatus}}</p>
                 <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/jellyfish1.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/bg1.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/jelly2.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
                     <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
                         more</p>
                 </div>

@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UniqueConstraintViolationException.class)
     public ResponseEntity<MessageResponse> handleUniqueConstraintViolation(UniqueConstraintViolationException ex) {
         Map<String, String> err = new HashMap<>();
-        String er = ex.getMessage().toString();
+        String er = ex.getMessage();
         String rowError = er.substring(0, er.indexOf(" "));
         String errorMessage = er.substring(er.indexOf(" ") + 1);
         err.put(rowError, errorMessage);
