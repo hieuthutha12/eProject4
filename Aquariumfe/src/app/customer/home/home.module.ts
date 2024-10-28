@@ -6,8 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { EventRoutingModule } from './event/event-routing.module';
 import { HomeComponent } from './home.component';
-import { AnimalComponent } from './animal/animal.component';
-import { AnimalsComponent } from './animals/animals.component';
+import { AnimalModule } from './animal/animal.module';
 
 
 
@@ -18,13 +17,12 @@ import { AnimalsComponent } from './animals/animals.component';
     HeaderComponent,
     HomepageComponent,
     HomeComponent,
-    AnimalComponent,
-    AnimalsComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    EventRoutingModule
+    EventRoutingModule,
+    AnimalModule
   ]
 })
 export class HomeModule { }
