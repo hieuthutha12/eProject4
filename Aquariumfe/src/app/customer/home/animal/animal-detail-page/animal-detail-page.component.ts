@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrl: './animal-detail-page.component.css'
 })
 export class AnimalDetailPageComponent {
+  images = [
+    'assets/img/abalone.jpg',
+    'assets/img/test.jpg',
+    'assets/img/turtle.jpg'
+  ];
+  currentImageIndex = 0;
 
+  nextImage() {
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+  }
+
+  prevImage() {
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+  }
 }

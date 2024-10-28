@@ -1,19 +1,96 @@
 <div class="header">
     <div class="header-link">
-        <a href>Animals Introduction</a><i class="bi bi-chevron-right"></i>
-        <a href="animal">Animals</a>
+        <a href>Animals</a><i
+            class="bi bi-chevron-left header-icon"></i>
+        <a href="animal">Abalone</a>
     </div>
-    <h1>Animals</h1>
-    <p class="header-bold-text">Not all animals listed are currently on exhibit at the Aquarium. This
-        is a list of animals that live in the ocean.</p>
-    <p class="header-text">Please enjoy learning about the many creatures who call the ocean home! </p>
+    <h1 class="species-name">Abalone</h1>
+    <h2 class="science-name">Haliotis sp.</h2>
 </div>
-<div class="search-container">
-    <input
-        type="text"
-        placeholder="Search for an animal..." />
-</div>
+<div class="background-card">
+    <div class="animal-detail-card">
+        <div class="animal-top-card">
+            <div class="animal-image">
+                <img [src]="images[currentImageIndex]" alt="Abalone" />
+                <div class="slide-controls">
+                    <button (click)="prevImage()">&#10094;</button>
+                    <button (click)="nextImage()">&#10095;</button>
+                </div>
+            </div>
 
+            <div class="animal-info">
+                <h2>Meet the abalone</h2>
+                <p class="description">
+                    A flattened spiral shell protects this marine snail's
+                    muscular
+                    foot
+                    — a
+                    highly prized dish on seafood menus. Those holes on the edge
+                    of
+                    the
+                    shell
+                    serve several functions: they release eggs or sperm,
+                    discharge
+                    metabolic
+                    wastes, and allow water to flow out after passing through
+                    the
+                    animal's
+                    gill chamber.
+                </p>
+            </div>
+        </div>
+        <div class="animal-details">
+            <div class="row-detail">
+                <div class="detail">
+                    <span class="detail-title"><i
+                            class="bi bi-tag detail-icon"></i>Animal Type</span>
+                    <p>Invertebrates</p>
+                </div>
+                <div class="detail">
+                    <span class="detail-title"><i
+                            class="bi bi-egg detail-icon"></i>Diet</span>
+                    <p>Algae</p>
+                </div>
+            </div>
+            <div class="row-detail-middle">
+                <div class="detail">
+                    <span class="detail-title"><i
+                            class="bi bi-water detail-icon"></i>Habitat</span>
+                    <p>Coastal waters</p>
+                </div>
+                <div class="detail">
+                    <span class="detail-title"><i
+                            class="bi bi-activity detail-icon"></i>Lifespan</span>
+                    <p>About 35 to 40 years</p>
+                </div>
+            </div>
+            <div class="row-detail">
+                <div class="detail">
+                    <span class="detail-title"><i
+                            class="bi bi-rulers detail-icon"></i>Size</span>
+                    <p>20mm to 200mm</p>
+                </div>
+                <div class="detail">
+                    <span class="detail-title"><i
+                            class="bi bi-suit-heart-fill detail-icon"></i>Characteristics</span>
+                    <p>Their body is large and fleshy, with a broad, muscular
+                        foot that is used to attach itself to reefs or rocks
+                        using suction</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="aquarium-banner">
+    <div class="overlay">
+        <h2>More like this?</h2>
+        <p>Find out more cool and special species below!</p>
+    </div>
+</section>
+<div class="similar-species">
+    <h1>similar species</h1>
+    <p>Abalone</p>
+</div>
 <section class="animal-section">
     <div class="animal-card">
         <a href="#" class="card-link">
@@ -83,92 +160,4 @@
             </div>
         </a>
     </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/jelly3.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/turtle.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/jelly4.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="animal-card">
-        <a href="#" class="card-link">
-            <img src="/assets/img/seahorse1.jpg" alt="Sea Otter">
-            <div class="animal-content">
-                <p class="animal-type">ANIMAL</p>
-                <h3 class="name">Abalone</h3>
-                <p class="content ellipsis">A flattened spiral shell or protects
-                    this marine snail's muscular foot - a highly prized dish on
-                    seafood menus</p>
-                <div class="see-more">
-
-                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
-                        more</p>
-                </div>
-            </div>
-        </a>
-    </div>
 </section>
-
-<nav aria-label="...">
-    <ul class="pagination ">
-        <li class="page-item disabled">
-            <span class="page-link">Previous</span>
-        </li>
-        <li class="page-item active">
-            <span class="page-link">
-                1
-                <span class="sr-only">(current)</span>
-            </span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
