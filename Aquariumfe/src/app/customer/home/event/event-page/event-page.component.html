@@ -51,24 +51,15 @@
       </div>
     </div>
     <div class="col-md-5 order-md-1 img-event">
-      <img class="featurette-image img-fluid mx-auto" [src]="event.img" style="width: 500px; height: 350px; margin-bottom: 80px;">
+      <img class="featurette-image img-fluid mx-auto" [src]="'/assets/imgUpload/'+event.img" style="width: 500px; height: 350px; margin-bottom: 80px;">
     </div>
   </div>
   <hr class="featurette-divider">
-<!-- Pagination controls -->
 <div class="pagination-controls">
-  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1" *ngIf="currentPage > 1">Previous</button>
-  <span>Page {{ currentPage }}</span>
-  <button 
-    (click)="goToNextPage()" 
-    *ngIf="(currentPage * eventsPerPage) < originalEvents.length">
-    Next
-  </button>
+  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
 </div>
-
-
-  
-  
  
     <div class="para para-mediacentre paragraph--view-mode--default">
       <div class="container">

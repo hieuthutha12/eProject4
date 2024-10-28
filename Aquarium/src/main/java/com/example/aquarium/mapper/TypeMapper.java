@@ -14,7 +14,7 @@ public class TypeMapper {
         type.setTypeName(request.getTypeName());
         type.setPrice(request.getPrice());
         type.setDescription(request.getDescription());
-        type.setStatus(Status.ACTIVE);
+        type.setStatus(request.getStatus());
 
         return type;
     }

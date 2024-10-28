@@ -1,22 +1,16 @@
 package com.example.aquarium.bean.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class AuthResponse {
     private String token;
-
-    public AuthResponse() {
-    }
-
-    public AuthResponse(String token) {
-        this.token = token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
-    }
 }
 
 

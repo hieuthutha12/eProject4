@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/buy")
 @RequiredArgsConstructor
 public class BuyController {
-     private final BuyService buyService;
+    private final BuyService buyService;
     @PostMapping()
     public ResponseEntity<MessageResponse> buyTicket(@Valid @RequestBody BuyRequest buyRequest) {
         BuyRequest buyRequest1 = buyService.buyTicket(buyRequest);

@@ -23,7 +23,7 @@ export class TypeComponent implements OnInit {
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;
 
-  constructor(private router: Router, private typeService: TypeService) {}
+  constructor(private router: Router, private typeService: TypeService) { }
 
   ngOnInit() {
     this.fetchTypes();
@@ -32,10 +32,10 @@ export class TypeComponent implements OnInit {
   fetchTypes() {
     this.typeService.getAllTypes().subscribe(
       (data: any) => {
-        this.typeList = data; 
+        this.typeList = data;
       },
       error => {
-        console.error('Error fetching types:', error); 
+        console.error('Error fetching types:', error);
       }
     );
   }
@@ -80,13 +80,14 @@ export class TypeComponent implements OnInit {
     typeObservable.subscribe(
       (response) => {
         console.log(`${this.isUpdateMode ? 'Type updated' : 'Type created'} successfully:`, response);
-        this.fetchTypes(); // Refresh the list
+        this.fetchTypes();
         this.resetForm();
       },
       (error) => {
         this.handleErrors(error);
       }
     );
+    this.resetForm();
   }
 
   handleErrors(error: any) {
@@ -110,7 +111,7 @@ export class TypeComponent implements OnInit {
     this.generalErrorMessage = '';
   }
 
-  resetForm() {
+  resetForm(): void {
     this.typeForm = {
       price: null,
       typeName: '',
@@ -119,10 +120,21 @@ export class TypeComponent implements OnInit {
     };
     this.isUpdateMode = false;
   }
+  isFormVisible: boolean = false; 
+
   toggleForm(): void {
     const formContainer = document.getElementById("formContainer") as HTMLElement;
     if (formContainer) {
-        formContainer.style.display = formContainer.style.display === "none" ? "block" : "none";
+      this.isFormVisible = !this.isFormVisible;
+      formContainer.style.display = this.isFormVisible ? "block" : "none";
+
+      const toggleButton = document.getElementById("toggleButton") as HTMLButtonElement;
+      if (toggleButton) {
+        toggleButton.disabled = true;
+        setTimeout(() => {
+          toggleButton.disabled = false;
+        }, 300);
+      }
     }
   }
 }

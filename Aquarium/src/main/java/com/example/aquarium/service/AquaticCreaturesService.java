@@ -24,11 +24,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AquaticCreaturesService {
 
-
     private final AquaticCreaturesRepository aquaticCreaturesRepository;
     private final AquaticCreaturesMapper aquaticCreaturesMapper;
     private final UserRepository userRepository;
     private final SpeciesRespository speciesRespository;
+    private final ImgService imgService;
 
 
     public AquaticCreatures createAquaticCreature(AquaticCreaturesRequest aquaticCreaturesRequest) throws IOException {
@@ -37,7 +37,6 @@ public class AquaticCreaturesService {
                 userRepository.findById(aquaticCreaturesRequest.getUserId()),
                 speciesRespository.findById(aquaticCreaturesRequest.getSpeciesId())
         );
-
         return aquaticCreaturesRepository.save(aquaticCreatures);
     }
 
@@ -73,21 +72,20 @@ public class AquaticCreaturesService {
         List<Img> images = aquaticCreaturesRequest.getImages().stream()
                 .filter(image -> !image.isEmpty())
                 .map(image -> {
-                    String originalFilename = image.getOriginalFilename();
-                    String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
-
+                    String imageName = null;
                     try {
-                        Path path = Paths.get("uploads/" + newFilename);
-                        Files.write(path, image.getBytes());
+                        imageName = imgService.saveImage(image);
                     } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-
                     Img img = new Img();
-                    img.setImgName(newFilename);
+                    img.setImgName(imageName);
                     img.setAquaticCreatures(aquaticCreatures);
                     return img;
                 })
                 .collect(Collectors.toList());
+
+        aquaticCreatures.setImages(images);
 
         aquaticCreatures.getImages().addAll(images);
 

@@ -34,8 +34,6 @@ public class AquaticCreaturesController {
             return new ResponseEntity<>(new MessageResponse("Error occurred while saving creature!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // Get All
     @GetMapping()
     public ResponseEntity<List<AquaticCreaturesResponse>> getAllAquaticCreatures() {
         List<AquaticCreaturesResponse> response = service.getAllAquaticCreatures();

@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +33,12 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(UniqueConstraintViolationException.class)
     public ResponseEntity<MessageResponse> handleUniqueConstraintViolation(UniqueConstraintViolationException ex) {
-        MessageResponse response = new MessageResponse(ex.getMessage());
+        Map<String, String> err = new HashMap<>();
+        String er = ex.getMessage().toString();
+        String rowError = er.substring(0, er.indexOf(" "));
+        String errorMessage = er.substring(er.indexOf(" ") + 1);
+        err.put(rowError, errorMessage);
+        MessageResponse response = new MessageResponse(ex.getMessage(), err);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
     @ExceptionHandler(Exception.class)

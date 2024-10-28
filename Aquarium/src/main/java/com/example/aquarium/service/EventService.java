@@ -3,6 +3,7 @@ package com.example.aquarium.service;
 import com.example.aquarium.bean.request.EventRequest;
 import com.example.aquarium.bean.response.EventResponse;
 import com.example.aquarium.exception.ResourceNotFoundException;
+import com.example.aquarium.exception.UniqueConstraintViolationException;
 import com.example.aquarium.mapper.EventMapper;
 import com.example.aquarium.model.Event;
 import com.example.aquarium.model.User;
@@ -40,6 +41,9 @@ public class EventService {
     public Event createEvent(EventRequest eventRequest) throws IOException {
         User user = userRepository.findById(eventRequest.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (eventRepository.existsByEventName(eventRequest.getEventName())) {
+            throw new UniqueConstraintViolationException("eventName '" + eventRequest.getEventName() + "' already exists.");
+        }
         Event event = eventMapper.toEntity(eventRequest, user);
         return eventRepository.save(event);
     }

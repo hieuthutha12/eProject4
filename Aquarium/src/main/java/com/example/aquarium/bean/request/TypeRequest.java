@@ -1,5 +1,6 @@
 package com.example.aquarium.bean.request;
 
+import com.example.aquarium.model.Status;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +26,7 @@ public class TypeRequest {
     @Size(max = 100, message = "Description must not exceed 100 characters")
     private String description;
 
-    @NotBlank(message = "Status is mandatory")
-    private String status;
+    private Status status;
 
 }
 

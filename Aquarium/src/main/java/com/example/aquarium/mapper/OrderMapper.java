@@ -1,6 +1,6 @@
 package com.example.aquarium.mapper;
 
-import com.example.aquarium.bean.request.OrderRequest;
+//import com.example.aquarium.bean.request.OrderRequest;
 import com.example.aquarium.bean.response.OrderResponse;
 import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.model.Order;
@@ -14,23 +14,6 @@ import java.sql.Timestamp;
 @Component
 @RequiredArgsConstructor
 public class OrderMapper {
-
-    private final UserRepository userRepository;
-
-    public Order toEntity(OrderRequest request) {
-        Order order = new Order();
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        order.setUser(user);
-        order.setTotalAmount(request.getTotalAmount());
-        order.setStatus(request.getStatus());
-        order.setPaymentMethod(request.getPaymentMethod());
-        order.setDiscount(request.getDiscount());
-        order.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        return order;
-    }
-
     public OrderResponse toResponse(Order order) {
         OrderResponse response = new OrderResponse();
         response.setId(order.getId());

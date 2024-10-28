@@ -1,7 +1,16 @@
 package com.example.aquarium.bean.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Map;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class MessageResponse {
 
     private String message;
@@ -9,26 +18,5 @@ public class MessageResponse {
 
     public MessageResponse(String message) {
         this.message = message;
-    }
-
-    public MessageResponse(String message, Map<String, String> errors) {
-        this.message = message;
-        this.errors = errors;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setErrors(Map<String, String> errors) {
-        this.errors = errors;
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
     }
 }

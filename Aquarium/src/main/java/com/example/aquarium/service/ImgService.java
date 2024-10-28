@@ -20,18 +20,13 @@ public class ImgService {
 
     private final EventRepository eventRepository;
 
-    public void uploadImage(Integer id, MultipartFile file) throws IOException {
-        Event existingEvent = eventRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
+    @Value("${upload.dir}")
+    private String uploadDir;
 
-        String imgFilename = saveImage(file);
-        existingEvent.setImg(imgFilename);
-        eventRepository.save(existingEvent);
-    }
     public String saveImage(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
-        Path path = Paths.get("E:/Img/" + newFilename);
+        Path path = Paths.get(uploadDir + newFilename);
         Files.createDirectories(path.getParent());
         Files.write(path, file.getBytes());
         return newFilename;

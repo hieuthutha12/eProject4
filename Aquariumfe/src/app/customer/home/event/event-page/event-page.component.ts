@@ -8,11 +8,13 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./event-page.component.css']
 })
 export class EventPageComponent implements OnInit {
-  events: any[] = [];
-  originalEvents: any[] = [];
+  events: any[] = [];  // Events displayed on the current page
+  originalEvents: any[] = [];  // Full list of all events from the server
+  filteredEvents: any[] = [];  // Events after applying the search filter
   searchTerm: string = '';
-  currentPage: number = 1; 
-  eventsPerPage: number = 3; 
+  currentPage: number = 1;
+  eventsPerPage: number = 3;
+  totalPages: number = 0;
 
   constructor(private router: Router, private eventService: EventService) {}
 
@@ -23,28 +25,38 @@ export class EventPageComponent implements OnInit {
   fetchEvents() {
     this.eventService.getAllEvents().subscribe(
       (data: any[]) => {
-        this.events = data.slice(0, this.eventsPerPage);
+        this.originalEvents = data;
+        this.filteredEvents = [...this.originalEvents];
+        this.totalPages = Math.ceil(this.filteredEvents.length / this.eventsPerPage);
+        this.updateEvents();
       },
       error => {
         console.error('Error fetching events:', error);
       }
     );
   }
-  
 
   onSearch() {
+    this.currentPage = 1;
+    const searchTermLower = this.searchTerm.toLowerCase();
+
     if (this.searchTerm) {
-      this.events = this.originalEvents.filter(event =>
-        event.eventName && event.eventName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      this.filteredEvents = this.originalEvents.filter(event =>
+        event.eventName && event.eventName.toLowerCase().includes(searchTermLower)
       );
     } else {
-      this.events = this.originalEvents.slice(0, this.eventsPerPage); 
+      this.filteredEvents = [...this.originalEvents];
     }
+
+    this.totalPages = Math.ceil(this.filteredEvents.length / this.eventsPerPage);
+    this.updateEvents();
   }
 
   goToNextPage() {
-    this.currentPage++;
-    this.updateEvents();
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateEvents();
+    }
   }
 
   goToPreviousPage() {
@@ -56,6 +68,6 @@ export class EventPageComponent implements OnInit {
 
   updateEvents() {
     const startIndex = (this.currentPage - 1) * this.eventsPerPage;
-    this.events = this.originalEvents.slice(startIndex, startIndex + this.eventsPerPage);
+    this.events = this.filteredEvents.slice(startIndex, startIndex + this.eventsPerPage);
   }
 }
