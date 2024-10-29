@@ -7,6 +7,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { EventRoutingModule } from './event/event-routing.module';
 import { HomeComponent } from './home.component';
 import { AnimalModule } from './animal/animal.module';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 
 
@@ -17,6 +18,7 @@ import { AnimalModule } from './animal/animal.module';
     HeaderComponent,
     HomepageComponent,
     HomeComponent,
+    UserInfoComponent,
   ],
   imports: [
     CommonModule,

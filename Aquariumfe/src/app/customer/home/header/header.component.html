@@ -1,50 +1,64 @@
 <header>
-    <nav class="navbar-dark fixed-top header">
-      <div class="container">
-        <div class="header-top">
-            <div class="logo">
-              <img src="/assets/img/header8.png"/>Blue Planet Aquarium
-            </div> 
-            <div class="actions">
-                <a href="login#" class="action icon-left">
+    <nav class="navbar-dark fixed-top header" [class.hidden]="isHeaderHidden">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="userInfo" class="logo-link"><img src="/assets/img/header8.png"/>Blue Planet Aquarium</a>
+                </div>
+                <div class="actions">
+                    <p class="username">username</p>
+                    <a href class="user"><i class="bi bi-person-circle"></i></a>
+                    <!-- <a href="login#" class="action icon-left">
                     <i class="bi bi-door-open-fill"></i> LOGIN
                 </a>
                 <a href="#" class="action icon-left">
                     <i class="bi bi-box-arrow-in-right"></i> REGISTER
-                </a>
+                </a> -->
+                </div>
             </div>
-        </div>
-        <div class="divider"></div>
-        <div class="header-bottom">
-            <nav class="navigation">
-                <a href class="nav-a">EVENT</a>
-                <div class="dropdown">
-                    <label class="dropbtn icon-right" for="dropdown-toggle">ANIMALS <i class="bi bi-caret-down-fill"></i></label>
-                    <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
-                    <div class="dropdown-content">
-                        <div class="dropdown-inner">
-                            <div class="event-list">
-                                <h2 class="animals-title">Explore the Water Kingdom</h2>
-                                <a href="#" class="list-opt">Meet the animals</a>
-                                <a href="#" class="list-opt">Habitats</a>
-                                <!-- <a href="#" class="list-opt">Event 3</a> -->
-                            </div>
-                            <div class="dropdown-img-holder">
-                                <img src="assets/img/t2.jpg" alt="Dropdown Image" class="dropdown-image">     
-                                <div class="a-link-holder"><a class="a-link" href="#">Learn cool fact about animals<i class="bi bi-arrow-right-circle-fill a-link-icon"></i></a>  </div>         
+            <div class="divider"></div>
+            <div class="header-bottom">
+                <nav class="navigation">
+                    <a href class="nav-a">EVENT</a>
+                    <div class="dropdown">
+                        <label class="dropbtn icon-right"
+                            for="dropdown-toggle">ANIMALS <i
+                                class="bi bi-caret-down-fill"></i></label>
+                        <input type="checkbox" id="dropdown-toggle"
+                            class="dropdown-toggle" />
+                        <div class="dropdown-content">
+                            <div class="dropdown-inner">
+                                <div class="event-list">
+                                    <h2 class="animals-title">Explore the Water
+                                        Kingdom</h2>
+                                    <a href="#" class="list-opt">Meet the
+                                        animals</a>
+                                    <a href="#" class="list-opt">Habitats</a>
+                                    <!-- <a href="#" class="list-opt">Event 3</a> -->
+                                </div>
+                                <div class="dropdown-img-holder">
+                                    <img src="assets/img/t2.jpg"
+                                        alt="Dropdown Image"
+                                        class="dropdown-image">
+                                    <div class="a-link-holder"><a class="a-link"
+                                            href="#">Learn cool fact about
+                                            animals<i
+                                                class="bi bi-arrow-right-circle-fill a-link-icon"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <a class="nav-a" href="#">VISIT</a>
+                    <a class="nav-a" href="#">FEEDBACK</a>
+                </nav>
+                <div class="ticket">
+                    <a href="#" class="ticket-button icon-right">
+                        BUY TICKETS HERE<i
+                            class="bi bi-ticket-detailed-fill"></i>
+                    </a>
                 </div>
-                <a class="nav-a" href="#">VISIT</a>
-                <a class="nav-a" href="#">FEEDBACK</a>
-            </nav>
-            <div class="ticket">
-                <a href="#" class="ticket-button icon-right">
-                    BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i>
-                </a>
             </div>
         </div>
-    </div>  
-    </nav> 
-  </header>
+    </nav>
+</header>
