@@ -16,11 +16,14 @@ export class AnimalService {
   }
 
   getAnimalsBySpecies(species: any,id: number): Observable<any[]> {
-  return this.http.get<any[]>(this.apiUrl).pipe(
+  return this.getAllAnimals().pipe(
     map((animals: any[]) => animals.filter(animal => animal.species.name === species && animal.id !== id).slice(0, 4))
   );
 }
   getAnimalsById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
+  }
+  getAllDistinctCreatures(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/distinct-creatures`);
   }
 }

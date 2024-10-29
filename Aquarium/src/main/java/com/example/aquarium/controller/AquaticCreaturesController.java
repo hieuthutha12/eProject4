@@ -2,6 +2,7 @@ package com.example.aquarium.controller;
 
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.model.AquaticCreatures;
@@ -39,6 +40,7 @@ public class AquaticCreaturesController {
         List<AquaticCreaturesResponse> response = service.getAllAquaticCreatures();
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/species")
     public ResponseEntity<List<SpeciesResponse2>> getAllSpecies() {
         List<SpeciesResponse2> response = service2.getAllSpecies2();
@@ -67,5 +69,11 @@ public class AquaticCreaturesController {
         service.deleteAquaticCreature(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/distinct-creatures")
+    public ResponseEntity<List<AquaticCreaturesResponse2>> getAllDistinctCreatures() {
+        List<AquaticCreaturesResponse2> response = service.getAllDistinctCreatures();
+        return ResponseEntity.ok(response);
+    }
+
 }
 

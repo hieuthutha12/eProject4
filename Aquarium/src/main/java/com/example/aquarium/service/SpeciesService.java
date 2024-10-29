@@ -1,5 +1,6 @@
 package com.example.aquarium.service;
 import com.example.aquarium.bean.request.SpeciesRequest;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.bean.response.SpeciesResponse;
 import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.exception.ResourceNotFoundException;
@@ -63,4 +64,5 @@ public class SpeciesService {
         species.setStatus(Status.ACTIVE);
         return speciesRepository.save(species);
     }
+
 }

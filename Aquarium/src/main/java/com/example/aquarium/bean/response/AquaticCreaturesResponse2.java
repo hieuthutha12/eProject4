@@ -11,12 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SpeciesResponse {
+public class AquaticCreaturesResponse2 {
     private int id;
     private String name;
+    private float weight;
+    private float length;
+    private String nameSpecies;
     private String habitat;
-    private String diet;
-    private Integer averageLifespan;
     private String specialCharacteristics;
-    private List<String> aquaticCreaturesName;
+    private String img;
 }

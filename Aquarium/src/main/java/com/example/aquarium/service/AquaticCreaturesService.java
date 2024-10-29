@@ -2,11 +2,13 @@ package com.example.aquarium.service;
 
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.exception.UniqueConstraintViolationException;
 import com.example.aquarium.mapper.AquaticCreaturesMapper;
 import com.example.aquarium.model.AquaticCreatures;
 import com.example.aquarium.model.Img;
+import com.example.aquarium.model.Species;
 import com.example.aquarium.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.UUID;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -109,6 +115,14 @@ public class AquaticCreaturesService {
                 .orElseThrow(() -> new ResourceNotFoundException("Aquatic Creature not found"));
         aquaticCreatures.getImages().clear();
         aquaticCreaturesRepository.deleteById(id);
+    }
+    public List<AquaticCreaturesResponse2> getAllDistinctCreatures() {
+        List<Species> speciesList = speciesRespository.findAll();
+        return speciesList.stream()
+                .map(AquaticCreaturesMapper::toResponse2)
+                .filter(response -> response != null)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }
 

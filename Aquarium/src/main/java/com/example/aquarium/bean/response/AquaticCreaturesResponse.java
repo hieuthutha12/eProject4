@@ -14,7 +14,6 @@ import java.util.List;
 @Setter
 @Getter
 public class AquaticCreaturesResponse {
-
     private int id;
     private String name;
     private float weight;
@@ -23,6 +22,5 @@ public class AquaticCreaturesResponse {
     private String exhibitStatus;
     private SpeciesResponse2 species;
     private List<ImgResponse> img;
-
 }
 

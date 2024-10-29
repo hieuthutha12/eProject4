@@ -2,6 +2,7 @@ package com.example.aquarium.mapper;
 
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.bean.response.ImgResponse;
 import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.model.*;
@@ -72,7 +73,22 @@ public class AquaticCreaturesMapper {
 
         return aquaticCreatures;
     }
-
+    public static AquaticCreaturesResponse2 toResponse2(Species species){
+        AquaticCreaturesResponse2 aquaticCreaturesResponse2 = new AquaticCreaturesResponse2();
+        if (!species.getAquaticCreatures().isEmpty()) {
+            aquaticCreaturesResponse2.setImg(species.getAquaticCreatures().get(0).getImages().get(0).getImgName());
+            aquaticCreaturesResponse2.setId(species.getAquaticCreatures().get(0).getId());
+            aquaticCreaturesResponse2.setName(species.getAquaticCreatures().get(0).getName());
+            aquaticCreaturesResponse2.setWeight(species.getAquaticCreatures().get(0).getWeight());
+            aquaticCreaturesResponse2.setLength(species.getAquaticCreatures().get(0).getLength());
+            aquaticCreaturesResponse2.setHabitat(species.getHabitat());
+            aquaticCreaturesResponse2.setSpecialCharacteristics(species.getSpecialCharacteristics());
+            aquaticCreaturesResponse2.setNameSpecies(species.getName());
+        }else {
+            return null;
+        }
+        return aquaticCreaturesResponse2;
+    }
 
     public static AquaticCreaturesResponse toResponse(AquaticCreatures entity) {
         AquaticCreaturesResponse response = new AquaticCreaturesResponse();

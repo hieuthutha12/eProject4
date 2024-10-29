@@ -1,6 +1,7 @@
 package com.example.aquarium.controller;
 
 import com.example.aquarium.bean.request.SpeciesRequest;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.SpeciesResponse;
 import com.example.aquarium.model.Species;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/species")
@@ -50,4 +53,5 @@ public class SpeciesController {
         speciesService.deleteById(id);
         return new ResponseEntity<>("Species deleted successfully.", HttpStatus.NO_CONTENT);
     }
+
 }
