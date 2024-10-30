@@ -1,1 +1,49 @@
-<p>animal-list works!</p>
+<div class="header">
+    <div class="header-link">
+        <a href>Animals Introduction</a><i class="bi bi-chevron-right"></i>
+        <a href="animal">Animals</a>
+    </div>
+    <h1>Animals</h1>
+    <p class="header-bold-text">Not all animals listed are currently on exhibit at the Aquarium. This
+        is a list of animals that live in the ocean.</p>
+    <p class="header-text">Please enjoy learning about the many creatures who call the ocean home! </p>
+</div>
+<div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm"
+        placeholder="Search for an animal..."
+       (keyup.enter)="onSearch()" />
+</div>
+
+<section class="animal-section">
+    <div *ngFor="let animal of animals" class="animal-card">
+        <a href="customer/animal/details/{{animal.id}}" class="card-link">
+            <img [src]="'/assets/imgUpload/'+ animal.img[1].imgName" alt="Sea Otter">
+            <div class="animal-content">
+                <p class="animal-type">ANIMAL</p>
+                <h3 class="name">{{animal.name}}</h3>
+                <p class="content ellipsis">{{animal.exhibitStatus}}</p>
+                <div class="see-more">
+
+                    <p><i class="bi bi-arrow-right-circle see-more-icon"></i>See
+                        more</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<nav aria-label="..." *ngIf="totalPages > 1" >
+    <ul class="pagination ">
+        <li class="page-item">
+            <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+        </li>
+        <li class="page-item active">
+            <span class="page-link">
+                <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            </span>
+        </li>
+        <li class="page-item">
+            <button class="page-link" (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
+        </li>
+    </ul>
+</nav>

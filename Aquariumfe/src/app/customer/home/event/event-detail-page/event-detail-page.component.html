@@ -12,7 +12,7 @@
                                     <path d="M2 11H22V20C22 20.2652 21.8946 20.5196 21.7071 20.7071C21.5196 20.8946 21.2652 21 21 21H3C2.73478 21 2.48043 20.8946 2.29289 20.7071C2.10536 20.5196 2 20.2652 2 20V11ZM17 3H21C21.2652 3 21.5196 3.10536 21.7071 3.29289C21.8946 3.48043 22 3.73478 22 4V9H2V4C2 3.73478 2.10536 3.48043 2.29289 3.29289C2.48043 3.10536 2.73478 3 3 3H7V1H9V3H15V1H17V3Z" fill="#063853"></path>                     
                                 </svg>                     
                             </span>
-                            {{ event.startDate | date: 'dd MMM yyyy' }}
+                            {{ event.startDate | date: 'dd MMM yyyy' }} to {{ event.startDate | date: 'dd MMM yyyy' }}
                         </p>                 
                         <p class="ib">                   
                             <span class="ico">                     
@@ -25,7 +25,7 @@
                     </div>             
                 </div>             
                 <div class="col-lg-6 col-12 hero">               
-                    <img class="clip-a" [src]="event.img ? event.img : 'default-image-url'" alt="Event Image" />  
+                    <img class="clip-a" [src]="'/assets/imgUpload/'+ event.img" alt="Event Image" />  
                 </div>           
             </div>         
         </div>         
@@ -48,10 +48,11 @@
             <div class="col-lg-6 col-12 item" *ngFor="let event of otherEvents">
               <div class="inner">
                 <div class="img">
-                  <img [src]="event.img" loading="lazy" alt="{{event.eventName}}" />
+                  <img [src]="'/assets/imgUpload/'+ event.img" loading="lazy" alt="{{event.eventName}}" />
                 </div>
                 <div class="inner-content" [style.height]="event.startDate ? '192px' : '160px'">
-                  <p class="subt">{{ event.startDate | date:'EEEE d MMMM yyyy' }}</p>
+                  <p class="subt">Start: {{ event.startDate | date:'EEEE d MMMM yyyy' }}</p>
+                  <p class="subt">End :{{ event.endDate | date:'EEEE d MMMM yyyy' }}</p>
                   <h3 [style.height]="event.eventName.length > 10 ? '64px' : '32px'">
                     {{ event.eventName }}
                   </h3>

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnimalPageComponent } from './animal-page/animal-page.component';
 import { AnimalDetailPageComponent } from './animal-detail-page/animal-detail-page.component';
+import { AnimalListComponent } from './animal-list/animal-list.component';
 
 const routes: Routes = [
-  { path: 'list', component: AnimalPageComponent },
+  { path: 'animalList', component: AnimalListComponent },
+  { path: 'animalPage', component: AnimalPageComponent },
   { path: 'details/:id', component: AnimalDetailPageComponent },
-  { path: '', redirectTo: 'list', pathMatch: 'full' }
+  { path: '', redirectTo: 'animalPage', pathMatch: 'full' }
 ];
 
 @NgModule({

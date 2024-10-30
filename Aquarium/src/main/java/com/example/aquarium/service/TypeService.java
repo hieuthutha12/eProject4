@@ -28,9 +28,10 @@ public class TypeService {
 
     public TypeResponse createType(TypeRequest request) {
         if (typeRepository.existsByTypeName(request.getTypeName())) {
-            throw new UniqueConstraintViolationException("Type name '" + request.getTypeName() + "' already exists.");
+            throw new UniqueConstraintViolationException("typeName '" + request.getTypeName() + "' already exists.");
         }
         Type type = typeMapper.toEntity(request);
+        type.setStatus(Status.ACTIVE);
         type = typeRepository.save(type);
         return typeMapper.toResponse(type);
     }
@@ -64,7 +65,7 @@ public class TypeService {
         existingType.setTypeName(request.getTypeName());
         existingType.setPrice(request.getPrice());
         existingType.setDescription(request.getDescription());
-        existingType.setStatus(Status.ACTIVE);
+        existingType.setStatus(request.getStatus());
 
         Type updatedType = typeRepository.save(existingType);
         return typeMapper.toResponse(updatedType);

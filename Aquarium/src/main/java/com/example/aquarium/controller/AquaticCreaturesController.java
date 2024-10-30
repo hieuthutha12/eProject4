@@ -2,6 +2,7 @@ package com.example.aquarium.controller;
 
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.model.AquaticCreatures;
@@ -26,7 +27,7 @@ public class AquaticCreaturesController {
     private final SpeciesService service2;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> createAquaticCreature(@Valid @ModelAttribute AquaticCreaturesRequest creature) {
+    public ResponseEntity<?> createAquaticCreature(@Valid @ModelAttribute AquaticCreaturesRequest creature) {
         try {
             AquaticCreatures createdCreature = service.createAquaticCreature(creature);
             return new ResponseEntity<>(new MessageResponse("Successfully!"), HttpStatus.CREATED);
@@ -34,13 +35,12 @@ public class AquaticCreaturesController {
             return new ResponseEntity<>(new MessageResponse("Error occurred while saving creature!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // Get All
     @GetMapping()
     public ResponseEntity<List<AquaticCreaturesResponse>> getAllAquaticCreatures() {
         List<AquaticCreaturesResponse> response = service.getAllAquaticCreatures();
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/species")
     public ResponseEntity<List<SpeciesResponse2>> getAllSpecies() {
         List<SpeciesResponse2> response = service2.getAllSpecies2();
@@ -69,5 +69,11 @@ public class AquaticCreaturesController {
         service.deleteAquaticCreature(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/distinct-creatures")
+    public ResponseEntity<List<AquaticCreaturesResponse2>> getAllDistinctCreatures() {
+        List<AquaticCreaturesResponse2> response = service.getAllDistinctCreatures();
+        return ResponseEntity.ok(response);
+    }
+
 }
 

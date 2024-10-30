@@ -19,5 +19,4 @@ public class SpeciesResponse {
     private Integer averageLifespan;
     private String specialCharacteristics;
     private List<String> aquaticCreaturesName;
-
 }

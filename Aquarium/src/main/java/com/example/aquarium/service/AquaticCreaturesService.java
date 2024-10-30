@@ -2,10 +2,13 @@ package com.example.aquarium.service;
 
 import com.example.aquarium.bean.request.AquaticCreaturesRequest;
 import com.example.aquarium.bean.response.AquaticCreaturesResponse;
+import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.exception.ResourceNotFoundException;
+import com.example.aquarium.exception.UniqueConstraintViolationException;
 import com.example.aquarium.mapper.AquaticCreaturesMapper;
 import com.example.aquarium.model.AquaticCreatures;
 import com.example.aquarium.model.Img;
+import com.example.aquarium.model.Species;
 import com.example.aquarium.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,29 +18,36 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.UUID;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
 public class AquaticCreaturesService {
 
-
     private final AquaticCreaturesRepository aquaticCreaturesRepository;
     private final AquaticCreaturesMapper aquaticCreaturesMapper;
     private final UserRepository userRepository;
     private final SpeciesRespository speciesRespository;
+    private final ImgService imgService;
 
 
     public AquaticCreatures createAquaticCreature(AquaticCreaturesRequest aquaticCreaturesRequest) throws IOException {
+        if (aquaticCreaturesRepository.existsAquaticCreaturesByName(aquaticCreaturesRequest.getName())) {
+            throw new UniqueConstraintViolationException("name '" + aquaticCreaturesRequest.getName() + "' already exists.");
+        }
         AquaticCreatures aquaticCreatures = aquaticCreaturesMapper.mapToEntityWithImages(
                 aquaticCreaturesRequest,
                 userRepository.findById(aquaticCreaturesRequest.getUserId()),
                 speciesRespository.findById(aquaticCreaturesRequest.getSpeciesId())
         );
-
         return aquaticCreaturesRepository.save(aquaticCreatures);
     }
 
@@ -70,24 +80,29 @@ public class AquaticCreaturesService {
 
         aquaticCreatures.getImages().clear();
 
-        List<Img> images = aquaticCreaturesRequest.getImages().stream()
-                .filter(image -> !image.isEmpty())
-                .map(image -> {
-                    String originalFilename = image.getOriginalFilename();
-                    String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
+        List<Img> images = IntStream.range(0, aquaticCreaturesRequest.getImages().size())
+                .filter(i -> !aquaticCreaturesRequest.getImages().get(i).isEmpty())
+                .mapToObj(i -> {
+                    MultipartFile image = aquaticCreaturesRequest.getImages().get(i);
+                    String description = aquaticCreaturesRequest.getDescriptions().get(i);
 
+                    String imageName = null;
                     try {
-                        Path path = Paths.get("uploads/" + newFilename);
-                        Files.write(path, image.getBytes());
+                        imageName = imgService.saveImage(image);
                     } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
 
                     Img img = new Img();
-                    img.setImgName(newFilename);
+                    img.setImgName(imageName);
+                    img.setDescription(description);
                     img.setAquaticCreatures(aquaticCreatures);
                     return img;
                 })
                 .collect(Collectors.toList());
+
+
+        aquaticCreatures.setImages(images);
 
         aquaticCreatures.getImages().addAll(images);
 
@@ -100,6 +115,14 @@ public class AquaticCreaturesService {
                 .orElseThrow(() -> new ResourceNotFoundException("Aquatic Creature not found"));
         aquaticCreatures.getImages().clear();
         aquaticCreaturesRepository.deleteById(id);
+    }
+    public List<AquaticCreaturesResponse2> getAllDistinctCreatures() {
+        List<Species> speciesList = speciesRespository.findAll();
+        return speciesList.stream()
+                .map(AquaticCreaturesMapper::toResponse2)
+                .filter(response -> response != null)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }
 

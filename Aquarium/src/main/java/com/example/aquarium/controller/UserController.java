@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -43,7 +44,7 @@ public class UserController {
                     role.getRoleName(),
                     loyaltyPoints != null ? loyaltyPoints.getPoints() : 0,
                     loyaltyPoints != null ? loyaltyPoints.getDiscountPercentage().doubleValue() : 0.0,
-                    loyaltyPoints != null ? loyaltyPoints.getCreatedAt() : null
+                    loyaltyPoints != null ? loyaltyPoints.getCreatedAt() : new Date()
             ));
         } else {
             return ResponseEntity.badRequest().body(null);

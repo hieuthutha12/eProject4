@@ -7,7 +7,6 @@ import { map, Observable } from 'rxjs';
 })
 export class EventService {
   private apiUrl = 'http://localhost:8080/api/events';
-  private imageBaseUrl = 'http://localhost:8080/api/images/';
 
   constructor(private http: HttpClient) {}
 
@@ -16,21 +15,11 @@ export class EventService {
       map((events: any[]) => 
         events
           .filter(event => new Date(event.endDate) >= new Date()) 
-          .map((event: any) => ({ 
-            ...event,
-            img: this.imageBaseUrl + event.img 
-          }))
       )
     );
-  }
-
+}
   getEventById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
-      map((event: any) => ({ 
-        ...event,
-        img: this.imageBaseUrl + event.img 
-      }))
-    );
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
   getAllEventsExcluding(id: number): Observable<any> {
     return this.getAllEvents().pipe(

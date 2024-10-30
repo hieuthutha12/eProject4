@@ -1,19 +1,17 @@
 package com.example.aquarium.bean.response;
 
-public class ImgResponse {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class ImgResponse {
     private Integer id;
     private String imgName;
-
-    public ImgResponse() {
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setImgName(String imgName) {
-        this.imgName = imgName;
-    }
+    private String description;
 }
 

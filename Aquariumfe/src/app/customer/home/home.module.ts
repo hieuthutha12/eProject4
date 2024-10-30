@@ -7,13 +7,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { EventRoutingModule } from './event/event-routing.module';
 import { HomeComponent } from './home.component';
 import { AnimalModule } from './animal/animal.module';
-import { FormsModule } from '@angular/forms';
-import { TicketOneComponent } from './ticket/ticket-one/ticket-one.component';
-import { TicketTwoComponent } from './ticket/ticket-two/ticket-two.component';
-import { TicketThreeComponent } from './ticket/ticket-three/ticket-three.component';
-import { TicketFourComponent } from './ticket/ticket-four/ticket-four.component';
-import { FeedbackComponent } from './feedback/feedback.component';
-import { VisitComponent } from './visit/visit.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 
 
@@ -24,8 +18,7 @@ import { VisitComponent } from './visit/visit.component';
     HeaderComponent,
     HomepageComponent,
     HomeComponent,
-    FeedbackComponent,
-    VisitComponent
+    UserInfoComponent,
   ],
   imports: [
     CommonModule,

@@ -12,4 +12,8 @@ import lombok.Setter;
 public class SpeciesResponse2 {
     private int id;
     private String name;
+    private String habitat;
+    private String diet;
+    private Integer averageLifespan;
+    private String specialCharacteristics;
 }

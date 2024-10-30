@@ -1,7 +1,7 @@
 <div class="content mt-5">
   <h2>Type List</h2>
   <!-- <h2>{{ isUpdateMode ? 'Edit Type' : 'Add Type' }}</h2> -->
-  <button class="btn btn-primary mb-3" (click)="toggleForm()">Add Type</button>
+  <button class="btn btn-primary mb-3" (click)="toggleForm()"(click)="resetForm()" >Add Type</button>
   <div id="formContainer" class="form-container">
     <form (ngSubmit)="onSubmit()" #typeFormDirective="ngForm" id="formContainer">
       <div class="form-group">

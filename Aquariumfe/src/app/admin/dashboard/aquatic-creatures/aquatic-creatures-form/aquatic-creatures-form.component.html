@@ -44,12 +44,34 @@
       </select>
       <div *ngIf="speciesIdError" class="text-danger" class="error">{{ speciesIdError }}</div>
     </div>
-    <!-- Images Upload -->
+
     <div class="form-group">
       <label for="images">Images</label>
-      <input type="file" id="images" (change)="onFileChange($event)" accept="image/*" multiple />
+      <input
+        type="file"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        multiple
+      />
+      <div *ngIf="imgErrors" class="text-danger" class="error">{{ imgErrors }}</div>
+      
+      <div *ngFor="let image of aquaticCreaturesForm.images; let i = index">
+        <div class="mt-2">
+          <label for="description{{i}}">Description Image {{i + 1}}</label>
+          <input
+            type="text"
+            [(ngModel)]="aquaticCreaturesForm.descriptions[i]"
+            name="description{{i}}"
+            placeholder="Enter description for this image"
+            class="form-control"
+          />
+        </div>
+      </div>
+      
     </div>
-    <!-- Preview Selected Images -->
+    
+    
+    
     <div class="image-preview-container" *ngIf="imagePreviews.length">
       <div class="image-preview" *ngFor="let image of imagePreviews; let i = index">
         <img [src]="image" alt="Preview" class="preview-img" />
@@ -58,6 +80,8 @@
         </button>
       </div>
     </div>
+    
+    
 
     <!-- Submit Button -->
     <div class="form-buttons">

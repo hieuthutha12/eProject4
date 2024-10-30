@@ -9,8 +9,10 @@ interface AquaticCreaturesForm {
   exhibitStatus: string;
   userId: number;
   speciesId: number;
-  images: File[] | null;
+  images: File[];  
+  descriptions: string[];
 }
+
 interface Species {
   id: number;
   name: string;
@@ -29,7 +31,8 @@ export class AquaticCreaturesFormComponent implements OnInit {
     exhibitStatus: '',
     userId: 1,
     speciesId: 1,
-    images: null,
+    images: [],
+    descriptions: [],
   };
   speciesList: Species[] = [];
   imagePreviews: string[] = [];
@@ -41,6 +44,8 @@ export class AquaticCreaturesFormComponent implements OnInit {
   speciesIdError: string = '';
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;
+  imgErrors: string = ''; 
+  descreiptionErrors: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +53,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
     private aquaticCreaturesService: AquaticCreaturesService
   ) {}
 
+  
   ngOnInit() {
     this.loadSpecies();
     this.route.paramMap.subscribe(params => {
@@ -56,6 +62,9 @@ export class AquaticCreaturesFormComponent implements OnInit {
         this.creatureId = parseInt(id, 10);
         this.isUpdateMode = true;
         this.getAquaticCreatureData(this.creatureId);
+      }else {
+        this.aquaticCreaturesForm.images = [];  
+        this.aquaticCreaturesForm.descriptions = [];
       }
     });
   }
@@ -80,7 +89,8 @@ export class AquaticCreaturesFormComponent implements OnInit {
           exhibitStatus: creatureData.exhibitStatus,
           userId: parseInt('1', 10),//id User
           speciesId: creatureData.speciesId,
-          images: null,
+          images: creatureData.images || [],  
+          descriptions: creatureData.descriptions || [],  
         };
       },
       error => {
@@ -93,19 +103,30 @@ export class AquaticCreaturesFormComponent implements OnInit {
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      this.aquaticCreaturesForm.images = Array.from(input.files);
+      const files = Array.from(input.files);
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
       this.imagePreviews = [];
-
-      // Generate preview for each file
-      for (const file of this.aquaticCreaturesForm.images) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.imagePreviews.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
+      this.aquaticCreaturesForm.images = []; 
+      this.aquaticCreaturesForm.descriptions = []; 
+      files.forEach(file => {
+        if (validTypes.includes(file.type)) {
+          this.aquaticCreaturesForm.images.push(file); 
+          this.aquaticCreaturesForm.descriptions.push('');
+          const reader = new FileReader();
+          reader.onload = () => {
+            
+            this.imagePreviews.push(reader.result as string);
+          };
+          reader.readAsDataURL(file); 
+        }else{
+          this.imgErrors = ('Please select valid image files (JPEG, PNG, GIF).');
+        }
       }
+    );
     }
   }
+
+  
 
   removeImage(index: number) {
     if (this.aquaticCreaturesForm.images) {
@@ -131,7 +152,6 @@ export class AquaticCreaturesFormComponent implements OnInit {
       error => {
         console.error('API Error:', error);
         console.error('Validation Errors:', error.error.errors);
-        console.log(this.aquaticCreaturesForm);
         this.handleErrors(error);
       }
     );
@@ -147,8 +167,9 @@ export class AquaticCreaturesFormComponent implements OnInit {
     formData.append('userId', this.aquaticCreaturesForm.userId.toString());//id User
 
     if (this.aquaticCreaturesForm.images) {
-      this.aquaticCreaturesForm.images.forEach(image => {
-        formData.append('images', image);
+      this.aquaticCreaturesForm.images.forEach((img, index) => {
+        formData.append(`images[${index}]`, img); 
+        formData.append(`descriptions[${index}]`, this.aquaticCreaturesForm.descriptions[index]);
       });
     }
     return formData;
@@ -163,6 +184,9 @@ export class AquaticCreaturesFormComponent implements OnInit {
       this.lengthError = error.error.errors.length || '';
       this.exhibitStatusError = error.error.errors.exhibitStatus || '';
       this.speciesIdError = error.error.errors.speciesId || '';
+      this.imgErrors = error.error.errors.images || '';
+      this.descreiptionErrors = error.error.errors.descriptions || ''
+      
     } else {
       this.generalErrorMessage = 'An unknown error occurred. Please try again later.';
     }
