@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TicketService } from '../services/ticket.service';
+import { AuthService, UserInfo } from '../../service/auth.service';
 
 interface BuyTicket{
   userId: number;
@@ -36,14 +37,37 @@ export class BuyTicketComponent implements OnInit {
   showAlert: boolean = false;
   alertMessage: string = '';
   typeQuantity: TypeQuantity[] = [];
-  constructor(private router: Router, private ticketService: TicketService) {
+  constructor(private router: Router, private ticketService: TicketService, private authService: AuthService) {
       const today = new Date();
       this.minDate = today.toISOString().split('T')[0];
   }
   ngOnInit(): void {
       this.fetchTypes();
   }
+
   //step 3
+  userId: number = 0;
+  loyaltyPoints: number = 0;
+  discountPercentage: number = 0;
+
+  private getUser(): void {
+    this.authService.userInfo$.subscribe((userInfo: UserInfo | null) => {
+      if (userInfo) {
+        this.userId = userInfo.id;
+        this.loyaltyPoints = userInfo.points;
+        this.discountPercentage = userInfo.discountPercentage;
+      }
+    });
+  }
+  onCheckPoint(): void {
+    if (this.score !== null) {
+      if (this.score > this.loyaltyPoints) {
+
+      } else {
+
+      }
+    }
+  }
   getTypeById(id: number): any {
     return this.types.find(type => type.id === id) || null;
   }
@@ -53,7 +77,10 @@ export class BuyTicketComponent implements OnInit {
     if (index !== -1) {
         this.typeQuantity.splice(index, 1);
     }
-}
+  }
+  confirmStepThree() {
+    this.fetchTypes();
+  }
   //step 2
   changeNum(num: number, id: number) {
     const typeIndex = this.typeQuantity.findIndex(item => item.typeId === id);
@@ -146,6 +173,9 @@ export class BuyTicketComponent implements OnInit {
         console.error('Error fetching events:', error); 
       }
     );
+  }
+  handleCloseAlert() {
+    this.showAlert = false;
   }
 }
 
