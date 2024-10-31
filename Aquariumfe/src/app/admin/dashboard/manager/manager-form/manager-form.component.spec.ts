@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormManagerComponent } from './form-manager.component';
+import { FormManagerComponent } from './manager-form.component';
 
 describe('FormManagerComponent', () => {
   let component: FormManagerComponent;

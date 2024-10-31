@@ -1,1 +1,51 @@
-<p>get-profile works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="profile-card text-center p-4">
+                <!-- Ảnh đại diện nhân viên -->
+                <img src="https://via.placeholder.com/150" alt="Avatar" class="avatar">
+
+                <!-- Tên nhân viên -->
+                <h4>Nguyễn Văn A</h4>
+                
+                <!-- Chức vụ -->
+                <p class="text-muted mb-1">Position: Trưởng Phòng</p>
+
+                <!-- Email -->
+                <p class="text-muted mb-1">Email: a.nguyen.com</p>
+
+                <!-- Số điện thoại -->
+                <p class="text-muted mb-1">phone Number: 0901234567</p>
+
+                <!-- Mức lương -->
+                <p class="text-muted mb-3">Salary: 15,000,000 VNĐ</p>
+
+                <!-- Nút chỉnh sửa và xóa -->
+                <div class="d-flex justify-content-center">
+                    <a href="#" class="btn btn-primary me-2 btn-edit">update</a>
+                    <button class="btn btn-secondary" (click)="toggleChangePassword()">Thay Đổi Mật Khẩu</button>
+                </div>
+            </div>
+            <div class="mt-4 change-password" id="changePasswordSection">
+                <h5 class="text-center">Thay Đổi Mật Khẩu</h5>
+                <form action="change_password.php" method="POST">
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">Mật Khẩu Hiện Tại</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">Mật Khẩu Mới</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Xác Nhận Mật Khẩu Mới</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thay Đổi Mật Khẩu</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
