@@ -40,8 +40,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        const token = response.token;
-        this.authService.setToken(token);
+        const token = response;
         this.router.navigate(['/customer/home']);
       },
       error: (error) => {
