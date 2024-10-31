@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TicketFourComponent } from './ticket-four.component';
+import { CustomAlertComponent } from './custom-alert.component';
 
-describe('TicketFourComponent', () => {
-  let component: TicketFourComponent;
-  let fixture: ComponentFixture<TicketFourComponent>;
+describe('CustomAlertComponent', () => {
+  let component: CustomAlertComponent;
+  let fixture: ComponentFixture<CustomAlertComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TicketFourComponent]
+      declarations: [CustomAlertComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TicketFourComponent);
+    fixture = TestBed.createComponent(CustomAlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

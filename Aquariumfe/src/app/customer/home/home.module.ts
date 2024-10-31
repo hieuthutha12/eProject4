@@ -6,17 +6,12 @@ import { HeaderComponent } from './header/header.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { EventRoutingModule } from './event/event-routing.module';
 import { HomeComponent } from './home.component';
-import { AnimalModule } from './animal/animal.module';
-import { FormsModule } from '@angular/forms';
-import { TicketOneComponent } from './ticket/ticket-one/ticket-one.component';
-import { TicketTwoComponent } from './ticket/ticket-two/ticket-two.component';
-import { TicketThreeComponent } from './ticket/ticket-three/ticket-three.component';
-import { TicketFourComponent } from './ticket/ticket-four/ticket-four.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { VisitComponent } from './visit/visit.component';
-
-
-
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { AnimalRoutingModule } from './animal/animal-routing.module';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,13 +20,17 @@ import { VisitComponent } from './visit/visit.component';
     HomepageComponent,
     HomeComponent,
     FeedbackComponent,
-    VisitComponent
+    VisitComponent,
+    BuyTicketComponent
+  
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     EventRoutingModule,
-    AnimalModule
+    AnimalRoutingModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class HomeModule { }
