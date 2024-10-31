@@ -9,10 +9,7 @@ import com.example.aquarium.security.jwt.JwtTokenProvider;
 import com.example.aquarium.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -48,6 +45,17 @@ public class UserController {
             ));
         } else {
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+    @GetMapping("/checkToken")
+    public ResponseEntity<String> checkToken(@RequestParam String token) {
+        if (token == null || token.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Token is missing or empty");
+        }
+        if (jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.ok("Token is valid");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid token");
         }
     }
     @GetMapping

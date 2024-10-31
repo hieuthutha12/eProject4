@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { VisitComponent } from './visit/visit.component';
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+import { AuthGuard } from '../service/auth.guard';
 import { UserInfoComponent } from './user-info/user-info.component';
 
 const routes: Routes = [
@@ -26,8 +30,9 @@ const routes: Routes = [
         loadChildren: () => import('./animal/animal.module').then(m => m.AnimalModule)
       },
       {
-        path: 'ticket',
-        loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule)
+        path: 'buy-ticket',
+        component: BuyTicketComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'feedback',

@@ -14,7 +14,6 @@ import java.util.function.Function;
 @Component
 public class JwtTokenProvider {
     SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    String base64Secret = Encoders.BASE64.encode(secretKey.getEncoded());
     private final long EXPIRATION_TIME = 86400000;
 
 

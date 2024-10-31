@@ -1,6 +1,17 @@
+
+  input[type="radio"] {
+    display: none; 
+  }
+
+  input[type="radio"]:checked + .item-content {
+    background-color: #d7f3d7; 
+    font-weight: bold;
+  }
+
+  
 .layout-content{
     font-family: museo-sans, sans-serif;
-    background-color: #b5d5e7;
+    background-color: #b5d5e7; 
 }
 .step-wizard-list{
     background: #fff;
@@ -76,11 +87,6 @@
     transform: translate(-50%, -60%) rotate(-45deg);
     transform-origin: center center;
 }
-.progress-label{
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 10px;
-}
 .current-item .progress-count:before,
 .current-item ~ .step-wizard-item .progress-count:before{
     display: none;
@@ -105,10 +111,7 @@ h1 {
     display: block;
     font-weight: bold;
     unicode-bidi: isolate;
-}
-
-.box {
-    margin-left: 20%;
+    margin: 0 0 5% 25%;
 }
 
 .udg-tickets h1 {
@@ -117,8 +120,10 @@ h1 {
     font-family: NewBeginnings, sans-serif;
     color: #262e8b;
     text-transform: uppercase;
-    margin: 0 0 5% 25%;
-    padding-top: 300px;
+}
+
+.box {
+    margin-left: 20%;
 }
 
 p.guidance {
@@ -136,18 +141,57 @@ p.guidance {
     pointer-events: auto;
     visibility: visible;
 }
+
+
+.date-item.date-item-dp {
+    padding: 30px 15px;
+    background-color: #F2B000;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 25px;
+    line-height: 18px;
+    color: #063853;
+    position: relative;
+    text-align: center;
+    font-weight: 600;
+    white-space: nowrap;
+    outline-offset: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.date-item-dp {
+    cursor: pointer;
+}
+.date-item {
+    margin-bottom: 15px;
+    position: relative;
+}
+.date-item span {
+    padding-right: 30px;
+}
+
+.date-item.date-item-dp input[type=date] {
+    padding: 5px 10px;
+    font-size: 20px;
+    background-color: #F2B000;
+    border: 1px solid #063853;
+    border-radius: 7px;
+    color: #063853;
+}
 input, button, select, optgroup, textarea {
     margin: 0;
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
 }
-.quick-summary.qsm {
-    display: block;
-    padding-left: 0;
-    padding-bottom: 30px;
+.action {
+    background-color: #fff;
+    border-radius: 16px;
+    margin-top: 165px;
+    padding: 0px 30px 0px 30px;
+    display: grid;
 }
-
 .quick-summary {
     padding-left: 15px;
     display: none;
@@ -159,7 +203,7 @@ input, button, select, optgroup, textarea {
 
 .cta {
     font-size: 25px;
-    line-height: 20px;
+    line-height: 35px;
     color: #063853;
     font-weight: 600;
     text-decoration: none;
@@ -171,7 +215,7 @@ input, button, select, optgroup, textarea {
     margin-right: 4px;
     width: 100%;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     outline-offset: -1px;
 }
 .cta.cta-lowlight {
@@ -185,11 +229,10 @@ input, button, select, optgroup, textarea {
 }   
 .step2 {
     padding-top: 50px;
-    margin-bottom: 125px;
 }
 .avail {
     background-color: #fff;
-    height: auto; 
+    height: auto;
     min-height: 300px;
     padding: 20px 30px;
     border-radius: 16px;
@@ -219,6 +262,16 @@ input, button, select, optgroup, textarea {
 }  
 .avail .list .item .item-content:hover {
     background-color: #e7ededd1;
+} 
+.progress-label{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.quick-summary.qsm {
+    display: block;
+    padding-left: 0;
+    padding-bottom: 30px;
 } 
 .products {
     background-color: #fff;
@@ -309,6 +362,63 @@ input, button, select, optgroup, textarea {
   .list-group-item {
     border: none;
   }
+  
+  h5 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+  }
+  
+  .btn-danger {
+    background-color: #549ee2;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-danger:hover {
+    background-color: #407fba;
+  }
+.inf-order {
+    padding-left: 20px; 
+}
+
+.form-group label {
+    font-weight: bold;
+  }
+  
+  .btn-primary {
+    background-color: #549ee2;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #407fba;
+  } 
+
+  .score{
+    margin: 30px;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 15px;
+  }
+  
+  .list-group-item {
+    border: none;
+  }
+
   .final {
     border-bottom: 1px solid #BFBFBF;
   }
+
+
+

@@ -40,9 +40,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
         const token = response.token;
-      localStorage.setItem('authToken', token);
+        this.authService.setToken(token);
         this.router.navigate(['/customer/home']);
       },
       error: (error) => {
@@ -58,9 +57,5 @@ export class LoginComponent implements OnInit {
         }
       }
     });
-  }
-  logout() {
-    localStorage.removeItem('authToken');
-    this.router.navigate(['/login']);
   }
 }

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerModule } from './customer/customer.module';
 import { AdminModule } from './admin/admin.module';
+import { RouterModule } from '@angular/router';
+import { CustomerComponent } from './customer/customer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,10 @@ import { AdminModule } from './admin/admin.module';
     BrowserModule,
     ReactiveFormsModule,
     CustomerModule,
-    AdminModule
+    AdminModule,
+    RouterModule.forRoot([
+      { path: 'customer', component: CustomerComponent },
+    ]),
   ],
   providers: [
     provideHttpClient(withFetch())
