@@ -1,6 +1,6 @@
 <div class="layout-content">
   <div>
-    <app-custom-alert [message]="alertMessage" [isVisible]="showAlert"></app-custom-alert>
+    <app-custom-alert [message]="alertMessage" [isVisible]="showAlert" (close)="handleCloseAlert()"></app-custom-alert>
       <div id="block-ud-content">
           <div class="udg-device" aria-hidden="true"></div>
           <div class="udg-tickets">
@@ -148,13 +148,14 @@
                             </div>
                             <p class="guidance" style="padding-top: 50px;">Do you want to use points?</p>
                             <div class="products" data-type="standard"> 
-                              <form class="score">
+                              <form class="score" (ngSubmit)="onCheckPoint()">
                                 <div class="form-group">
-                                    <label for="score">Score:</label>
-                                    <input type="number" class="form-control" id="score" placeholder="enter score" required>
+                                  <label for="score">Score:</label>
+                                  <input type="number" class="form-control" id="score" [(ngModel)]="score" name="score" placeholder="Enter score" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Enter</button>
-                            </form>
+                              </form>
+                              
                             </div>
                             <div class="action step2">
                                 <button class="cta cta-lowlight" (click)="prevStep()">Go back</button>

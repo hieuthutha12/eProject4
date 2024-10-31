@@ -1,4 +1,3 @@
-// auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -10,8 +9,8 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  async canActivate(): Promise<boolean> {
-    if (await this.authService.isAuthenticated()) {
+  canActivate(): boolean {
+    if (this.authService.isLoggedIn()) {
       console.log('User is logged in.');
       return true;
     } else {
