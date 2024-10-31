@@ -18,7 +18,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
     HeaderComponent,
     HomepageComponent,
     HomeComponent,
-    UserInfoComponent,
+    FeedbackComponent,
+    VisitComponent
   ],
   imports: [
     CommonModule,
