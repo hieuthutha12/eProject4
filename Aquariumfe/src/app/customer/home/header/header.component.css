@@ -180,24 +180,72 @@
 .username {
   color: #f7f7f7;
   font-weight: 500;
-  transition: color 0.3s ease, transform 0.2s;
+  text-decoration: none;
 }
 
 .username:hover {
-  color: white;
-  font-weight: 600;
-  transform: scale(1.05);
+  cursor: pointer;
 }
 
-.user {
+.user-icon {
   font-size: 2rem;
-  color: #acacac;
-  transition: color 0.3s ease, transform 0.2s;
+  color: #dededee3;
+  transition: color 0.3s ease;
 }
 
-.user:hover {
-  color: white;
-  transform: scale(1.05);
+.user-icon:hover {
+  font-size: 2rem;
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+
+/* User Dropdown Styles */
+.user-dropdown {
+  position: relative;
+}
+
+.user-dropdown-toggle {
+  display: none; /* Hide the checkbox */
+}
+
+/* Dropdown Content */
+.user-dropdown-content {
+  opacity: 0;
+  transform: translateY(-10px); /* Start 10px above */
+  position: absolute;
+  right: 0;
+  top: 40px; /* Adjust based on icon size */
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 150px;
+  z-index: 1;
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show dropdown when checkbox is checked */
+.user-dropdown-toggle:checked ~ .user-dropdown-content {
+  opacity: 1;
+  transform: translateY(0); /* Slide into place */
+  pointer-events: auto; /* Enable interaction */
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px;
+  color: #003a4e;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #39c0f5;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 
@@ -256,12 +304,13 @@
 
 /* Dropdown Content */
 .dropdown-content {
-  display: none;
-  /* Initially hidden */
+  opacity: 0;
+  transform: translateY(-5px); /* Start 10px above */
+  display: block; /* Keep display block for transition */
   position: absolute;
   background-color: #ffffff;
-  min-width: 700px;
-  height: 400px;
+  min-width: 510px;
+  height: 300px;
   overflow-y: auto;
   z-index: 1;
   box-shadow: 0 10px 16px rgba(0, 0, 0, 0.4);
@@ -269,13 +318,83 @@
   left: 0;
   border-radius: 0 0 30px 30px;
   margin-left: -150px;
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Show dropdown when checkbox is checked */
-.dropdown-toggle:checked~.dropdown-content {
-  display: block;
-  /* Show dropdown */
+.dropdown-toggle:checked ~ .dropdown-content {
+  opacity: 1;
+  transform: translateY(0); /* Slide into place */
+  pointer-events: auto; /* Enable interaction */
 }
+
+.category-options {
+  columns: 2; /* Divide the list into two columns */
+  -webkit-columns: 2; /* For Safari */
+  -moz-columns: 2; /* For Firefox */
+}
+
+.dropdown-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100%;
+}
+
+/* Category List */
+.category-list {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.animals-title {
+  color: #00121a;
+  font-weight: bold;
+  font-size: large;
+  padding: 10px 0;
+}
+
+/* Category Options List */
+/* Category Options List */
+.category-options {
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+}
+
+.category-options li {
+  margin: 5px 0;
+}
+
+.list-opt {
+  color: #00121a;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  font-weight: 600;
+  position: relative;
+}
+
+/* Subtext Styling */
+.subtext {
+  font-weight: 400;
+  font-size: 0.9em;
+  color: #6a6a6a;
+  display: block;
+  margin-left: 20px; /* Indent subtext slightly */
+}
+
+.list-opt:hover {
+  background-color: #003a4e;
+  color: white;
+}
+
+.list-opt:hover .subtext {
+  color: #bfbfbf; /* Slightly lighter subtext on hover */
+}
+
 
 /* Darken background when dropdown is open */
 body {
@@ -283,16 +402,6 @@ body {
   /* Smooth background transition */
 }
 
-/* Dropdown Inner */
-.dropdown-inner {
-  display: flex;
-  /* Use flexbox to arrange items */
-  justify-content: space-between;
-  /* Space between event list and image */
-  align-items: flex-start;
-  /* Align items at the top */
-  height: 100%;
-}
 
 .event-list {
   flex: 1;
@@ -354,9 +463,15 @@ body {
 
 .dropdown-image {
   width: 100%;
-  /* Adjust size as needed */
   height: auto;
   border-radius: 10px;
+  opacity: 1; /* Start fully opaque */
+  transition: opacity 0.1s ease-in-out; /* Smooth transition for opacity */
+}
+
+/* Hidden class to fade out the image */
+.hidden {
+  opacity: 0; /* Set opacity to 0 to fade out */
 }
 
 .ticket {

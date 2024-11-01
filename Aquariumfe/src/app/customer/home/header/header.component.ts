@@ -1,9 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
   isHeaderHidden = false;
@@ -12,13 +12,23 @@ export class HeaderComponent {
   @HostListener("window:scroll", [])
   onWindowScroll() {
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    if (currentScroll > this.lastScrollTop) {
-      // Scrolling down
-      this.isHeaderHidden = true;
-    } else {
-      // Scrolling up
-      this.isHeaderHidden = false;
-    }
+    this.isHeaderHidden = currentScroll > this.lastScrollTop; // Hide header when scrolling down
     this.lastScrollTop = currentScroll;
+  }
+
+  @ViewChild('userDropdown') userDropdown!: ElementRef;
+  @ViewChild('animalsDropdown') animalsDropdown!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    // Close User Dropdown
+    if (this.userDropdown && !this.userDropdown.nativeElement.contains(event.target)) {
+      (document.getElementById('user-dropdown-toggle') as HTMLInputElement).checked = false;
+    }
+
+    // Close Animals Dropdown
+    if (this.animalsDropdown && !this.animalsDropdown.nativeElement.contains(event.target)) {
+      (document.getElementById('dropdown-toggle') as HTMLInputElement).checked = false;
+    }
   }
 }
