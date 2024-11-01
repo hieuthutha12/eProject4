@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { UserInfo } from '../user-info.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   emailError: string = ''; 
@@ -26,22 +26,31 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
   }
-
+  loadUserInfo() {
+    this.authService.fetchUserInfo().subscribe({
+      next: (data) => {
+        this.authService.setUserInfo(data);
+        console.log(this.authService.userInfo$);
+        console.log('hieu'); 
+      },
+      error: (error) => {
+        console.error('Failed to load user info:', error);
+      }
+    });
+  }
   onLogin() {
-   
     this.emailError = '';
     this.passwordError = '';
     this.generalErrorMessage = '';
 
-    
     const credentials = this.loginForm.value;
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        const token = response;
-        this.router.navigate(['/customer/home']);
+        this.loadUserInfo();  // Load user info after successful login
+        this.router.navigate(['/customer/home']); 
       },
       error: (error) => {
         console.error('Login failed:', error);
