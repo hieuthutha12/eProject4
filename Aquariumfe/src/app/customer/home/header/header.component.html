@@ -3,48 +3,52 @@
         <div class="container">
             <div class="header-top">
                 <div class="logo">
-                    <a href="userInfo" class="logo-link"><img src="/assets/img/header8.png"/>Blue Planet Aquarium</a>
+                    <a href class="logo-link"><img src="/assets/img/header8.png" />Blue Planet Aquarium</a>
                 </div>
                 <div class="actions">
-                    <p class="username">username</p>
-                    <a href class="user"><i class="bi bi-person-circle"></i></a>
+                    <a href="userInfo" class="username">username</a>
+                    <div class="user-dropdown" #userDropdown>
+                        <label class="user icon-right" for="user-dropdown-toggle">
+                            <i class="bi bi-person-circle user-icon"></i>
+                        </label>
+                        <input type="checkbox" id="user-dropdown-toggle" class="user-dropdown-toggle" />
+                        <div class="user-dropdown-content">
+                            <a href="userInfo" class="dropdown-item">User Info</a>
+                            <a href="logout" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+
+                    <!-- Uncomment these links if needed -->
                     <!-- <a href="login#" class="action icon-left">
-                    <i class="bi bi-door-open-fill"></i> LOGIN
-                </a>
-                <a href="#" class="action icon-left">
-                    <i class="bi bi-box-arrow-in-right"></i> REGISTER
-                </a> -->
+                        <i class="bi bi-door-open-fill"></i> LOGIN
+                    </a>
+                    <a href="#" class="action icon-left">
+                        <i class="bi bi-box-arrow-in-right"></i> REGISTER
+                    </a> -->
                 </div>
             </div>
             <div class="divider"></div>
             <div class="header-bottom">
                 <nav class="navigation">
-                    <a href="customer/event/list" class="nav-a">EVENT</a>
-                    <div class="dropdown">
-                        <label class="dropbtn icon-right"
-                            for="dropdown-toggle">ANIMALS <i
-                                class="bi bi-caret-down-fill"></i></label>
-                        <input type="checkbox" id="dropdown-toggle"
-                            class="dropdown-toggle" />
-                        <div class="dropdown-content">
+                    <a href class="nav-a">EVENT</a>
+                    <!-- Animals Dropdown -->
+                    <div class="dropdown" #animalsDropdown>
+                        <label class="dropbtn icon-right" for="dropdown-toggle">ANIMALS <i class="bi bi-caret-down-fill"></i></label>
+                        <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
+                        <div class="dropdown-content" #dropdownContent>
                             <div class="dropdown-inner">
-                                <div class="event-list">
-                                    <h2 class="animals-title">Explore the Water
-                                        Kingdom</h2>
-                                    <a href="#" class="list-opt">Meet the
-                                        animals</a>
-                                    <a href="#" class="list-opt">Habitats</a>
-                                    <!-- <a href="#" class="list-opt">Event 3</a> -->
-                                </div>
-                                <div class="dropdown-img-holder">
-                                    <img src="assets/img/t2.jpg"
-                                        alt="Dropdown Image"
-                                        class="dropdown-image">
-                                    <div class="a-link-holder"><a class="a-link"
-                                            href="#">Learn cool fact about
-                                            animals<i
-                                                class="bi bi-arrow-right-circle-fill a-link-icon"></i></a>
-                                    </div>
+                                <div class="category-list">
+                                    <h2 class="animals-title">Explore Animal Categories</h2>
+                                    <ul class="category-options">
+                                        <li><a href="#" class="list-opt">Fish</a></li>
+                                        <li><a href="#" class="list-opt">Mammals</a></li>
+                                        <li><a href="#" class="list-opt">Mollusks</a></li>
+                                        <li><a href="#" class="list-opt">Crustaceans</a></li>
+                                        <li><a href="#" class="list-opt">Jellyfish</a></li>
+                                        <li><a href="#" class="list-opt">Cnidarians</a></li>
+                                        <li><a href="#" class="list-opt">Corals and sponges</a></li>
+                                        <li><a href="#" class="list-opt">Marine plants and algae</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -53,10 +57,7 @@
                     <a class="nav-a" href="customer/feedback">FEEDBACK</a>
                 </nav>
                 <div class="ticket">
-                    <a href="#" class="ticket-button icon-right">
-                        BUY TICKETS HERE<i
-                            class="bi bi-ticket-detailed-fill"></i>
-                    </a>
+                    <a href="#" class="ticket-button icon-right">BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i></a>
                 </div>
             </div>
         </div>
