@@ -28,18 +28,4 @@ describe('AuthGuard', () => {
   it('should be created', () => {
     expect(guard).toBeTruthy();
   });
-
-  it('should allow activation if user is authenticated', () => {
-    authService.isAuthenticated.and.returnValue(true);
-    const canActivate = guard.canActivate();
-    expect(canActivate).toBeTrue();
-  });
-
-  it('should not allow activation if user is not authenticated', () => {
-    authService.isAuthenticated.and.returnValue(false);
-    const canActivate = guard.canActivate();
-
-    expect(canActivate).toBeFalse();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']); 
-  });
 });

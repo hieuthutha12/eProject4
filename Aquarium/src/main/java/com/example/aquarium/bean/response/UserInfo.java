@@ -21,7 +21,7 @@ public class UserInfo {
     private String accountStatus;
     private String roleName;
     private int loyaltyPoints;
-    private double discountPercentage;
+    private double loyaltyPointValue;
     private Date createdAt;
 
 }

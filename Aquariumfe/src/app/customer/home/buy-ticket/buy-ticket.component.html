@@ -1,6 +1,5 @@
 <div class="layout-content">
   <div>
-    <app-custom-alert [message]="alertMessage" [isVisible]="showAlert" (close)="handleCloseAlert()"></app-custom-alert>
       <div id="block-ud-content">
           <div class="udg-device" aria-hidden="true"></div>
           <div class="udg-tickets">
@@ -81,7 +80,6 @@
                       </div>
                     </div>
                   </div>
-                  
                   <!-- Step 2 -->
                   <div *ngIf="currentStep === 2" class="col-12 col-lg-7 box">
                     <div class="row sib">
@@ -136,30 +134,34 @@
                                   <p>Time: {{selectedTime}}</p> 
                                 </div>
                                 <ul class="list-group">
-                                    <li *ngFor="let t of typeQuantity" class="list-group-item d-flex justify-content-between align-items-center" >
-                                        <div>
+                                    <li *ngFor="let t of typeQuantity"  class="list-group-item d-flex justify-content-between align-items-center" >
+                                        <div *ngIf="t.quantity > 0">
                                             <p><strong>Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
                                             <p><strong>Quantity:</strong> {{t.quantity}}</p>
                                         </div>
-                                        <button class="btn btn-danger btn-sm" (click)="removeTypeQuantity(t.typeId)">Delete</button>
+                                        <button *ngIf="t.quantity > 0" class="btn btn-danger btn-sm" (click)="removeTypeQuantity(t.typeId)">Delete</button>
                                     </li>
                                 </ul>
                             </div>                        
                             </div>
                             <p class="guidance" style="padding-top: 50px;">Do you want to use points?</p>
                             <div class="products" data-type="standard"> 
-                              <form class="score" (ngSubmit)="onCheckPoint()">
                                 <div class="form-group">
                                   <label for="score">Score:</label>
                                   <input type="number" class="form-control" id="score" [(ngModel)]="score" name="score" placeholder="Enter score" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Enter</button>
-                              </form>
-                              
                             </div>
+                            <!-- <div class="form-group">
+                              <label for="paymentMethod">Payment Method:</label>
+                              <select class="form-control" id="paymentMethod" [(ngModel)]="selectedPaymentMethod" name="paymentMethod" required>
+                                  <option *ngFor="let method of paymentMethods | keyvalue" [value]="method.value">
+                                      {{ method.value }}
+                                  </option>
+                              </select>
+                          </div> -->
                             <div class="action step2">
                                 <button class="cta cta-lowlight" (click)="prevStep()">Go back</button>
-                                <button class="cta cta-next" (click)="nextStep()">Confirm and continue</button>
+                                <button class="cta cta-next" (click)="confirmStepThree()">Confirm and continue</button>
                                 </div>
                           </div> 
                       </div>
@@ -172,41 +174,23 @@
                             <div class="products" data-type="standard">
                               <div class="card-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <p><strong>Type Ticket:</strong> Electronics</p>
-                                            <p><strong>Quantity:</strong> 10</p>
+                                    <li *ngFor="let t of typeQuantity" class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div *ngIf="t.quantity > 0">
+                                            <p><strong>Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
+                                            <p><strong>Quantity:</strong> {{t.quantity}}</p>
                                         </div>
-                                        <div class="price">
-                                          £26.50
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <p><strong>Type Ticket:</strong> Fashion</p>
-                                            <p><strong>Quantity:</strong> 20</p>
-                                        </div>
-                                        <div class="price">
-                                          £26.50
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center final">
-                                        <div>
-                                            <p><strong>Type Ticket:</strong> Accessories</p>
-                                            <p><strong>Quantity:</strong> 15</p>
-                                        </div>
-                                        <div class="price">
-                                          £26.50
+                                        <div *ngIf="t.quantity > 0" class="price">
+                                          {{t.totalPrice}}
                                         </div>
                                     </li>
                                 </ul>
                                 <ul class="list-group"> 
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>Total Quantity:</strong>
+                                        <strong>Total Price:</strong>
                                     </div>
                                     <div class="price">
-                                      45
+                                     {{this.totalPrice}}
                                     </div>
                                   </li>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -214,23 +198,39 @@
                                         <strong>Score:</strong>
                                     </div>
                                     <div class="price">
-                                      - 0
+                                      {{this.score}}
                                     </div>
                                   </li>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>Total:</strong>
+                                        <strong>Discount:</strong>
                                     </div>
                                     <div class="price">
-                                      £26.50
+                                      {{this.discount}}
+                                    </div>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>The price you pay:</strong>
+                                    </div>
+                                    <div class="price">
+                                     {{this.priceToPay}}
+                                    </div>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Payment Method:</strong>
+                                    </div>
+                                    <div class="price">
+                                      CASH
                                     </div>
                                   </li>
                                 </ul>
                             </div>                        
                             </div>
                             <div class="action step2">
-                                <span><a href="/ticket/three" role="button" class="cta cta-lowlight" data-step="3">Go back</a></span>
-                                <span><a href="#" role="button" class="cta cta-next" data-step="4">Confirm</a></span>
+                              <button class="cta cta-lowlight" (click)="prevStep()">Go back</button>
+                              <button class="cta cta-next" (click)="confirmStepFour()">Confirm and continue</button>
                                 </div>
                           </div> 
                       </div>

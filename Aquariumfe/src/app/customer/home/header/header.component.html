@@ -3,34 +3,35 @@
         <div class="container">
             <div class="header-top">
                 <div class="logo">
-                    <a href class="logo-link"><img src="/assets/img/header8.png" />Blue Planet Aquarium</a>
+                    <a href="customer" class="logo-link"><img src="/assets/img/header8.png" />Blue Planet Aquarium</a>
                 </div>
                 <div class="actions">
-                    <a href="userInfo" class="username">username</a>
-                    <div class="user-dropdown" #userDropdown>
+                    <p *ngIf="checkLogin(); else loginRegister" class="username">{{ userInfo?.firstName }}</p>
+                    <div *ngIf="checkLogin()" class="user-dropdown" #userDropdown>
                         <label class="user icon-right" for="user-dropdown-toggle">
                             <i class="bi bi-person-circle user-icon"></i>
                         </label>
                         <input type="checkbox" id="user-dropdown-toggle" class="user-dropdown-toggle" />
                         <div class="user-dropdown-content">
-                            <a href="userInfo" class="dropdown-item">User Info</a>
-                            <a href="logout" class="dropdown-item">Log Out</a>
+                            <a href="customer/userInfo" class="dropdown-item">User Info</a>
+                            <a class="dropdown-item" (click)="logout()">Log Out</a>
                         </div>
                     </div>
-
-                    <!-- Uncomment these links if needed -->
-                    <!-- <a href="login#" class="action icon-left">
+                    
+                    <ng-template #loginRegister>
+                      <a href="customer/login" class="action icon-left">
                         <i class="bi bi-door-open-fill"></i> LOGIN
-                    </a>
-                    <a href="#" class="action icon-left">
+                      </a>
+                      <a href="customer/register" class="action icon-left">
                         <i class="bi bi-box-arrow-in-right"></i> REGISTER
-                    </a> -->
-                </div>
+                      </a>
+                    </ng-template>
+                  </div>
             </div>
             <div class="divider"></div>
             <div class="header-bottom">
                 <nav class="navigation">
-                    <a href class="nav-a">EVENT</a>
+                    <a href="customer/event" class="nav-a">EVENT</a>
                     <!-- Animals Dropdown -->
                     <div class="dropdown" #animalsDropdown>
                         <label class="dropbtn icon-right" for="dropdown-toggle">ANIMALS <i class="bi bi-caret-down-fill"></i></label>
@@ -57,7 +58,7 @@
                     <a class="nav-a" href="customer/feedback">FEEDBACK</a>
                 </nav>
                 <div class="ticket">
-                    <a href="#" class="ticket-button icon-right">BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i></a>
+                    <a href="customer/buy-ticket" class="ticket-button icon-right">BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i></a>
                 </div>
             </div>
         </div>

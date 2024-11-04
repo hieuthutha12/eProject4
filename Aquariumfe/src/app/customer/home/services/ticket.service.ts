@@ -11,7 +11,7 @@ export class TicketService {
 
   constructor(private http: HttpClient) {}
 
-  createTicket(data: FormData): Observable<any> {
+  createTicket(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/buy`, data);
   }
   getAllTypeOnActive(): Observable<any>{

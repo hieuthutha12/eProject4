@@ -1,10 +1,18 @@
 package com.example.aquarium.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "Order_Details")
 public class OrderDetails {
@@ -24,55 +32,5 @@ public class OrderDetails {
 
     @OneToMany(mappedBy = "orderDetails")
     private List<Ticket> tickets;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public OrderDetails(Integer id, Order order, BigDecimal price, Integer quantity) {
-        this.id = id;
-        this.order = order;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
-    public OrderDetails() {
-    }
 }
 

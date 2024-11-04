@@ -9,7 +9,7 @@ export interface UserInfo {
     accountStatus: string;
     roleName: string;
     loyaltyPoints: number;
-    discountPercentage: number;
+    loyaltyPointValue: number;
     createdAt: Date;
   }
   

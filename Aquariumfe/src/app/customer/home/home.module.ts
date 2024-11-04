@@ -12,7 +12,6 @@ import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { AnimalRoutingModule } from './animal/animal-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { AnimalModule } from './animal/animal.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 
 
@@ -26,7 +25,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
     HomeComponent,
     FeedbackComponent,
     VisitComponent,
-    BuyTicketComponent
+    BuyTicketComponent,
+    UserInfoComponent
   
   ],
   imports: [

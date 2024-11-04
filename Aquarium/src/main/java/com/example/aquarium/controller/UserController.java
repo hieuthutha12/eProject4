@@ -40,7 +40,7 @@ public class UserController {
                     user.getAccountStatus(),
                     role.getRoleName(),
                     loyaltyPoints != null ? loyaltyPoints.getPoints() : 0,
-                    loyaltyPoints != null ? loyaltyPoints.getDiscountPercentage().doubleValue() : 0.0,
+                    loyaltyPoints != null ? loyaltyPoints.getLoyaltyPointValue().doubleValue() : 0.0,
                     loyaltyPoints != null ? loyaltyPoints.getCreatedAt() : new Date()
             ));
         } else {

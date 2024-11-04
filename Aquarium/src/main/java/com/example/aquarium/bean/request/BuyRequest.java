@@ -1,5 +1,6 @@
 package com.example.aquarium.bean.request;
 
+import com.example.aquarium.model.PaymentMethod;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -29,12 +30,12 @@ public class BuyRequest {
     @Size(max = 50, message = "Status must not exceed 50 characters")
     private String status;
 
-    @NotBlank(message = "Payment method is mandatory")
-    @Size(max = 50, message = "Payment method must not exceed 50 characters")
-    private String paymentMethod;
+    private PaymentMethod paymentMethod;
 
     @DecimalMin(value = "0.0", message = "Discount cannot be negative")
     private BigDecimal discount;
+
+    private int loyaltyPointsToUse;
 
     private List<OrderDetailsRequest> orderDetailsRequests;
 }

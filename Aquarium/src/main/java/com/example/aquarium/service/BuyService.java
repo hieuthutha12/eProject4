@@ -27,11 +27,12 @@ public class BuyService {
     private final LoyaltyPointsRepository loyaltyPointsRepository;
     @Value("${my.custom.defaultPoints}")
     private int defaultPoints;
-    @Value("${my.custom.discountPercentage}")
-    private BigDecimal discountPercentage;
+    @Value("${my.custom.loyaltyPointValue}")
+    private BigDecimal loyaltyPointValue;
 
     public BuyRequest buyTicket(BuyRequest buyRequest) {
         Order order = new Order();
+        int point = 0;
 
         User user = userRepository.findById(buyRequest.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -68,23 +69,28 @@ public class BuyService {
                     tickets.setStatus(ticket.getStatus());
                     tickets.setType(type);
                     Ticket savedTicket = ticketRepository.save(tickets);
-                    updateLoyaltyPoints(buyRequest.getUserId());
+                    point+=defaultPoints;
                 }
             }
         }
+        updateLoyaltyPoints(buyRequest.getUserId(), buyRequest.getLoyaltyPointsToUse(),point);
         return buyRequest;
     }
-        private void updateLoyaltyPoints(Integer userId) {
+        private void updateLoyaltyPoints(Integer userId, Integer loyaltyPointsToUse, Integer points) {
         LoyaltyPoints loyaltyPoint = loyaltyPointsRepository.findByUserId(userId);
         if (loyaltyPoint == null){
             LoyaltyPoints loyaltyPoints = new LoyaltyPoints();
-            loyaltyPoints.setPoints(defaultPoints);
+            loyaltyPoints.setPoints(points);
             loyaltyPoints.setCreatedAt(new Date());
-            loyaltyPoints.setDiscountPercentage(discountPercentage);
+            loyaltyPoints.setLoyaltyPointValue(loyaltyPointValue);
             loyaltyPoints.setUser(userRepository.findById(userId).orElse(null));
             loyaltyPointsRepository.save(loyaltyPoints);
         }else {
-            loyaltyPoint.setPoints(loyaltyPoint.getPoints() + defaultPoints);
+            int currentPoints = loyaltyPoint.getPoints();
+            loyaltyPoint.setPoints(currentPoints - loyaltyPointsToUse);
+
+            loyaltyPoint.setPoints(loyaltyPoint.getPoints() + points);
+            loyaltyPoint.setLoyaltyPointValue(loyaltyPointValue);
             loyaltyPointsRepository.save(loyaltyPoint);
         }
     }

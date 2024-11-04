@@ -1,4 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { AuthService } from '../../service/auth.service';
+import { UserInfo } from '../../../models/user-info.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +12,22 @@ export class HeaderComponent {
   isHeaderHidden = false;
   lastScrollTop = 0;
 
+  constructor(private authService : AuthService, private router :Router){}
+
+  userInfo: UserInfo | null = null;
+  
+  ngOnInit(): void {
+    this.authService.userInfo$.subscribe(user => {
+      this.userInfo = user;
+    });
+  }
+  checkLogin(): boolean{
+    return this.authService.isLoggedIn();
+  }
   @HostListener("window:scroll", [])
   onWindowScroll() {
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    this.isHeaderHidden = currentScroll > this.lastScrollTop; // Hide header when scrolling down
+    this.isHeaderHidden = currentScroll > this.lastScrollTop;
     this.lastScrollTop = currentScroll;
   }
 
@@ -30,5 +45,9 @@ export class HeaderComponent {
     if (this.animalsDropdown && !this.animalsDropdown.nativeElement.contains(event.target)) {
       (document.getElementById('dropdown-toggle') as HTMLInputElement).checked = false;
     }
+  }
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/home']);
   }
 }

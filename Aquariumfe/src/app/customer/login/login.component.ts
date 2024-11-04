@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
-import { UserInfo } from '../user-info.model';
+import { UserInfo } from '../../models/user-info.model';
 
 @Component({
   selector: 'app-login',
@@ -28,18 +28,6 @@ export class LoginComponent implements OnInit {
 
    ngOnInit(): void {
   }
-  loadUserInfo() {
-    this.authService.fetchUserInfo().subscribe({
-      next: (data) => {
-        this.authService.setUserInfo(data);
-        console.log(this.authService.userInfo$);
-        console.log('hieu'); 
-      },
-      error: (error) => {
-        console.error('Failed to load user info:', error);
-      }
-    });
-  }
   onLogin() {
     this.emailError = '';
     this.passwordError = '';
@@ -49,7 +37,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        this.loadUserInfo();  // Load user info after successful login
         this.router.navigate(['/customer/home']); 
       },
       error: (error) => {

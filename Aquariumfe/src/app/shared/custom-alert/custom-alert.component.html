@@ -1,15 +1,9 @@
-<!-- <div *ngIf="isVisible" class="custom-alert">
-    <div class="alert-content">
-      <span>{{ message }}</span>
-      <button (click)="closeAlert()">Close</button>
-    </div>
-  </div> -->
-  
-  <div *ngIf="isVisible" class="popup-overlay" id="popupOverlay">
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <span>{{ message }}</span>
-            <button (click)="closeAlert()">Close</button>
-        </div>
-    </div>
+<div *ngIf="message" class="popup-overlay" id="popupOverlay">
+  <div class="popup" id="popup">
+      <div class="popup-content">
+          <span>{{ message }}</span>
+          <button (click)="closeAlert()">Close</button>
+      </div>
   </div>
+</div>
+  

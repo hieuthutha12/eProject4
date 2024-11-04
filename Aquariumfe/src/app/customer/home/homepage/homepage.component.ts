@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimalService } from '../services/animal.service';
+import { AlertService } from '../../../shared/custom-alert/alert.service';
 
 @Component({
   selector: 'app-homepage',
@@ -10,7 +11,7 @@ import { AnimalService } from '../services/animal.service';
 export class HomepageComponent implements OnInit {
   animals: any[] = [];  
 
-  constructor(private router: Router, private animalService: AnimalService) {}
+  constructor(private router: Router, private animalService: AnimalService,private alertService: AlertService) {}
 
   ngOnInit() {
     this.fetchAnimal();

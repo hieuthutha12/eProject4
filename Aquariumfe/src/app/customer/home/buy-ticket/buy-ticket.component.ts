@@ -2,27 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TicketService } from '../services/ticket.service';
 import { AuthService } from '../../service/auth.service';
-import { UserInfo } from '../../user-info.model';
-import { UserService } from '../services/user.service';
+import { PaymentMethod } from '../../../models/payment-method.model';
+import { AlertService } from '../../../shared/custom-alert/alert.service';
 
 interface BuyTicket{
   userId: number;
   totalAmount: number;
+  status: String;
   discount: number;
-  orderDetails: OrderDetails[];
+  paymentMethod: PaymentMethod;
+  loyaltyPointsToUse: number;
+  orderDetailsRequests: orderDetailsRequests[];
 } 
-interface OrderDetails{
+interface orderDetailsRequests{
   price: number;
-  ticket: Ticket[];
+  ticketRequest: Ticket[];
 }
 interface Ticket{
   purchaseDate: String;
   expirationDate: String;
+  status: String;
   typeId: number;
 }
 interface TypeQuantity {
   typeId: number;   
   quantity: number; 
+  price : number;
+  totalPrice: number;
 }
 
 @Component({
@@ -34,71 +40,123 @@ interface TypeQuantity {
 export class BuyTicketComponent implements OnInit {
   minDate: string = "";
   currentStep: number = 1;
-  score: number = 0;
-  
-  showAlert: boolean = false;
-  alertMessage: string = '';
   typeQuantity: TypeQuantity[] = [];
-  constructor(private router: Router, private ticketService: TicketService, private userService: UserService) {
+  discount = 0;
+  totalPrice = 0;
+  priceToPay = 0;
+  formattedDateTime: string ='';
+  formattedNextDateTime: string ='';
+  
+  constructor(private router: Router, private ticketService: TicketService, private authService: AuthService, private alertService: AlertService) {
       const today = new Date();
       this.minDate = today.toISOString().split('T')[0];
   }
-  userInfo: UserInfo | null = null;
+  
   ngOnInit(): void {
     this.fetchTypes();
-    // this.userService.userInfo$.subscribe((userInfo: UserInfo | null) => {
-    //   this.userInfo = userInfo;
-    // });
-    if (this.userInfo) {
-      console.log('User Info in Buy Ticket Component:', this.userInfo);
-    } else {
-      console.log('No user info available.');
-    }
+    this.authService.userInfo$.subscribe((info) => {
+      this.userInfo = info;
+    });
   }
+  //step 4
+  confirmStepFour() {
+    const orderDetailsRequests = this.typeQuantity
+      .filter(item => item.quantity > 0) 
+      .map(item => {
+        const tickets = Array(item.quantity).fill(0).map(() => ({
+          purchaseDate: `${this.selectedDate}T${this.selectedTime}`,
+          expirationDate: `${this.nextDayDate}T${this.selectedTime}`,
+          status: "ON_HOLD",
+          typeId: item.typeId
+        }));
+        
+        return {
+          price: item.price,
+          ticketRequest: tickets
+        };
+      });
   
+    
+    const buyTicket: BuyTicket = {
+      userId: this.userInfo?.id || 1, 
+      totalAmount: this.priceToPay,
+      status: "pending",
+      discount: this.discount,
+      paymentMethod: PaymentMethod.CASH, 
+      loyaltyPointsToUse: this.score,
+      orderDetailsRequests: orderDetailsRequests.length > 0 ? orderDetailsRequests : [] 
+    };
   
-  
-  //step 3
-  userId: number = 0;
-  loyaltyPoints: number = 0;
-  discountPercentage: number = 0;
-  onCheckPoint(): void {
-    if (this.score !== null) {
-      if (this.score > this.loyaltyPoints) {
-
-      } else {
-
+    this.ticketService.createTicket(buyTicket).subscribe(
+      response => {
+        if (this.userInfo) {
+          this.userInfo.loyaltyPoints -= this.score;
+          this.authService.setUserInfo(this.userInfo);
+        }
+        this.alertService.showAlert("Booking successful"); 
+        this.router.navigate(['customer']);
+      },
+      error => {
+        console.error("Purchase failed:", error);
+        this.alertService.showAlert("Failed to complete the purchase. Please try again.");
       }
-    }
+    );
   }
+  
+
+  userInfo: any;
+  score: number = 0;
+  //step 3
+  
   getTypeById(id: number): any {
     return this.types.find(type => type.id === id) || null;
   }
-
+  updateQuantity() {
+    this.types.forEach(item => {
+      const existingType = this.typeQuantity.find(type => type.typeId === item.id);
+      if (existingType) {
+        existingType.totalPrice = existingType.quantity * existingType.price;
+      }
+    });
+  }
+  
   removeTypeQuantity(typeId: number) {
     const index = this.typeQuantity.findIndex(item => item.typeId === typeId);
     if (index !== -1) {
         this.typeQuantity.splice(index, 1);
     }
   }
+
   confirmStepThree() {
-    this.fetchTypes();
+    const hasQuantityGreaterThanZero = this.typeQuantity.some(item => item.quantity > 0);
+    if(!hasQuantityGreaterThanZero){
+      this.alertService.showAlert("Please select ticket");
+    }
+    else{
+      if (this.score !== null) {
+        if (this.score > this.userInfo.loyaltyPoints) {
+          this.alertService.showAlert("Your loyalty points are not enough to buy the tickets.");
+        }
+        else {
+          this.updateQuantity();
+          this.discount = Math.round(this.score * this.userInfo.loyaltyPointValue);
+          this.totalPrice = this.typeQuantity.reduce((total, item) => total + item.totalPrice, 0);
+          this.priceToPay = this.totalPrice - this.discount;
+          this.nextStep();
+        }
+      }
+    }
+    
   }
   //step 2
   changeNum(num: number, id: number) {
     const typeIndex = this.typeQuantity.findIndex(item => item.typeId === id);
     if (typeIndex !== -1) {
-        
         if ((this.typeQuantity[typeIndex].quantity > 0 && num === -1) || 
             (this.typeQuantity[typeIndex].quantity < 15 && num === 1)) {
             this.typeQuantity[typeIndex].quantity += num;
-            console.log(this.typeQuantity[typeIndex].quantity);
         }
-    } else {
-        if (num === 1) {
-            this.typeQuantity.push({ typeId: id, quantity: 1 });
-        }
-    }
+      }
   }
   getQuantity(typeId: number): number {
     if (!this.typeQuantity) return 0; 
@@ -108,13 +166,10 @@ export class BuyTicketComponent implements OnInit {
 
 
   confirmStepTwo() {
-    this.typeQuantity = this.typeQuantity.filter(item => item.quantity > 0);
     const allQuantitiesZero = this.typeQuantity.every(item => item.quantity === 0);
     if (allQuantitiesZero) {
-      this.alertMessage = 'Please select at least one type and quantity.';
-      this.showAlert = true;
+      this.alertService.showAlert("Please select at least one type and quantity.");
     }else{
-      this.showAlert = false;
       this.nextStep();
     }
   }
@@ -134,18 +189,14 @@ export class BuyTicketComponent implements OnInit {
   }
   confirmStepOne() {
     if (this.selectedDate && this.selectedTime) {
-      const formattedDateTime = `${this.selectedDate}T${this.selectedTime}`;
-      const formattedNextDateTime = `${this.nextDayDate}T${this.selectedTime}`;
-      this.showAlert = false;
+      this.formattedDateTime = `${this.selectedDate}T${this.selectedTime}`;
+      this.formattedNextDateTime = `${this.nextDayDate}T${this.selectedTime}`;
       this.nextStep();
     } else {
-      this.alertMessage = 'Please select both date and time.';
-      this.showAlert = true;
+      this.alertService.showAlert("Please select both date and time.");
     }
   }
-  showWarning(message: string) {
-    alert(message);
-  }
+
     // next page
   nextStep() {
     if (this.currentStep < 4) {
@@ -154,14 +205,12 @@ export class BuyTicketComponent implements OnInit {
   }
 
   prevStep() {
+    this.fetchTypes();
     if (this.currentStep > 1) {
       this.currentStep--;
     }
   }
 
-  submitScore() {
-    console.log(`Score submitted: ${this.score}`);
-  }
 //  getType
   types: any[]=[];
   fetchTypes() {
@@ -169,16 +218,13 @@ export class BuyTicketComponent implements OnInit {
       (data: any) => {
         this.types = data; 
         this.types.forEach(item => {
-          this.typeQuantity.push({ typeId: item.id, quantity: 0 });
+          this.typeQuantity.push({ typeId: item.id, quantity: 0 , price: item.price,totalPrice: 0});
       });
       },
       error => {
         console.error('Error fetching events:', error); 
       }
     );
-  }
-  handleCloseAlert() {
-    this.showAlert = false;
   }
 }
 

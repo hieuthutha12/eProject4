@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
-import { UserInfo } from '../../user-info.model';
+import { UserInfo } from '../../../models/user-info.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../service/auth.service';
 
