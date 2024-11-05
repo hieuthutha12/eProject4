@@ -1,5 +1,4 @@
-
-  input[type="radio"] {
+input[type="radio"] {
     display: none; 
   }
 
@@ -24,19 +23,22 @@
     position: relative;
     z-index: 10;
     margin-bottom: 35px;
+    flex-wrap: wrap;
 }
 
 .step-wizard-item{
     padding: 0 20px;
+    flex: 1 1 auto;
+    text-align: center;
     flex-basis: 0;
     -webkit-box-flex: 1;
     -ms-flex-positive:1;
     flex-grow: 1;
     max-width: 100%;
+    min-width: 80px;
     display: flex;
     flex-direction: column;
     text-align: center;
-    min-width: 170px;
     position: relative;
 }
 .step-wizard-item + .step-wizard-item:after{
@@ -50,6 +52,15 @@
     transform: translateX(-50%);
     z-index: -10;
 }
+@media (max-width: 768px) {
+    .step-wizard {
+      flex-direction: column;
+    }
+  
+    .step-wizard-item {
+      margin-bottom: 15px;
+    }
+  }
 .progress-count{
     height: 40px;
     width:40px;
@@ -123,6 +134,7 @@ h1 {
 }
 
 .box {
+    flex: 1 1 45%; 
     margin-left: 20%;
 }
 
@@ -418,6 +430,28 @@ input, button, select, optgroup, textarea {
 
   .final {
     border-bottom: 1px solid #BFBFBF;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .box {
+      flex: 1 1 100%; 
+      margin: 5px 0;
+    }
+  }
+  @media (max-width: 480px) {
+    .box {
+      padding: 10px;
+      font-size: 14px; 
+    }
+  
+    .step-wizard-item {
+      flex-direction: column;
+      text-align: center;
+    }
   }
 
 
