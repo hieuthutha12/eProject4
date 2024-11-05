@@ -64,4 +64,11 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
+  showPassword: boolean = false;
+
+    togglePasswordVisibility(): void {
+        this.showPassword = !this.showPassword;
+    }
+    
 }
