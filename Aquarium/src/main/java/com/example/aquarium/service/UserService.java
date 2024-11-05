@@ -1,6 +1,10 @@
 package com.example.aquarium.service;
 
+import com.example.aquarium.bean.request.UserDTO;
+import com.example.aquarium.bean.request.UserRequest;
+import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.UserResponse;
+import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.mapper.UserMapper;
 import com.example.aquarium.model.LoyaltyPoints;
 import com.example.aquarium.model.Role;
@@ -25,6 +29,7 @@ public class UserService {
 
     private final LoyaltyPointsRepository loyaltyPointsRepository;
 
+
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -42,6 +47,16 @@ public class UserService {
                 .map(UserMapper::toResponse)
                 .collect(Collectors.toList());
 
+    }
+    public MessageResponse updateUser(int userId, UserRequest userRequest){
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        user.setFirstName(userRequest.getFirstName());
+        user.setLastName(userRequest.getLastName());
+        user.setAddress(userRequest.getAddress());
+        user.setPhone(userRequest.getPhone());
+        user.setEmail(userRequest.getEmail());
+        userRepository.save(user);
+        return new MessageResponse("Successfully");
     }
 }
 

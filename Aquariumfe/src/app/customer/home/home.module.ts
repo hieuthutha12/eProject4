@@ -10,7 +10,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { VisitComponent } from './visit/visit.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { AnimalRoutingModule } from './animal/animal-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 
@@ -35,7 +35,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
     EventRoutingModule,
     AnimalRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

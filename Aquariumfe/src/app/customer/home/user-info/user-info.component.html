@@ -2,39 +2,43 @@
     <!-- User Information Form -->
     <div class="user-info-container">
         <h1>User Information</h1>
-        <form id="user-info-form">
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" placeholder="{{this.userInfo.firstName}}">
-            
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" placeholder="{{this.userInfo.lastName}}">
-            
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="{{this.userInfo.email}}">
-            
-            <label for="password">Password</label>
-                <div class="password-field">
-                    <input type="password" id="password" name="password" value="********" disabled>
-                    <span class="edit-icon" (click)="togglePasswordFields()" title="Change Password">&#9998;</span>
-                </div>
-
-            <div *ngIf="showPasswordFields" class="password-change-fields">
-                <label for="old-password">Current Password</label>
-                <input type="password" id="old-password" name="old-password" placeholder="Enter current password">
-
-                <label for="new-password">New Password</label>
-                <input type="password" id="new-password" name="new-password" placeholder="Enter new password">
+        <form [formGroup]="userInfoForm" (ngSubmit)="updateUserInfo()">
+          <label for="first-name">First Name</label>
+          <input type="text" formControlName="firstName" id="first-name" placeholder="Enter first name">
     
-            </div>
-
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="{{this.userInfo.phone}}">
-            
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="{{this.userInfo.address}}">
-            <button type="submit">Update Info</button>
+          <label for="last-name">Last Name</label>
+          <input type="text" formControlName="lastName" id="last-name" placeholder="Enter last name">
+    
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" id="email" placeholder="Enter email">
+    
+          <label for="phone">Phone Number</label>
+          <input type="tel" formControlName="phone" id="phone" placeholder="Enter phone number">
+    
+          <label for="address">Address</label>
+          <input type="text" formControlName="address" id="address" placeholder="Enter address">
+    
+          <button type="submit">Update Info</button>
         </form>
-    </div>
+        <label for="password">Password</label>
+          <div class="password-field">
+            <input type="password" value="********" disabled>
+            <span class="edit-icon" (click)="togglePasswordFields()" title="Change Password">&#9998;</span>
+          </div>
+    
+          <div *ngIf="showPasswordFields" class="password-change-fields">
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+            <label for="old-password">Current Password</label>
+            <input type="password" formControlName="oldPassword" id="old-password" placeholder="Enter current password">
+            <div *ngIf="oldPasswordError" class="error">*{{ oldPasswordError }}</div>   
+    
+            <label for="new-password">New Password</label>
+            <input type="password" formControlName="newPassword" id="new-password" placeholder="Enter new password">
+            <div *ngIf="newPasswordError" class="error">*{{ newPasswordError }}</div>  
+            <button type="submit">Change Password</button>
+            </form>
+          </div>
+      </div>
 
     <!-- Ticket Table -->
     <div class="ticket-table-container">

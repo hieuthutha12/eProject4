@@ -1,12 +1,19 @@
 package com.example.aquarium.controller;
 
+import com.example.aquarium.bean.request.PasswordChangeRequest;
+import com.example.aquarium.bean.request.TypeRequest;
+import com.example.aquarium.bean.request.UserRequest;
+import com.example.aquarium.bean.response.AuthResponse;
+import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.UserInfo;
 import com.example.aquarium.bean.response.UserResponse;
 import com.example.aquarium.model.LoyaltyPoints;
 import com.example.aquarium.model.Role;
 import com.example.aquarium.model.User;
 import com.example.aquarium.security.jwt.JwtTokenProvider;
+import com.example.aquarium.service.AuthService;
 import com.example.aquarium.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +28,8 @@ public class UserController {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    private final AuthService authService;
+
 
     @GetMapping("/info")
     public ResponseEntity<UserInfo> getUserInfo(@RequestHeader("Authorization") String authorizationHeader) {
@@ -62,6 +71,33 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<UserResponse> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+    @PostMapping("update/{id}")
+    public ResponseEntity<?> updateInfo(@PathVariable Integer id,@Valid @RequestBody UserRequest request){
+        try {
+            MessageResponse response = userService.updateUser(id, request);
+            if (response.getErrors() != null) {
+                return ResponseEntity.badRequest().body(response);
+            }
+            return ResponseEntity.ok("");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
+    @PostMapping("/changePassword/{id}")
+    public ResponseEntity<?> changePassword(
+            @PathVariable Integer id,
+            @Valid @RequestBody PasswordChangeRequest passwordChangeRequest) {
+        try {
+            MessageResponse response = authService.changePassword(id, passwordChangeRequest);
+            if (response.getErrors() != null) {
+                return ResponseEntity.badRequest().body(response);
+            }
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+
     }
 }
 

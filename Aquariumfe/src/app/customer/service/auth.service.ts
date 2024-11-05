@@ -28,7 +28,8 @@ export class AuthService {
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.http.post<{ token: string }>(this.apiUrlLogin, credentials, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
       })
     }).pipe(
       tap(response => {
@@ -40,7 +41,7 @@ export class AuthService {
   register(credentials: { firstName: string; lastName: string; address: string; phone: string; email: string; password: string }): Observable<any> {
     return this.http.post<{ token: string }>(this.apiUrlRegister, credentials, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       })
     }).pipe(
       tap(response => this.setToken(response.token)), 
