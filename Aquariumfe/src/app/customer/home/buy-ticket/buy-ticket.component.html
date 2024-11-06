@@ -6,7 +6,7 @@
               <div class="container">
                   <h1>Book Your Tickets</h1>
 
-                  <section class="step-wizard">
+                  <!-- <section class="step-wizard">
                       <ul class="step-wizard-list">
                           <li class="step-wizard-item current-item">
                               <span class="progress-count">1</span>
@@ -25,38 +25,61 @@
                               <span class="progress-label">Success</span>
                           </li>
                       </ul>
-                  </section>
+                  </section> -->
                   <!-- Step 1 -->
-                  <div *ngIf="currentStep === 1" class="row sib">
-                    <div class="col-12 col-lg-7 box">
-                      <div class="js-panel-holder" style="height: 406.6px">
-                        <div class="panel js-panel right" data-step="2">
-                          <p class="guidance">When would you like to visit?</p>
-                          <div class="avail">
-                            <div class="list">
-                              <label class="item">
-                                <input type="radio" name="selectedTime" [(ngModel)]="selectedTime" value="07:00" />
-                                <div class="item-content row no-gutters">
-                                  <span class="st">07:00</span>
-                                </div>
-                              </label>
-                              <label class="item">
-                                <input type="radio" name="selectedTime" [(ngModel)]="selectedTime" value="10:00" />
-                                <div class="item-content row no-gutters">
-                                  <span class="st">10:00</span>
-                                </div>
-                              </label>
-                              <label class="item">
-                                <input type="radio" name="selectedTime" [(ngModel)]="selectedTime" value="12:00" />
-                                <div class="item-content row no-gutters">
-                                  <span class="st">12:00</span>
-                                </div>
-                              </label>
+                  <div *ngIf="currentStep === 1">
+                    <section class="step-wizard">
+                      <ul class="step-wizard-list">
+                          <li class="step-wizard-item current-item">
+                              <span class="progress-count">1</span>
+                              <span class="progress-label">Time</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">2</span>
+                              <span class="progress-label">Choose Ticket</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">3</span>
+                              <span class="progress-label">Check</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">4</span>
+                              <span class="progress-label">Success</span>
+                          </li>
+                      </ul>
+                    </section>
+                    <div class="row sib">
+                      <div class="col-12 col-lg-7 box"> 
+                        <div class="js-panel-holder" style="height: 406.6px">
+                          <div class="panel js-panel right" data-step="2">
+                            <p class="guidance">When would you like to visit?</p>
+                            <div class="avail">
+                              <div class="list">
+                                <label class="item">
+                                  <input type="radio" name="selectedTime" [(ngModel)]="selectedTime" value="07:00" />
+                                  <div class="item-content row no-gutters">
+                                    <span class="st">07:00</span>
+                                  </div>
+                                </label>
+                                <label class="item">
+                                  <input type="radio" name="selectedTime" [(ngModel)]="selectedTime" value="10:00" />
+                                  <div class="item-content row no-gutters">
+                                    <span class="st">10:00</span>
+                                  </div>
+                                </label>
+                                <label class="item">
+                                  <input type="radio" name="selectedTime" [(ngModel)]="selectedTime" value="12:00" />
+                                  <div class="item-content row no-gutters">
+                                    <span class="st">12:00</span>
+                                  </div>
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    
                   
                     <div class="col-12 col-lg-7 box">
                       <div class="js-panel-holder" style="height: 406.6px">
@@ -81,8 +104,29 @@
                     </div>
                   </div>
                   <!-- Step 2 -->
-                  <div *ngIf="currentStep === 2" class="col-12 col-lg-7 box">
-                    <div class="row sib">
+                  <div *ngIf="currentStep === 2">
+                    <section class="step-wizard">
+                      <ul class="step-wizard-list">
+                          <li class="step-wizard-item ">
+                              <span class="progress-count">1</span>
+                              <span class="progress-label">Time</span>
+                          </li>
+                          <li class="step-wizard-item current-item">
+                              <span class="progress-count">2</span>
+                              <span class="progress-label">Choose Ticket</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">3</span>
+                              <span class="progress-label">Check</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">4</span>
+                              <span class="progress-label">Success</span>
+                          </li>
+                      </ul>
+                    </section>
+                    <div class="col-12 col-lg-7 box">
+                      <div class="row sib">
                         <div class="panel js-panel right" data-step="3">
                             <p class="guidance">Select your tickets</p>
                             <div class="products" data-type="standard">
@@ -119,11 +163,33 @@
                                 <button class="cta cta-next" (click)="confirmStepTwo()">Confirm and continue</button>
                                 </div>
                           </div> 
-                      </div>
+                    </div>
+                    </div>                   
                   </div>
                     <!-- Step 3 -->
-                  <div *ngIf="currentStep === 3" class="col-12 col-lg-7 box">
-                    <div class="row sib">
+                  <div *ngIf="currentStep === 3">
+                    <section class="step-wizard">
+                      <ul class="step-wizard-list">
+                          <li class="step-wizard-item ">
+                              <span class="progress-count">1</span>
+                              <span class="progress-label">Time</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">2</span>
+                              <span class="progress-label">Choose Ticket</span>
+                          </li>
+                          <li class="step-wizard-item current-item">
+                              <span class="progress-count">3</span>
+                              <span class="progress-label">Check</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">4</span>
+                              <span class="progress-label">Success</span>
+                          </li>
+                      </ul>
+                    </section>
+                    <div class="col-12 col-lg-7 box">
+                      <div class="row sib">
                         <div class="panel js-panel right" data-step="3">
                             <p class="guidance">Order Detail</p>
                             <div class="products" data-type="standard">
@@ -136,8 +202,8 @@
                                 <ul class="list-group">
                                     <li *ngFor="let t of typeQuantity"  class="list-group-item d-flex justify-content-between align-items-center" >
                                         <div *ngIf="t.quantity > 0">
-                                            <p><strong>Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
-                                            <p><strong>Quantity:</strong> {{t.quantity}}</p>
+                                            <p><strong style="font-size: 20px;">Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
+                                            <p><strong style="font-size: 20px;">Quantity:</strong> {{t.quantity}}</p>
                                         </div>
                                         <button *ngIf="t.quantity > 0" class="btn btn-danger btn-sm" (click)="removeTypeQuantity(t.typeId)">Delete</button>
                                     </li>
@@ -164,11 +230,33 @@
                                 <button class="cta cta-next" (click)="confirmStepThree()">Confirm and continue</button>
                                 </div>
                           </div> 
-                      </div>
+                    </div>
+                    </div>                  
                   </div>
                   <!-- Step 4 -->
-                  <div *ngIf="currentStep === 4" class="col-12 col-lg-7 box">
-                    <div class="row sib">
+                  <div *ngIf="currentStep === 4">
+                    <section class="step-wizard">
+                      <ul class="step-wizard-list">
+                          <li class="step-wizard-item ">
+                              <span class="progress-count">1</span>
+                              <span class="progress-label">Time</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">2</span>
+                              <span class="progress-label">Choose Ticket</span>
+                          </li>
+                          <li class="step-wizard-item">
+                              <span class="progress-count">3</span>
+                              <span class="progress-label">Check</span>
+                          </li>
+                          <li class="step-wizard-item current-item">
+                              <span class="progress-count">4</span>
+                              <span class="progress-label">Success</span>
+                          </li>
+                      </ul>
+                    </section>
+                    <div class="col-12 col-lg-7 box">
+                      <div class="row sib">
                         <div class="panel js-panel right" data-step="4">
                             <p class="guidance">Book Success!</p>
                             <div class="products" data-type="standard">
@@ -233,7 +321,8 @@
                               <button class="cta cta-next" (click)="confirmStepFour()">Confirm and continue</button>
                                 </div>
                           </div> 
-                      </div>
+                    </div>
+                    </div>                   
                   </div>
 
               </div>

@@ -628,3 +628,30 @@ body {
   margin-right: 10px;
   width: 110px;
 }
+
+@media (max-width: 768px) {
+  .logo {
+      display: none;
+  }
+  .header-top, .header-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  .nav-a, .ticket-button {
+      font-size: 14px;
+  }
+  .navigation {
+      display: none;
+      flex-direction: column;
+  }
+  .header-bottom.active .navigation {
+      display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .navigation {
+      display: flex;
+  }
+}

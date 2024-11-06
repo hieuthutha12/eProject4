@@ -117,7 +117,7 @@ input[type="radio"] {
     color: #21d4fd;
 }
 h1 {
-    padding-top: 50px;
+    padding-top: 300px;
     font-weight: 500;
     display: block;
     font-weight: bold;
@@ -197,13 +197,6 @@ input, button, select, optgroup, textarea {
     font-size: inherit;
     line-height: inherit;
 }
-.action {
-    background-color: #fff;
-    border-radius: 16px;
-    margin-top: 165px;
-    padding: 0px 30px 0px 30px;
-    display: grid;
-}
 .quick-summary {
     padding-left: 15px;
     display: none;
@@ -229,6 +222,13 @@ input, button, select, optgroup, textarea {
     text-align: center;
     margin-bottom: 30px;
     outline-offset: -1px;
+}
+.cta-next{
+    border: none;
+}
+.cta-next:hover{
+    background-color: #063853;
+    color: white;
 }
 .cta.cta-lowlight {
     background-color: transparent;
@@ -309,8 +309,8 @@ input, button, select, optgroup, textarea {
     line-height: 20px;
 }
 .products .prod-desc, .products .prod-price {
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 23px;
+    line-height: 30px;
     color: #063853;
     font-weight: 600;
 }
@@ -452,6 +452,18 @@ input, button, select, optgroup, textarea {
       flex-direction: column;
       text-align: center;
     }
+  }
+
+  .ar input[type="number"] {
+    border: none; 
+    outline: none; 
+    /* -moz-appearance: textfield;  */
+  }
+  
+ .ar input[type="number"]::-webkit-inner-spin-button,
+ .ar input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
+    margin: 0;
   }
 
 
