@@ -43,29 +43,32 @@
     <!-- Ticket Table -->
     <div class="ticket-table-container">
         <h2>Your Tickets</h2>
-        <table>
+        <table *ngIf="tickets && tickets.length > 0; else noTicketsMessage">
             <thead>
-                <tr>
-                    <th>Ticket</th>
-                    <th>Type</th>
-                    <th>Number</th>
-                    <th>Discount</th>
-                    <th>Buy Date</th>
-                    <th>Expiration Date</th>
-                    <th>Total</th>
-                </tr>
+              <tr>
+                <th (click)="sortTickets('ticketId')">Ticket</th>
+                <th (click)="sortTickets('type')">Type</th>
+                <th (click)="sortTickets('number')">Number</th>
+                <th (click)="sortTickets('status')">Status</th>
+                <th (click)="sortTickets('buyDate')">Buy Date</th>
+                <th (click)="sortTickets('expirationDate')">Expiration Date</th>
+                <th (click)="sortTickets('total')">Total</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>VIP</td>
-                    <td>2</td>
-                    <td>10%</td>
-                    <td>2024-10-15</td>
-                    <td>2025-10-15</td>
-                    <td>$200</td>
+                <tr *ngFor="let ticket of tickets">
+                    <td>TK0{{ticket.ticketId}}</td>
+                    <td>{{ticket.type}}</td>
+                    <td>{{ticket.number}}</td>
+                    <td>{{ticket.status}}</td>
+                    <td>{{ticket.buyDate}}</td>
+                    <td>{{ticket.expirationDate}}</td>
+                    <td>{{ticket.total}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <ng-template #noTicketsMessage>
+      <p>Bạn chưa có vé</p>
+  </ng-template>
 </div>

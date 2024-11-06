@@ -4,6 +4,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { AlertService } from '../../../shared/custom-alert/alert.service';
 
+interface Ticket {
+  userId: number;
+  ticketId: number;
+  type: string;
+  number: number;
+  status: string;
+  buyDate: string;
+  expirationDate: string;
+  total: number;
+}
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
@@ -37,6 +47,7 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
+  tickets: Ticket[]=[];
   ngOnInit(): void {
     this.authService.userInfo$.subscribe((info) => {
       if (info) {
@@ -44,9 +55,41 @@ export class UserInfoComponent implements OnInit {
         this.userInfoForm.patchValue(info);
       }
     });
+    this.userService.getUserTickets(this.userInfo.id).subscribe(
+      (data: any) => {
+        this.tickets = data; 
+      },
+      error => {
+        console.error('Error fetching events:', error); 
+      }
+    );
+  }
+  sortedColumn: string = '';
+ascending: boolean = true;
+
+sortTickets(column: keyof Ticket): void {
+  if (this.sortedColumn === column) {
+      this.ascending = !this.ascending;
+  } else {
+      this.sortedColumn = column;
+      this.ascending = true;
   }
 
-  // Method to update user info without password
+  this.tickets.sort((a, b) => {
+      const aValue = a[column];
+      const bValue = b[column];
+
+      // Handle sorting based on data type
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+          return this.ascending ? aValue - bValue : bValue - aValue;
+      } else if (typeof aValue === 'string' && typeof bValue === 'string') {
+          return this.ascending ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      }
+      return 0;
+  });
+}
+
+
   updateUserInfo(): void {
     if (this.userInfoForm.valid) {
       const updatedInfo = this.userInfoForm.value;
