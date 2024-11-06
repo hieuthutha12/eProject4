@@ -3,7 +3,7 @@ package com.example.aquarium.controller;
 import com.example.aquarium.bean.request.PasswordChangeRequest;
 import com.example.aquarium.bean.request.TypeRequest;
 import com.example.aquarium.bean.request.UserRequest;
-import com.example.aquarium.bean.response.AuthResponse;
+import com.example.aquarium.dto.response.BuyResponse;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.UserInfo;
 import com.example.aquarium.bean.response.UserResponse;
@@ -37,7 +37,7 @@ public class UserController {
             String token = authorizationHeader.substring(7);
             String email = jwtTokenProvider.extractEmail(token);
             User user = userService.findByEmail(email);
-            Role role = userService.findRoleByUserId(user.getId());
+            Role role = userService.findRoleByUserId(user.getRole().getId());
             LoyaltyPoints loyaltyPoints = userService.findLoyaltyPointsByUserId(user.getId());
             return ResponseEntity.ok(new UserInfo(
                     user.getId(),
@@ -97,8 +97,13 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
-
     }
+    @GetMapping("/buy/{id}")
+    public ResponseEntity<?> getBuyUser(@PathVariable Integer id){
+        List<BuyResponse> buyResponses = userService.getBuyResponsesByUserId(id);
+        return ResponseEntity.ok(buyResponses);
+    }
+
 }
 
 
