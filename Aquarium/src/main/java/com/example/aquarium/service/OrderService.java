@@ -28,8 +28,6 @@ public class OrderService {
         return orderRepository.findById(id)
                 .map(order -> orderMapper.toResponse(order));
     }
-
-
     public List<OrderResponse> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
         return orders.stream()
