@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../../shared/custom-alert/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertService: AlertService
   ) {
     this.registerForm = this.formBuilder.group({
       email: [''],  
@@ -83,7 +85,8 @@ export class RegisterComponent implements OnInit {
 
     this.authService.confirmRegistration(email, verificationCode).subscribe({
       next: () => {
-        this.router.navigate(['/customer/login']);
+        this.alertService.showAlert('Registration successful', 'success');
+        this.router.navigate(['/customer']);
       },
       error: (error) => {
         console.error('Verification failed:', error);

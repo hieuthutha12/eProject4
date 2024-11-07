@@ -20,6 +20,7 @@ public class SecurityConfig {
                 csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/image/**").permitAll()
 //                .requestMatchers("/api/auth/**").permitAll()
 //                .requestMatchers("/api/events/**").permitAll()
 //                .requestMatchers(HttpMethod.POST, "/api/events/**").hasAuthority("EVENT_CREATE")
@@ -38,6 +39,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    // Thêm các bean khác như UserDetailsService, PasswordEncoder nếu cần
 }
 

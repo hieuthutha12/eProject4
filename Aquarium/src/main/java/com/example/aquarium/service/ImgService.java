@@ -26,9 +26,7 @@ public class ImgService {
     public String saveImage(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
-        Path path = Paths.get(uploadDir + newFilename);
-        Files.createDirectories(path.getParent());
-        Files.write(path, file.getBytes());
+        Files.copy(file.getInputStream(), Paths.get(uploadDir).resolve(newFilename));
         return newFilename;
     }
 }

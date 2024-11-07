@@ -8,12 +8,17 @@ import { AlertService } from './alert.service';
 })
 export class CustomAlertComponent implements OnInit {
   message: string | null = null;
+  alertType: string = 'warning';
 
   constructor(private alertService: AlertService) {}
 
   ngOnInit() {
     this.alertService.alertMessage$.subscribe(message => {
       this.message = message;
+    });
+
+    this.alertService.alertType$.subscribe(type => {
+      this.alertType = type;
     });
   }
 

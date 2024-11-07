@@ -20,6 +20,15 @@
   padding: 0 30px 30px;
   color: #333;
 }
+.popup-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.popup-warning {
+  background-color: #f8d7da;
+  color: #721c24;
+}
 
 .popup img{
 width: 100px;
