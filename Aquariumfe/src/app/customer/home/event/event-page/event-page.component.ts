@@ -52,11 +52,10 @@ export class EventPageComponent implements OnInit {
     this.updateEvents();
   }
 
-  goToNextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateEvents();
-    }
+  updateEvents() {
+    const startIndex = (this.currentPage - 1) * this.eventsPerPage;
+    const endIndex = startIndex + this.eventsPerPage;
+    this.events = this.filteredEvents.slice(startIndex, endIndex);
   }
 
   goToPreviousPage() {
@@ -66,8 +65,27 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  updateEvents() {
-    const startIndex = (this.currentPage - 1) * this.eventsPerPage;
-    this.events = this.filteredEvents.slice(startIndex, startIndex + this.eventsPerPage);
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateEvents();
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.updateEvents();
+  }
+
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    const startPage = Math.max(1, this.currentPage - 2);
+    const endPage = Math.min(this.totalPages, this.currentPage + 2);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return pageNumbers;
   }
 }

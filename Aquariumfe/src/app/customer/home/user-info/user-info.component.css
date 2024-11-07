@@ -112,3 +112,6 @@ button:hover {
 .ticket-table-container tr:hover {
     background-color: #f9f9f9;
 }
+.hand:hover {
+    cursor: pointer;
+  }
