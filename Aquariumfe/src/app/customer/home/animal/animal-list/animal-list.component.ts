@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AnimalService } from '../../services/animal.service';
-import { error } from 'console';
 
 @Component({
   selector: 'app-animal-list',
   templateUrl: './animal-list.component.html',
-  styleUrl: './animal-list.component.css'
+  styleUrls: ['./animal-list.component.css']
 })
 export class AnimalListComponent implements OnInit {
   animals: any[] = [];  
@@ -16,22 +15,35 @@ export class AnimalListComponent implements OnInit {
   currentPage: number = 1;
   animalsPerPage: number = 8;
   totalPages: number = 0;
+  selectedSpeciesId: number | null = null;
 
-  constructor(private router: Router, private animalService: AnimalService) {}
+  constructor(
+    private router: Router,
+    private animalService: AnimalService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.fetchAnimal();
+    this.route.paramMap.subscribe(params => {
+      const speciesId = params.get('speciesId'); 
+      this.selectedSpeciesId = speciesId ? +speciesId : null;
+      this.fetchAnimal(this.selectedSpeciesId);
+    });
   }
-  fetchAnimal() {
+
+  fetchAnimal(speciesId: number | null = null) {
     this.animalService.getAllAnimals().subscribe(
       (data: any[]) => {
         this.originalAnimals = data;
-        this.filteredAnimals = [...this.originalAnimals];
+        this.filteredAnimals = speciesId
+          ? this.originalAnimals.filter(animal => animal.species.id === speciesId)
+          : [...this.originalAnimals];
         this.totalPages = Math.ceil(this.filteredAnimals.length / this.animalsPerPage);
         this.updateAnimals();
       }
     );
   }
+
   onSearch() {
     this.currentPage = 1;
     const searchTermLower = this.searchTerm.toLowerCase();
@@ -39,7 +51,8 @@ export class AnimalListComponent implements OnInit {
     if (this.searchTerm) {
       this.filteredAnimals = this.originalAnimals.filter(animal =>
         animal.name && animal.name.toLowerCase().includes(searchTermLower)
-        ||animal.name.toLowerCase().startsWith(searchTermLower));
+        || animal.name.toLowerCase().startsWith(searchTermLower)
+      );
     } else {
       this.filteredAnimals = [...this.originalAnimals];
     }
@@ -47,6 +60,7 @@ export class AnimalListComponent implements OnInit {
     this.totalPages = Math.ceil(this.filteredAnimals.length / this.animalsPerPage);
     this.updateAnimals();
   }
+
   goToNextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -65,5 +79,10 @@ export class AnimalListComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.animalsPerPage;
     this.animals = this.filteredAnimals.slice(startIndex, startIndex + this.animalsPerPage);
   }
-}
 
+  filterBySpecies(speciesId: number | null) {
+    this.selectedSpeciesId = speciesId;
+    this.currentPage = 1;
+    this.fetchAnimal(this.selectedSpeciesId);
+  }
+}

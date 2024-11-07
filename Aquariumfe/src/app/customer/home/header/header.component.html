@@ -41,14 +41,10 @@
                                 <div class="category-list">
                                     <h2 class="animals-title">Explore Animal Categories</h2>
                                     <ul class="category-options">
-                                        <li><a href="#" class="list-opt">Fish</a></li>
-                                        <li><a href="#" class="list-opt">Mammals</a></li>
-                                        <li><a href="#" class="list-opt">Mollusks</a></li>
-                                        <li><a href="#" class="list-opt">Crustaceans</a></li>
-                                        <li><a href="#" class="list-opt">Jellyfish</a></li>
-                                        <li><a href="#" class="list-opt">Cnidarians</a></li>
-                                        <li><a href="#" class="list-opt">Corals and sponges</a></li>
-                                        <li><a href="#" class="list-opt">Marine plants and algae</a></li>
+                                        <li><a (click)="filterAnimals('all')" class="list-opt">All</a></li>
+                                    </ul>
+                                    <ul class="category-options" *ngFor="let s of species">
+                                        <li><a (click)="filterAnimals(s.name)" class="list-opt">{{s.name}}</a></li>
                                     </ul>
                                 </div>
                             </div>
