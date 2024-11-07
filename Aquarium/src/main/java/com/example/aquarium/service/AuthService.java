@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,6 +31,8 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final EmailService emailService;
 
     public MessageResponse loginUser(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail());
@@ -60,13 +63,51 @@ public class AuthService {
         return new MessageResponse("Password changed successfully");
     }
 
-    public AuthResponse registerUser(UserDTO userDto) throws Exception {
+    private final Map<String, String> verificationCodes = new HashMap<>();
+    private final Map<String, UserDTO> pendingUsers = new HashMap<>();
+
+    public MessageResponse registerUser(UserDTO userDto) {
+        // Check if the email already exists in the system
         if (userRepository.existsByEmail(userDto.getEmail())) {
-            throw new Exception("Username is already taken!");
+            // If email exists, return an error message
+            return new MessageResponse("Email already registered", Map.of("email", "This email is already in use"));
         }
+
+        try {
+            // Send the verification code
+            String verificationCode = emailService.sendVerificationCode(userDto.getEmail());
+
+            // Store the verification code and pending user for further confirmation
+            verificationCodes.put(userDto.getEmail(), verificationCode);
+            pendingUsers.put(userDto.getEmail(), userDto);
+
+            // Return a success message after sending the verification code
+            return new MessageResponse("Verification code sent to your email. Please verify to complete registration.");
+
+        } catch (Exception e) {
+            // Handle any errors that occur while sending the verification code
+            return new MessageResponse("An error occurred while sending the verification code. Please try again later.");
+        }
+    }
+
+    public AuthResponse confirmRegistration(String email, String verificationCode) throws Exception {
+        if (!verificationCodes.containsKey(email) || !verificationCodes.get(email).equals(verificationCode)) {
+            throw new Exception("Invalid or expired verification code.");
+        }
+
+        verificationCodes.remove(email);
+        UserDTO userDto = pendingUsers.remove(email);
+
+        if (userDto == null) {
+            throw new Exception("User data not found. Please register again.");
+        }
+
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+
         Optional<Role> optionalRole = Optional.ofNullable(roleRepository.findById(1));
-        Role role = optionalRole.get();
+        Role role = optionalRole.orElseThrow(() -> new Exception("Role not found"));
+
+        // Map UserDTO to User entity
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -76,15 +117,17 @@ public class AuthService {
         user.setPhone(userDto.getPhone());
         user.setAccountStatus(Status.ACTIVE.toString());
         user.setRole(role);
+
+        // Save user and generate JWT token
         userRepository.save(user);
-
         String token = jwtTokenProvider.generateToken(user.getEmail());
-
 
         return new AuthResponse(token);
     }
-
 }
+
+
+
 
 
 

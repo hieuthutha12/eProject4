@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
@@ -10,11 +10,13 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  emailError: string = ''; 
-  passwordError: string = ''; 
-  firstNameError: string = ''; 
-  lastNameError: string = ''; 
+  emailError: string = '';
+  passwordError: string = '';
+  firstNameError: string = '';
+  lastNameError: string = '';
   generalErrorMessage: string = '';
+  verificationCodeError: string = '';
+  isVerificationStep: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -22,31 +24,42 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.registerForm = this.formBuilder.group({
-      email: [''], 
-      password: [''],
-      firstName:[''],
-      lastName:[''],
-      address:[''],
-      phone:[''],
+      email: [''],  
+      password: [''],  
+      firstName: [''], 
+      lastName: [''],   
+      address: [''],
+      phone: [''],
+      verificationCode: ['']  
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  get isFormValid(): boolean {
+    return this.registerForm.valid;
   }
 
+  
   onRegister() {
     this.emailError = '';
     this.passwordError = '';
-    this.firstNameError='';
-    this.lastNameError='';
+    this.firstNameError = '';
+    this.lastNameError = '';
     this.generalErrorMessage = '';
+    this.verificationCodeError = '';
 
     
+    if (!this.isFormValid) {
+      this.generalErrorMessage = 'Please fill all required fields correctly.';
+      return;
+    }
+
     const credentials = this.registerForm.value;
 
     this.authService.register(credentials).subscribe({
-      next: (response) => {
-        this.router.navigate(['/customer/login']);
+      next: () => {
+        this.isVerificationStep = true; 
       },
       error: (error) => {
         console.error('Register failed:', error);
@@ -65,10 +78,23 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  onConfirmRegistration() {
+    const { email, verificationCode } = this.registerForm.value;
+
+    this.authService.confirmRegistration(email, verificationCode).subscribe({
+      next: () => {
+        this.router.navigate(['/customer/login']);
+      },
+      error: (error) => {
+        console.error('Verification failed:', error);
+        this.verificationCodeError = 'Invalid verification code. Please try again.';
+      }
+    });
+  }
+
   showPassword: boolean = false;
 
-    togglePasswordVisibility(): void {
-        this.showPassword = !this.showPassword;
-    }
-    
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 }

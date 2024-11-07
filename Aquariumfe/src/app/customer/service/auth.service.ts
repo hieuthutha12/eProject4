@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { UserInfo } from '../../models/user-info.model';
 
@@ -9,7 +9,6 @@ import { UserInfo } from '../../models/user-info.model';
 })
 export class AuthService {
   private apiUrlLogin = 'http://localhost:8080/api/auth/login';
-  private apiUrlRegister = 'http://localhost:8080/api/auth/register'; 
   private apiUrl = 'http://localhost:8080/api/user/info'; 
 
   private userInfoSubject: BehaviorSubject<UserInfo | null> = new BehaviorSubject<UserInfo | null>(null);
@@ -39,14 +38,37 @@ export class AuthService {
     );
   }
   register(credentials: { firstName: string; lastName: string; address: string; phone: string; email: string; password: string }): Observable<any> {
-    return this.http.post<{ token: string }>(this.apiUrlRegister, credentials, {
+    return this.http.post<{ message: string }>(`${this.apiUrlRegister}/register`, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
     }).pipe(
-      tap(response => this.setToken(response.token)), 
+      tap(response => {
+        console.log(response.message);
+      })
     );
   }
+  private apiUrlRegister = 'http://localhost:8080/api/auth'; 
+  confirmRegistration(email: string, code: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrlRegister}/confirm-registration`, { email, code }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }).pipe(
+      tap(response => {
+        if (response && response.token) {
+          this.setToken(response.token);  
+          this.fetchUserInfo().subscribe();
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+      
+        console.error('Error during registration confirmation:', error.message);
+        return throwError(error); 
+      })
+    );
+  }
+
 
   private setToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {

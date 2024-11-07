@@ -66,6 +66,16 @@
                     </div>
                 </div>
             </form>
+            <form *ngIf="isVerificationStep" [formGroup]="registerForm" (ngSubmit)="onConfirmRegistration()">
+                <div class="input-box abc">
+                    <input type="text" class="input-field" formControlName="verificationCode" placeholder="Verification Code">
+                    <i class="bi bi-lock-fill icon"></i>
+                    <div *ngIf="verificationCodeError" class="error">*{{ verificationCodeError }}</div>
+                </div>
+                <div class="input-box abc">
+                    <input type="submit" class="submit" value="Verify">
+                </div>
+            </form>
         </div>
     </div>
 </div>

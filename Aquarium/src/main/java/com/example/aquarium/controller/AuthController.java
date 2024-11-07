@@ -8,10 +8,9 @@ import com.example.aquarium.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -38,12 +37,32 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDto) {
         try {
-            AuthResponse jwtResponse = authService.registerUser(userDto);
-            return ResponseEntity.ok(jwtResponse);
+            MessageResponse response = authService.registerUser(userDto);
+            if (response.getErrors() != null) {
+                return ResponseEntity.badRequest().body(response);
+            }
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
+
+    @PostMapping("/confirm-registration")
+    public ResponseEntity<?> confirmRegistration(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        String code = requestBody.get("code");
+
+        if (email == null || code == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Email and code are required"));
+        }
+        try {
+            AuthResponse response = authService.confirmRegistration(email, code);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
+
 
 }
 
