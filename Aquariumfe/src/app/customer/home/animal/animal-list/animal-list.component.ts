@@ -60,12 +60,29 @@ export class AnimalListComponent implements OnInit {
     this.totalPages = Math.ceil(this.filteredAnimals.length / this.animalsPerPage);
     this.updateAnimals();
   }
+  // goToNextPage() {
+  //   if (this.currentPage < this.totalPages) {
+  //     this.currentPage++;
+  //     this.updateAnimals();
+  //   }
+  // }
 
-  goToNextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateAnimals();
-    }
+  // goToPreviousPage() {
+  //   if (this.currentPage > 1) {
+  //     this.currentPage--;
+  //     this.updateAnimals();
+  //   }
+  // }
+
+  // updateAnimals() {
+  //   const startIndex = (this.currentPage - 1) * this.animalsPerPage;
+  //   this.animals = this.filteredAnimals.slice(startIndex, startIndex + this.animalsPerPage);
+  // }
+
+  updateAnimals() {
+    const startIndex = (this.currentPage - 1) * this.animalsPerPage;
+    const endIndex = startIndex + this.animalsPerPage;
+    this.animals = this.filteredAnimals.slice(startIndex, startIndex + this.animalsPerPage);
   }
 
   goToPreviousPage() {
@@ -75,9 +92,28 @@ export class AnimalListComponent implements OnInit {
     }
   }
 
-  updateAnimals() {
-    const startIndex = (this.currentPage - 1) * this.animalsPerPage;
-    this.animals = this.filteredAnimals.slice(startIndex, startIndex + this.animalsPerPage);
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateAnimals();
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.updateAnimals();
+  }
+
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    const startPage = Math.max(1, this.currentPage - 2);
+    const endPage = Math.min(this.totalPages, this.currentPage + 2);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return pageNumbers;
   }
 
   filterBySpecies(speciesId: number | null) {

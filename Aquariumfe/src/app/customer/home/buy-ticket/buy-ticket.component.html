@@ -202,8 +202,8 @@
                                 <ul class="list-group">
                                     <li *ngFor="let t of typeQuantity"  class="list-group-item d-flex justify-content-between align-items-center" >
                                         <div *ngIf="t.quantity > 0">
-                                            <p><strong style="font-size: 20px;">Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
-                                            <p><strong style="font-size: 20px;">Quantity:</strong> {{t.quantity}}</p>
+                                            <p style="font-size: 20px;"><strong style="font-size: 20px;">Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
+                                            <p style="font-size: 20px;"><strong style="font-size: 20px;">Quantity:</strong> {{t.quantity}}</p>
                                         </div>
                                         <button *ngIf="t.quantity > 0" class="btn btn-danger btn-sm" (click)="removeTypeQuantity(t.typeId)">Delete</button>
                                     </li>
@@ -213,7 +213,7 @@
                             <p class="guidance" style="padding-top: 50px;">Do you want to use points?</p>
                             <div class="products" data-type="standard"> 
                                 <div class="form-group">
-                                  <label for="score">Score:</label>
+                                  <label for="score" style="font-size: 20px;">Score:</label>
                                   <input type="number" class="form-control" id="score" [(ngModel)]="score" name="score" placeholder="Enter score" required>
                                 </div>
                             </div>
@@ -264,52 +264,54 @@
                                 <ul class="list-group">
                                     <li *ngFor="let t of typeQuantity" class="list-group-item d-flex justify-content-between align-items-center">
                                         <div *ngIf="t.quantity > 0">
-                                            <p><strong>Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
-                                            <p><strong>Quantity:</strong> {{t.quantity}}</p>
+                                            <p style="font-size: 20px;"><strong style="font-size: 20px;">Type Ticket:</strong> {{this.getTypeById(t.typeId).typeName}}</p>
+                                            <p style="font-size: 20px;"><strong style="font-size: 20px;">Quantity:</strong> {{t.quantity}}</p>
                                         </div>
-                                        <div *ngIf="t.quantity > 0" class="price">
-                                          {{t.totalPrice}}
+                                        <div *ngIf="t.quantity > 0" class="price" style="font-size: 20px;">
+                                          £{{t.totalPrice}}
                                         </div>
                                     </li>
-                                </ul>
+                                </ul>    
+                                <!-- <hr class="featurette-divider">                            -->
                                 <ul class="list-group"> 
+                                  <div class="final"></div>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>Total Price:</strong>
+                                        <strong style="font-size: 20px;">Total Price:</strong>
                                     </div>
-                                    <div class="price">
-                                     {{this.totalPrice}}
+                                    <div class="price" style="font-size: 20px;">
+                                      £{{this.totalPrice}}
                                     </div>
                                   </li>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>Score:</strong>
+                                        <strong style="font-size: 20px;">Score:</strong>
                                     </div>
-                                    <div class="price">
+                                    <div class="price" style="font-size: 20px;">
                                       {{this.score}}
                                     </div>
                                   </li>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>Discount:</strong>
+                                        <strong style="font-size: 20px;">Discount:</strong>
                                     </div>
-                                    <div class="price">
+                                    <div class="price" style="font-size: 20px;">
                                       {{this.discount}}
                                     </div>
                                   </li>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>The price you pay:</strong>
+                                        <strong style="font-size: 20px;">The price you pay:</strong>
                                     </div>
-                                    <div class="price">
-                                     {{this.priceToPay}}
+                                    <div class="price" style="font-size: 20px;">
+                                      £{{this.priceToPay}}
                                     </div>
                                   </li>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <strong>Payment Method:</strong>
+                                        <strong style="font-size: 20px;">Payment Method:</strong>
                                     </div>
-                                    <div class="price">
+                                    <div class="price" style="font-size: 20px;">
                                       CASH
                                     </div>
                                   </li>

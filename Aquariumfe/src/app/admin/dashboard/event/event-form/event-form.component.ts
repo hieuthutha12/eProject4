@@ -81,7 +81,7 @@ export class EventFormComponent implements OnInit {
     eventObservable.subscribe(
       response => {
         console.log(`${this.isUpdateMode ? 'Event updated' : 'Event created'} successfully:`, response);
-        this.router.navigate(['/event/list']);
+        this.router.navigate(['/admin/event']);
       },
       error => {
         console.log(this.eventForm.startDate);
