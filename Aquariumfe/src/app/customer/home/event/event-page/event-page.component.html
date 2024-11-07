@@ -62,13 +62,24 @@
     </div>
     <hr class="featurette-divider" />
   </div>
-
+ 
   <div class="pagination-controls" *ngIf="totalPages > 0">
-    <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
+    <button (click)="goToPreviousPage()" [disabled]="currentPage === 1" class="page-btn prev">
+        Previous
+    </button>
+    
+    <button *ngFor="let page of getPageNumbers()" 
+            (click)="goToPage(page)" 
+            [class.active]="page === currentPage"
+            class="page-btn">
+        {{ page }}
+    </button>
+
+    <button (click)="goToNextPage()" [disabled]="currentPage === totalPages" class="page-btn next">
+        Next
+    </button>
   </div>
-  
+
     <div class="para para-mediacentre paragraph--view-mode--default">
       <div class="container">
         <div class="inner">

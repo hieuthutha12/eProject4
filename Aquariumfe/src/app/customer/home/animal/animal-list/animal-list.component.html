@@ -32,7 +32,7 @@
     </div>
 </section>
 
-<nav aria-label="..." *ngIf="totalPages > 1" >
+<!-- <nav aria-label="..." *ngIf="totalPages > 1" >
     <ul class="pagination ">
         <li class="page-item">
             <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
@@ -46,4 +46,21 @@
             <button class="page-link" (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
         </li>
     </ul>
-</nav>
+</nav> -->
+
+<div class="pagination-controls" *ngIf="totalPages > 0">
+    <button (click)="goToPreviousPage()" [disabled]="currentPage === 1" class="page-btn prev">
+        Previous
+    </button>
+    
+    <button *ngFor="let page of getPageNumbers()" 
+            (click)="goToPage(page)" 
+            [class.active]="page === currentPage"
+            class="page-btn">
+        {{ page }}
+    </button>
+
+    <button (click)="goToNextPage()" [disabled]="currentPage === totalPages" class="page-btn next">
+        Next
+    </button>
+  </div>
