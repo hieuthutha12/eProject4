@@ -93,7 +93,7 @@ export class BuyTicketComponent implements OnInit {
           this.userInfo.loyaltyPoints -= this.score;
           this.authService.setUserInfo(this.userInfo);
         }
-        this.alertService.showAlert("Booking successful"); 
+        this.alertService.showAlert('Booking successful', 'success');
         this.router.navigate(['customer']);
       },
       error => {

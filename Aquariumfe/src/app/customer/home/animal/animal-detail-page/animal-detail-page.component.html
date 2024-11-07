@@ -11,7 +11,7 @@
     <div class="animal-detail-card">
         <div class="animal-top-card">
             <div class="animal-image">
-                <img [src]="'assets/imgUpload/'+animal.img[currentImageIndex].imgName" alt="Abalone" />
+                <img [src]="'http://localhost:8080/image/'+animal.img[currentImageIndex].imgName" alt="Abalone" />
                 <div class="slide-controls">
                     <button (click)="prevImage()">&#10094;</button>
                     <button (click)="nextImage()">&#10095;</button>

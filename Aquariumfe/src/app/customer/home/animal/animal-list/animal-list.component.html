@@ -17,7 +17,7 @@
 <section class="animal-section">
     <div *ngFor="let animal of animals" class="animal-card">
         <a href="customer/animal/details/{{animal.id}}" class="card-link">
-            <img [src]="'/assets/imgUpload/'+ animal.img[1].imgName" alt="Sea Otter">
+            <img [src]="'http://localhost:8080/image/'+ animal.img[1].imgName" alt="Sea Otter">
             <div class="animal-content">
                 <p class="animal-type">ANIMAL</p>
                 <h3 class="name">{{animal.name}}</h3>
