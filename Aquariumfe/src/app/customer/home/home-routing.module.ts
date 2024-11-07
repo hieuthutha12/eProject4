@@ -20,6 +20,7 @@ const routes: Routes = [
       {
         path: 'userInfo',
         component: UserInfoComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'event',

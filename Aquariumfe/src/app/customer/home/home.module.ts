@@ -27,7 +27,6 @@ import { UserInfoComponent } from './user-info/user-info.component';
     VisitComponent,
     BuyTicketComponent,
     UserInfoComponent
-  
   ],
   imports: [
     CommonModule,

@@ -13,7 +13,7 @@
                         </label>
                         <input type="checkbox" id="user-dropdown-toggle" class="user-dropdown-toggle" />
                         <div class="user-dropdown-content">
-                            <a href="customer/userInfo" class="dropdown-item">User Info</a>
+                            <a routerLink="/customer/userInfo" class="dropdown-item">User Info</a>
                             <a class="dropdown-item" (click)="logout()">Log Out</a>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
             <div class="divider"></div>
             <div class="header-bottom">
                 <nav class="navigation">
-                    <a href="customer/event" class="nav-a">EVENT</a>
+                    <a routerLink="customer/event" class="nav-a">EVENT</a>
                     <!-- Animals Dropdown -->
                     <div class="dropdown" #animalsDropdown>
                         <label class="dropbtn icon-right" for="dropdown-toggle">ANIMALS <i class="bi bi-caret-down-fill"></i></label>
@@ -54,11 +54,11 @@
                             </div>
                         </div>
                     </div>
-                    <a class="nav-a" href="customer/visit">VISIT</a>
-                    <a class="nav-a" href="customer/feedback">FEEDBACK</a>
+                    <a class="nav-a" routerLink="/customer/visit">VISIT</a>
+                    <a class="nav-a" routerLink="/customer/feedback">FEEDBACK</a>
                 </nav>
                 <div class="ticket">
-                    <a href="customer/buy-ticket" class="ticket-button icon-right">BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i></a>
+                    <a routerLink="/customer/buy-ticket" class="ticket-button icon-right">BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i></a>
                 </div>
             </div>
         </div>

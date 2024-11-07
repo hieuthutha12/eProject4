@@ -73,7 +73,7 @@ public class UserService {
         Map<String, BuyResponse> buyResponseMap = new HashMap<>();
 
         orders.forEach(order -> order.getOrderDetails().forEach(orderDetail -> orderDetail.getTickets().forEach(ticket -> {
-            // Define a unique key for grouping
+
             String key = ticket.getType().getTypeName() + "_" +
                     ticket.getPurchaseDate() + "_" +
                     ticket.getExpirationDate() + "_" +
