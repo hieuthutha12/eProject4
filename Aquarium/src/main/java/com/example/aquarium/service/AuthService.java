@@ -44,9 +44,21 @@ public class AuthService {
             return new MessageResponse("Invalid password", Map.of("password", "Incorrect password"));
         }
 
+        // Role-based access check
+        int roleId = user.getRole().getId();
+        String targetRole = loginRequest.getTargetRole();
+
+        if ("customer".equalsIgnoreCase(targetRole) && roleId != 1) {
+            return new MessageResponse("Access denied", Map.of("role", "User is not allowed to access customer area"));
+        }
+        if ("admin".equalsIgnoreCase(targetRole) && roleId != 2) {
+            return new MessageResponse("Access denied", Map.of("role", "User is not allowed to access admin area"));
+        }
+
         String token = jwtTokenProvider.generateToken(loginRequest.getEmail());
         return new MessageResponse("Login successful " + token, null);
     }
+
 
     public MessageResponse changePassword(Integer id, PasswordChangeRequest passwordChangeRequest) {
         User user = userRepository.findById(id)

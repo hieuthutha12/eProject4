@@ -34,16 +34,16 @@ export class LoginComponent implements OnInit {
     this.emailError = '';
     this.passwordError = '';
     this.generalErrorMessage = '';
-
-    
+  
     const credentials = this.loginForm.value;
-
-    this.authService.login(credentials).subscribe({
+  
+    const email = credentials['email'];
+    const password = credentials['password'];
+  
+    const loginCredentials = { email, password, targetRole: 'admin' };
+  
+    this.authService.login(loginCredentials).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
-        const token = response.token;
-      localStorage.setItem('authToken', token);
-      //this.admin.userId = response.user.id;
         this.router.navigate(['/admin/dashboard']);
       },
       error: (error) => {
@@ -51,17 +51,14 @@ export class LoginComponent implements OnInit {
         if (error.error) {
           this.generalErrorMessage = error.error.message || 'An unknown error occurred.';
           if (error.error.errors) {
-            this.emailError = error.error.errors.email || ''; 
+            this.emailError = error.error.errors.email || '';
             this.passwordError = error.error.errors.password || '';
+            this.emailError = error.error.errors.role || '';
           }
         } else {
           this.generalErrorMessage = 'An unknown error occurred.';
         }
       }
     });
-  }
-  logout() {
-    localStorage.removeItem('authToken');
-    this.router.navigate(['/login']);
-  }
+  } 
 }
