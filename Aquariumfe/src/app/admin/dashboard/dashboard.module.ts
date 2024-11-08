@@ -11,6 +11,7 @@ import { SpeciesComponent } from './species/species.component';
 import { FormsModule } from '@angular/forms';
 import { TypeComponent } from './type/type.component';
 import { CustomerComponent } from './customer/customer.component';
+import { GetProfileComponent } from './profile/get-profile/get-profile.component';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { CustomerComponent } from './customer/customer.component';
     SidebarComponent,
     SpeciesComponent,
     TypeComponent,
-    CustomerComponent,
+    CustomerComponent
   ],
   imports: [
     FormsModule,

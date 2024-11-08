@@ -3,10 +3,10 @@
 
     <div class="admin-info">
         <img src="https://via.placeholder.com/80" alt="Admin Avatar">
-        <h5><a href="profile.html">John Admin</a></h5>
-        <p>admin.com</p>
+        <h5><a routerLink="/admin/profile" >{{userInfo?.firstName}}</a></h5>
+        <p>{{userInfo?.email}}</p>
     </div>
-    <a routerLink="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a routerLink="/admin/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
     <a routerLink="/admin/dashboard/aquatic-creatures"><i class="bi bi-tencent-qq"></i> Animal</a>
     <a routerLink="/admin/dashboard/manager"><i class="bi bi-person"></i> Manage</a>
     <a routerLink="/admin/dashboard/customer"><i class="bi bi-person"></i> Manage Users</a>

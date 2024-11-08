@@ -7,6 +7,7 @@ import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +31,13 @@ public class AuthController {
             String token = parts[2];
             AuthResponse authResponse = new AuthResponse(token);
             return ResponseEntity.ok(authResponse);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("An error occurred during login"));
         }
+
+
     }
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDto) {
