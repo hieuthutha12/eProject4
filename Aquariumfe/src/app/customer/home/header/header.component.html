@@ -3,30 +3,38 @@
         <div class="container">
             <div class="header-top">
                 <div class="logo">
-                    <a href="customer" class="logo-link"><img src="/assets/img/header8.png" />Blue Planet Aquarium</a>
+                    <a href="customer" class="logo-link"><img
+                            src="/assets/img/header8.png" />Blue Planet
+                        Aquarium</a>
                 </div>
                 <div class="actions">
-                    <p *ngIf="checkLogin(); else loginRegister" class="username">{{ userInfo?.firstName }}</p>
-                    <div *ngIf="checkLogin()" class="user-dropdown" #userDropdown>
-                        <label class="user icon-right" for="user-dropdown-toggle">
+                    <p *ngIf="checkLogin(); else loginRegister"
+                        class="username">{{ userInfo?.firstName }}</p>
+                    <div *ngIf="checkLogin()" class="user-dropdown"
+                        #userDropdown>
+                        <label class="user icon-right"
+                            for="user-dropdown-toggle">
                             <i class="bi bi-person-circle user-icon"></i>
                         </label>
-                        <input type="checkbox" id="user-dropdown-toggle" class="user-dropdown-toggle" />
+                        <input type="checkbox" id="user-dropdown-toggle"
+                            class="user-dropdown-toggle" />
                         <div class="user-dropdown-content">
-                            <a href="customer/userInfo" class="dropdown-item">User Info</a>
-                            <a class="dropdown-item" (click)="logout()">Log Out</a>
+                            <a href="customer/userInfo"
+                                class="dropdown-item">User Info</a>
+                            <a class="dropdown-item" (click)="logout()">Log
+                                Out</a>
                         </div>
                     </div>
-                    
+
                     <ng-template #loginRegister>
-                      <a href="customer/login" class="action icon-left">
-                        <i class="bi bi-door-open-fill"></i> LOGIN
-                      </a>
-                      <a href="customer/register" class="action icon-left">
-                        <i class="bi bi-box-arrow-in-right"></i> REGISTER
-                      </a>
+                        <a href="customer/login" class="action icon-left">
+                            <i class="bi bi-door-open-fill"></i> LOGIN
+                        </a>
+                        <a href="customer/register" class="action icon-left">
+                            <i class="bi bi-box-arrow-in-right"></i> REGISTER
+                        </a>
                     </ng-template>
-                  </div>
+                </div>
             </div>
             <div class="divider"></div>
             <div class="header-bottom">
@@ -34,21 +42,33 @@
                     <a href="customer/event" class="nav-a">EVENT</a>
                     <!-- Animals Dropdown -->
                     <div class="dropdown" #animalsDropdown>
-                        <label class="dropbtn icon-right" for="dropdown-toggle">ANIMALS <i class="bi bi-caret-down-fill"></i></label>
-                        <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
+                        <label class="dropbtn icon-right"
+                            for="dropdown-toggle">ANIMALS <i
+                                class="bi bi-caret-down-fill"></i></label>
+                        <input type="checkbox" id="dropdown-toggle"
+                            class="dropdown-toggle" />
                         <div class="dropdown-content" #dropdownContent>
                             <div class="dropdown-inner">
                                 <div class="category-list">
-                                    <h2 class="animals-title">Explore Animal Categories</h2>
+                                    <h2 class="animals-title">Explore Animal
+                                        Categories</h2>
                                     <ul class="category-options">
-                                        <li><a href="#" class="list-opt">Fish</a></li>
-                                        <li><a href="#" class="list-opt">Mammals</a></li>
-                                        <li><a href="#" class="list-opt">Mollusks</a></li>
-                                        <li><a href="#" class="list-opt">Crustaceans</a></li>
-                                        <li><a href="#" class="list-opt">Jellyfish</a></li>
-                                        <li><a href="#" class="list-opt">Cnidarians</a></li>
-                                        <li><a href="#" class="list-opt">Corals and sponges</a></li>
-                                        <li><a href="#" class="list-opt">Marine plants and algae</a></li>
+                                        <li><a href="#"
+                                                class="list-opt">Fish</a></li>
+                                        <li><a href="#"
+                                                class="list-opt">Mammals</a></li>
+                                        <li><a href="#"
+                                                class="list-opt">Mollusks</a></li>
+                                        <li><a href="#"
+                                                class="list-opt">Crustaceans</a></li>
+                                        <li><a href="#"
+                                                class="list-opt">Jellyfish</a></li>
+                                        <li><a href="#"
+                                                class="list-opt">Cnidarians</a></li>
+                                        <li><a href="#" class="list-opt">Corals
+                                                and sponges</a></li>
+                                        <li><a href="#" class="list-opt">Marine
+                                                plants and algae</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -58,9 +78,12 @@
                     <a class="nav-a" href="customer/feedback">FEEDBACK</a>
                 </nav>
                 <div class="ticket">
-                    <a href="customer/buy-ticket" class="ticket-button icon-right">BUY TICKETS HERE<i class="bi bi-ticket-detailed-fill"></i></a>
+                    <a href="customer/buy-ticket"
+                        class="ticket-button icon-right">BUY TICKETS HERE<i
+                            class="bi bi-ticket-detailed-fill"></i></a>
                 </div>
             </div>
+            
         </div>
     </nav>
 </header>
