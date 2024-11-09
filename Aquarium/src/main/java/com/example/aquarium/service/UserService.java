@@ -47,13 +47,27 @@ public class UserService {
     public LoyaltyPoints findLoyaltyPointsByUserId(int userId) {
         return loyaltyPointsRepository.findByUserId(userId);
     }
-    public List<UserResponse> getAllUsers() {
+    public List<UserResponse> getUsersByRole(String roleName) {
         List<User> users = userRepository.findAll();
-        return users.stream()
+        List<User> filteredUsers;
+        if ("Customer".equals(roleName)) {
+            filteredUsers = users.stream()
+                    .filter(user -> user.getRole() != null && "Customer".equals(user.getRole().getRoleName()))
+                    .collect(Collectors.toList());
+        } else {
+            filteredUsers = users.stream()
+                    .filter(user -> user.getRole() != null && !"Customer".equals(user.getRole().getRoleName()))
+                    .collect(Collectors.toList());
+        }
+
+        return filteredUsers.stream()
                 .map(UserMapper::toResponse)
                 .collect(Collectors.toList());
-
     }
+
+
+
+
     public MessageResponse updateUser(int userId, UserRequest userRequest){
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         user.setFirstName(userRequest.getFirstName());

@@ -214,17 +214,24 @@ export class BuyTicketComponent implements OnInit {
 //  getType
   types: any[]=[];
   fetchTypes() {
-    this.ticketService.getAllTypeOnActive().subscribe(
-      (data: any) => {
-        this.types = data; 
-        this.types.forEach(item => {
-          this.typeQuantity.push({ typeId: item.id, quantity: 0 , price: item.price,totalPrice: 0});
-      });
-      },
-      error => {
-        console.error('Error fetching events:', error); 
-      }
-    );
+    if (this.typeQuantity.length === 0) { 
+      this.ticketService.getAllTypeOnActive().subscribe(
+        (data: any) => {
+          this.types = data; 
+          this.types.forEach(item => {
+            this.typeQuantity.push({ 
+              typeId: item.id, 
+              quantity: 0, 
+              price: item.price,
+              totalPrice: 0
+            });
+          });
+        },
+        error => {
+          console.error('Error fetching events:', error); 
+        }
+      );
+    }
   }
 }
 

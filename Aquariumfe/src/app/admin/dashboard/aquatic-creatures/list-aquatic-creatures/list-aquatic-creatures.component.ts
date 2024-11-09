@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AquaticCreaturesService } from '../../services/aquatic-creatures.service'; 
+import { AquaticCreaturesService } from '../../services/aquatic-creatures.service';
 
 @Component({
   selector: 'app-list-aquatic-creatures',
@@ -8,7 +8,13 @@ import { AquaticCreaturesService } from '../../services/aquatic-creatures.servic
   styleUrls: ['./list-aquatic-creatures.component.css']
 })
 export class ListAquaticCreaturesComponent implements OnInit {
-  creatures: any[] = []; 
+  creatures: any[] = [];
+  paginatedCreatures: any[] = [];
+  filteredCreatures: any[] = []; // Danh sách đã lọc theo tên
+  page: number = 1;
+  itemsPerPage: number = 8;
+  totalPages: number = 0;
+  searchQuery: string = ''; // Giá trị tìm kiếm
 
   constructor(private router: Router, private aquaticCreaturesService: AquaticCreaturesService) {}
 
@@ -19,7 +25,10 @@ export class ListAquaticCreaturesComponent implements OnInit {
   loadCreatures() {
     this.aquaticCreaturesService.getAllCreatures().subscribe(
       (data) => {
-        this.creatures = data; 
+        this.creatures = data;
+        this.filteredCreatures = this.creatures;
+        this.totalPages = Math.ceil(this.filteredCreatures.length / this.itemsPerPage);
+        this.updatePagination();
       },
       (error) => {
         console.error('Error fetching aquatic creatures', error);
@@ -27,10 +36,44 @@ export class ListAquaticCreaturesComponent implements OnInit {
     );
   }
 
-  editCreature(id: number) {
-    this.router.navigate(['/aquatic-creatures/update', id]); 
+  updatePagination() {
+    const startIndex = (this.page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedCreatures = this.filteredCreatures.slice(startIndex, endIndex);
   }
+
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.updatePagination();
+    }
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.updatePagination();
+    }
+  }
+
+  editCreature(id: number) {
+    this.router.navigate([`/admin/dashboard/aquatic-creatures/form/${id}`]);
+  }
+
   addCreature() {
     this.router.navigate(['/admin/dashboard/aquatic-creatures/form']);
-}
+  }
+
+  searchCreatures() {
+    if (this.searchQuery) {
+      this.filteredCreatures = this.creatures.filter(creature =>
+        creature.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      this.filteredCreatures = this.creatures;
+    }
+    this.page = 1;
+    this.totalPages = Math.ceil(this.filteredCreatures.length / this.itemsPerPage);
+    this.updatePagination();
+  }
 }

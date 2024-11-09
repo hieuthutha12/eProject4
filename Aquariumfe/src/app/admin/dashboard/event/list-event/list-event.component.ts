@@ -9,6 +9,10 @@ import { EventService } from '../../services/event.service';
 })
 export class ListEventComponent implements OnInit {
   events: any[] = [];
+  paginatedEvents: any[] = [];
+  page: number = 1;
+  itemsPerPage: number = 8;
+  totalPages: number = 0;
 
   constructor(private router: Router, private eventService: EventService) {}
 
@@ -19,18 +23,41 @@ export class ListEventComponent implements OnInit {
   fetchEvents() {
     this.eventService.getAllEvents().subscribe(
       (data: any) => {
-        this.events = data; 
+        this.events = data;
+        this.totalPages = Math.ceil(this.events.length / this.itemsPerPage);
+        this.updatePagination();
       },
-      error => {
-        console.error('Error fetching events:', error); 
+      (error) => {
+        console.error('Error fetching events:', error);
       }
     );
+  }
+
+  updatePagination() {
+    const startIndex = (this.page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedEvents = this.events.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.updatePagination();
+    }
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.updatePagination();
+    }
   }
 
   editEvent(id: number) {
     this.router.navigate([`/admin/dashboard/event/form/${id}`]);
   }
+
   addEvent() {
     this.router.navigate(['/admin/dashboard/event/form']);
-}
+  }
 }

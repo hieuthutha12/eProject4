@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ManagerService } from '../../services/manager.service';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-list-manager',
   templateUrl: './list-manager.component.html',
@@ -9,14 +9,14 @@ import { ManagerService } from '../../services/manager.service';
 export class ListManagerComponent {
   Listmana: any[] = [];
 
-  constructor(private router: Router, private managerService: ManagerService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    this.loadCreatures();
+    this.loadManagers();
   }
 
-  loadCreatures() {
-    this.managerService.getAllManagers().subscribe(
+  loadManagers() {
+    this.userService.getManagers().subscribe(
       (data) => {
         this.Listmana = data;
       },
@@ -33,17 +33,15 @@ export class ListManagerComponent {
     this.router.navigate(['/admin/dashboard/manafer/form']);
   }
   searchUser(): void {
-    // Get the value from the search input
+    
     const input: string = (document.getElementById("searchInput") as HTMLInputElement).value.toUpperCase();
     const table: HTMLTableElement = document.getElementById("userTable") as HTMLTableElement;
     const tr: HTMLCollectionOf<HTMLTableRowElement> = table.getElementsByTagName("tr");
 
-    // Iterate through all rows in the table and hide those that don't match the search
+    
     for (let i = 1; i < tr.length; i++) {
       const td: HTMLCollectionOf<HTMLTableCellElement> = tr[i].getElementsByTagName("td");
       let match: boolean = false;
-
-      // Check each cell in the row
       for (let j = 0; j < td.length; j++) {
         if (td[j]) {
           if (td[j].innerHTML.toUpperCase().indexOf(input) > -1) {

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Setter
 public class OrderResponse {
     private Integer id;
-    private Integer userId;
+    private String email;
     private BigDecimal totalAmount;
     private String status;
     private String paymentMethod;

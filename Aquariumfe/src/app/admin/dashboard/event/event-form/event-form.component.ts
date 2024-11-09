@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../services/event.service';
+import { AuthService } from '../../../services/auth.service';
 
 interface EventForm {
   eventName: string;
@@ -32,8 +33,9 @@ export class EventFormComponent implements OnInit {
   imgError: string = '';
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;
+  userInfo: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private eventService: EventService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private eventService: EventService,private authService : AuthService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -43,6 +45,9 @@ export class EventFormComponent implements OnInit {
         this.isUpdateMode = true;
         this.getEventData(this.eventId);
       }
+    });
+    this.authService.userInfo$.subscribe(user => {
+      this.userInfo = user;
     });
   }
 
@@ -55,7 +60,7 @@ export class EventFormComponent implements OnInit {
           startDate: new Date(eventData.startDate),
           endDate: new Date(eventData.endDate),
           img: null,
-          userId: parseInt('1',10),
+          userId: parseInt(this.userInfo.id,10),
         };
       },
       error => {
@@ -96,7 +101,7 @@ export class EventFormComponent implements OnInit {
     formData.append('description', this.eventForm.description);
     formData.append('startDate', this.eventForm.startDate.toISOString().substring(0,16));
     formData.append('endDate', this.eventForm.endDate.toISOString().substring(0,16));
-    formData.append('userId', this.eventForm.userId.toString());
+    formData.append('userId', this.userInfo.id.toString());
 
     if (this.eventForm.img) {
       formData.append('img', this.eventForm.img);

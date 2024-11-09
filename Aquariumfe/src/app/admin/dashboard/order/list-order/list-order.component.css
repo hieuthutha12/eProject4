@@ -11,3 +11,23 @@ h2 {
     color: white;
     font-weight: 600;
 }
+th {
+    cursor: pointer;
+  }
+  
+  
+  th:hover {
+    background-color: #f1f1f1;
+  }
+  
+ 
+  th.sorted-asc::after {
+    content: " ↑";
+    font-size: 12px;
+  }
+  
+  th.sorted-desc::after {
+    content: " ↓";
+    font-size: 12px;
+  }
+  

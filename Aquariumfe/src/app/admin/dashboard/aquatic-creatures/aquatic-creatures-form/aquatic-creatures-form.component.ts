@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AquaticCreaturesService } from '../../services/aquatic-creatures.service';
+import { AuthService } from '../../../services/auth.service';
 
 interface AquaticCreaturesForm {
   name: string;
@@ -46,11 +47,13 @@ export class AquaticCreaturesFormComponent implements OnInit {
   isUpdateMode: boolean = false;
   imgErrors: string = ''; 
   descreiptionErrors: string = '';
+  userInfo: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private aquaticCreaturesService: AquaticCreaturesService
+    private aquaticCreaturesService: AquaticCreaturesService,
+    private authService: AuthService
   ) {}
 
   
@@ -66,6 +69,9 @@ export class AquaticCreaturesFormComponent implements OnInit {
         this.aquaticCreaturesForm.images = [];  
         this.aquaticCreaturesForm.descriptions = [];
       }
+    });
+    this.authService.userInfo$.subscribe(user => {
+      this.userInfo = user;
     });
   }
   loadSpecies() {
@@ -87,7 +93,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
           weight: creatureData.weight,
           length: creatureData.length,
           exhibitStatus: creatureData.exhibitStatus,
-          userId: parseInt('1', 10),//id User
+          userId: parseInt(this.userInfo.userId, 10),
           speciesId: creatureData.speciesId,
           images: creatureData.images || [],  
           descriptions: creatureData.descriptions || [],  
@@ -164,7 +170,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
     formData.append('length', this.aquaticCreaturesForm.length.toString());
     formData.append('exhibitStatus', this.aquaticCreaturesForm.exhibitStatus);
     formData.append('speciesId', this.aquaticCreaturesForm.speciesId.toString());
-    formData.append('userId', this.aquaticCreaturesForm.userId.toString());//id User
+    formData.append('userId', this.userInfo.id.toString());
 
     if (this.aquaticCreaturesForm.images) {
       this.aquaticCreaturesForm.images.forEach((img, index) => {

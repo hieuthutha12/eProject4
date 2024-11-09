@@ -67,10 +67,13 @@ public class UserController {
             return ResponseEntity.badRequest().body("Invalid token");
         }
     }
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<UserResponse> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    @GetMapping("/managers")
+    public List<UserResponse> getAllManagers() {
+        return userService.getUsersByRole("NotCustomer");
+    }
+    @GetMapping("/customers")
+    public List<UserResponse> getAllCustomers() {
+        return userService.getUsersByRole("Customer");
     }
     @PostMapping("update/{id}")
     public ResponseEntity<?> updateInfo(@PathVariable Integer id,@Valid @RequestBody UserRequest request){

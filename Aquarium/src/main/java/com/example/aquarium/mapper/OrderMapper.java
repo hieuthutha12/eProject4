@@ -16,7 +16,7 @@ public class OrderMapper {
 
         OrderResponse response = new OrderResponse();
         response.setId(order.getId());
-        response.setUserId(order.getUser() != null ? order.getUser().getId() : null);
+        response.setEmail(order.getUser() != null ? order.getUser().getEmail() : null);
         response.setTotalAmount(order.getTotalAmount());
         response.setStatus(order.getStatus());
         response.setPaymentMethod(order.getPaymentMethod().toString());

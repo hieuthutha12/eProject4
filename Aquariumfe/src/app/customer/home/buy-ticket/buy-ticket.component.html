@@ -217,14 +217,6 @@
                                   <input type="number" class="form-control" id="score" [(ngModel)]="score" name="score" placeholder="Enter score" required>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
-                              <label for="paymentMethod">Payment Method:</label>
-                              <select class="form-control" id="paymentMethod" [(ngModel)]="selectedPaymentMethod" name="paymentMethod" required>
-                                  <option *ngFor="let method of paymentMethods | keyvalue" [value]="method.value">
-                                      {{ method.value }}
-                                  </option>
-                              </select>
-                          </div> -->
                             <div class="action step2">
                                 <button class="cta cta-lowlight" (click)="prevStep()">Go back</button>
                                 <button class="cta cta-next" (click)="confirmStepThree()">Confirm and continue</button>
