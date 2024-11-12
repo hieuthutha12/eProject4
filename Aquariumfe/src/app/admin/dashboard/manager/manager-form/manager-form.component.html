@@ -1,1 +1,51 @@
-<p>form-manager works!</p>
+<!-- <div class="container">
+    <h2>{{ isUpdateMode ? 'Update Aquatic Creature' : 'Create Aquatic Creature' }}</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" [(ngModel)]="manageForm.first_name" name="first_name"
+                class="form-control" required maxlength="100" />
+            <div *ngIf="first_nameError" class="text-danger" class="error">{{ first_nameError }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" [(ngModel)]="manageForm.last_name" name="last_name" class="form-control"
+                required />
+            <div *ngIf="last_nameError" class="text-danger" class="error">{{ last_nametError }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" [(ngModel)]="manageForm.password" name="password" class="form-control"
+                required />
+            <div *ngIf="passwordError" class="text-danger" class="error">{{ passwordError }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="number" id="phone" [(ngModel)]="manageForm.phone" name="phone" class="form-control" required />
+            <div *ngIf="phoneError" class="text-danger" class="error">{{ phoneError }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" [(ngModel)]="manageForm.email" name="email" class="form-control" required />
+            <div *ngIf="emailError" class="text-danger" class="error">{{ emailError }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="address">address</label>
+            <input type="text" id="address" [(ngModel)]="manageForm.address" name="address" class="form-control"
+                required />
+            <div *ngIf="addressError" class="text-danger" class="error">{{ addressError }}</div>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">
+                {{ isUpdateMode ? 'Update' : 'Create' }}
+            </button>
+            <button type="button" onclick="history.back()">Back</button>
+        </div>
+    </form>
+</div> -->
