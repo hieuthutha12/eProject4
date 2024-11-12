@@ -11,20 +11,16 @@
             <th>Address</th>
             <th>Phone</th>
             <th>Role</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let User of Listmana">
-            <td>{{ User.first_name }}</td>
-            <td>{{ User.last_name }}</td>
+            <td>{{ User.firstName }}</td>
+            <td>{{ User.lastName }}</td>
             <td>{{ User.email }}</td>
             <td>{{ User.address }}</td>
             <td>{{ User.phone }}</td>
-            <td>{{ User.role }}</td>
-            <td>
-              <!-- <button (click)="editSpecies(species.id)" class="btn btn-primary btn-sm">Edit</button> -->
-            </td>
+            <td>{{ User.role.roleName }}</td>
           </tr>
         </tbody>
       </table>

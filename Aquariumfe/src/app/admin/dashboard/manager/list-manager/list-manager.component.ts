@@ -51,7 +51,6 @@ export class ListManagerComponent {
         }
       }
 
-      // Show or hide the row based on the search result
       tr[i].style.display = match ? "" : "none";
     }
   }

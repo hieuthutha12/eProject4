@@ -1,32 +1,28 @@
 <div class="content">
-    <div class="mt-5">
-      <h2>User List</h2>
-      <input type="text" id="searchInput" onkeyup="searchUser()" placeholder="Search User...">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Phone</th>
-            <th>Account Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let User of customerList">
-            <td>{{ User.first_name }}</td>
-            <td>{{ User.last_name }}</td>
-            <td>{{ User.email }}</td>
-            <td>{{ User.address }}</td>
-            <td>{{ User.phone }}</td>
-            <td>{{ User.account_status }}</td>
-            <td>
-              <!-- <button (click)="editSpecies(species.id)" class="btn btn-primary btn-sm">Edit</button> -->
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="mt-5">
+    <h2>Employee List</h2>
+    <input type="text" id="searchInput" onkeyup="searchUser()" placeholder="Search User...">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let User of customerList">
+          <td>{{ User.firstName }}</td>
+          <td>{{ User.lastName }}</td>
+          <td>{{ User.email }}</td>
+          <td>{{ User.address }}</td>
+          <td>{{ User.phone }}</td>
+          <td>{{ User.role.roleName }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>

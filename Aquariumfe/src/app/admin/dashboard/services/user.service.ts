@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/api/user/managers'; 
+  private apiUrl = 'http://localhost:8080/api/user'; 
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +15,6 @@ export class UserService {
     return this.http.get<any[]>(`${this.apiUrl}/customers`);
   }
   getManagers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/managers`);
   }
 }
