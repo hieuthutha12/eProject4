@@ -38,6 +38,7 @@ const routes: Routes = [
       {
         path: 'feedback',
         component: FeedbackComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'visit',

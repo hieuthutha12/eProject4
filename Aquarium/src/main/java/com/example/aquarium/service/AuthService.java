@@ -43,14 +43,12 @@ public class AuthService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return new MessageResponse("Invalid password", Map.of("password", "Incorrect password"));
         }
-
-        int roleId = user.getRole().getId();
         String targetRole = loginRequest.getTargetRole();
-
-        if ("customer".equalsIgnoreCase(targetRole) && roleId != 1) {
+        if ("customer".equalsIgnoreCase(targetRole) && !targetRole.equalsIgnoreCase(user.getRole().getRoleName())) {
+            System.out.println(user.getRole().getRoleName());
             return new MessageResponse("Access denied", Map.of("role", "User is not allowed to access customer area"));
         }
-        if ("admin".equalsIgnoreCase(targetRole) && roleId == 1) {
+        if ("admin".equalsIgnoreCase(targetRole) && user.getRole().getRoleName().equalsIgnoreCase("customer")) {
             return new MessageResponse("Access denied", Map.of("role", "User is not allowed to access admin area"));
         }
 

@@ -13,4 +13,11 @@ export class OrderService {
   getAllOrder(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`);
   }
+  getOverviewData(): Observable<{ label: string, value: number }[]> {
+    return this.http.get<{ label: string, value: number }[]>(`${this.apiUrl}/overview`);
+}
+
+  getDetailsData(): Observable<{ label: string, value: number }[]> {
+    return this.http.get<{ label: string, value: number }[]>(`${this.apiUrl}/details`);
+  }
 }

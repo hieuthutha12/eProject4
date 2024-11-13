@@ -1,6 +1,7 @@
 package com.example.aquarium.controller;
 
 
+import com.example.aquarium.bean.response.ChartData;
 import com.example.aquarium.bean.response.OrderResponse;
 import com.example.aquarium.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,15 @@ public class OrderController {
     public ResponseEntity<List<OrderResponse>> getAllOrders() {
         List<OrderResponse> responses = orderService.getAllOrders();
         return ResponseEntity.ok(responses);
+    }
+    @GetMapping("/overview")
+    public List<ChartData> getOverviewData() {
+        return orderService.getLastSixMonthsRevenue();
+    }
+
+    @GetMapping("/details")
+    public List<ChartData> getDetailsData() {
+        return orderService.getWeeklySalesData();
     }
 }
 

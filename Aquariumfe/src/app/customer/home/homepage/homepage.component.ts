@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimalService } from '../services/animal.service';
 import { AlertService } from '../../../shared/custom-alert/alert.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-homepage',
@@ -11,7 +12,7 @@ import { AlertService } from '../../../shared/custom-alert/alert.service';
 export class HomepageComponent implements OnInit {
   animals: any[] = [];  
 
-  constructor(private router: Router, private animalService: AnimalService,private alertService: AlertService) {}
+  constructor(private router: Router, private animalService: AnimalService,private alertService: AlertService,private authService : AuthService) {}
 
   ngOnInit() {
     this.fetchAnimal();
@@ -28,5 +29,9 @@ export class HomepageComponent implements OnInit {
     const shuffled = array.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
   }
+  checkLogin(): boolean{
+    return this.authService.isLoggedIn();
+  }
+
   
 }

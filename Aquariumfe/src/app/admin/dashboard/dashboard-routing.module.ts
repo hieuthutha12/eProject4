@@ -5,6 +5,7 @@ import { SpeciesComponent } from './species/species.component';
 import { TypeComponent } from './type/type.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AuthGuard } from '../services/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
       {
         path: 'customer',
         component:CustomerComponent,
+        canActivate: [AuthGuard] 
+      },
+      {
+        path: '',
+        component:HomeComponent,
         canActivate: [AuthGuard] 
       },
     ]

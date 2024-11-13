@@ -15,7 +15,6 @@ public class FeedbackRequest {
 
     @NotBlank(message = "Content is mandatory")
     private String content;
-
     private Integer userId;
 }
 

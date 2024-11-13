@@ -35,6 +35,7 @@ public class AquaticCreaturesService {
     private final AquaticCreaturesRepository aquaticCreaturesRepository;
     private final AquaticCreaturesMapper aquaticCreaturesMapper;
     private final UserRepository userRepository;
+    private final ImgRepository imgRepository;
     private final SpeciesRespository speciesRespository;
     private final ImgService imgService;
 
@@ -70,6 +71,7 @@ public class AquaticCreaturesService {
     public AquaticCreatures updateAquaticCreature(Integer id, AquaticCreaturesRequest aquaticCreaturesRequest) throws IOException {
         AquaticCreatures aquaticCreatures = aquaticCreaturesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Aquatic Creature not found"));
+        aquaticCreatures.getImages().clear();
 
         aquaticCreatures.setName(aquaticCreaturesRequest.getName());
         aquaticCreatures.setWeight(aquaticCreaturesRequest.getWeight());
@@ -77,8 +79,6 @@ public class AquaticCreaturesService {
         aquaticCreatures.setExhibitStatus(aquaticCreaturesRequest.getExhibitStatus());
         aquaticCreatures.setUser(userRepository.findById(aquaticCreaturesRequest.getUserId()).orElse(null));
         aquaticCreatures.setSpecies(speciesRespository.findById(aquaticCreaturesRequest.getSpeciesId()).orElse(null));
-
-        aquaticCreatures.getImages().clear();
 
         List<Img> images = IntStream.range(0, aquaticCreaturesRequest.getImages().size())
                 .filter(i -> !aquaticCreaturesRequest.getImages().get(i).isEmpty())
@@ -88,9 +88,9 @@ public class AquaticCreaturesService {
 
                     String imageName = null;
                     try {
-                        imageName = imgService.saveImage(image);
+                        imageName = imgService.saveImage(image);  // Lưu ảnh và lấy tên ảnh
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Error saving image: " + e.getMessage(), e);
                     }
 
                     Img img = new Img();
@@ -101,13 +101,12 @@ public class AquaticCreaturesService {
                 })
                 .collect(Collectors.toList());
 
-
-        aquaticCreatures.setImages(images);
-
         aquaticCreatures.getImages().addAll(images);
 
         return aquaticCreaturesRepository.save(aquaticCreatures);
     }
+
+
 
 
     public void deleteAquaticCreature(Integer id) {
