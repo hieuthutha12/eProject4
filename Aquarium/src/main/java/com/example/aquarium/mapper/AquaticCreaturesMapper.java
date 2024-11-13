@@ -68,7 +68,6 @@ public class AquaticCreaturesMapper {
                 })
                 .collect(Collectors.toList());
 
-
         aquaticCreatures.setImages(imgList);
 
         return aquaticCreatures;
