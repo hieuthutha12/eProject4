@@ -43,6 +43,9 @@
                                     <ul class="category-options">
                                         <li><a (click)="filterAnimals('all')" class="list-opt">All</a></li>
                                     </ul>
+                                    <ul class="category-options">
+                                        <li><a routerLink="/customer/animal/animalPage" class="list-opt">Animal Page</a></li>
+                                    </ul>
                                     <ul class="category-options" *ngFor="let s of species">
                                         <li><a (click)="filterAnimals(s.name)" class="list-opt">{{s.name}}</a></li>
                                     </ul>

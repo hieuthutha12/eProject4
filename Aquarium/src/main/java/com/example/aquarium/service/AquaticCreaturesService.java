@@ -106,9 +106,6 @@ public class AquaticCreaturesService {
         return aquaticCreaturesRepository.save(aquaticCreatures);
     }
 
-
-
-
     public void deleteAquaticCreature(Integer id) {
         AquaticCreatures aquaticCreatures = aquaticCreaturesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Aquatic Creature not found"));

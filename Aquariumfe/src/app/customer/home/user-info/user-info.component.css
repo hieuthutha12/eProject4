@@ -3,7 +3,36 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 5px;
+  }
+  
+  .pagination-controls button {
+    width: 60px; 
+    padding: 5px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .pagination-controls button[disabled] {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination-controls span {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  
+  
 .content-container {
     display: flex;
     gap: 40px;

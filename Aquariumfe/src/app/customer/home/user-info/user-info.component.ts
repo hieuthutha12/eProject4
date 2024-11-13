@@ -48,6 +48,9 @@ export class UserInfoComponent implements OnInit {
   }
 
   tickets: Ticket[]=[];
+  currentPage: number = 1;
+  itemsPerPage: number = 15;
+  paginatedTickets: Ticket[] = [];
   ngOnInit(): void {
     this.authService.userInfo$.subscribe((info) => {
       if (info) {
@@ -57,13 +60,37 @@ export class UserInfoComponent implements OnInit {
     });
     this.userService.getUserTickets(this.userInfo.id).subscribe(
       (data: any) => {
-        this.tickets = data; 
+        this.tickets = data;
+        this.paginateTickets(); 
       },
       error => {
         console.error('Error fetching events:', error); 
       }
     );
   }
+  get totalPages(): number {
+    return Math.ceil(this.tickets.length / this.itemsPerPage);
+  }
+  nextPage(): void {
+    if (this.currentPage * this.itemsPerPage < this.tickets.length) {
+      this.currentPage++;
+      this.paginateTickets();
+    }
+  }
+  
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.paginateTickets();
+    }
+  }
+  
+  paginateTickets(): void {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedTickets = this.tickets.slice(start, end);
+  }
+  
   sortedColumn: string = '';
 ascending: boolean = true;
 
@@ -75,11 +102,9 @@ sortTickets(column: keyof Ticket): void {
       this.ascending = true;
   }
 
-  this.tickets.sort((a, b) => {
+  this.paginatedTickets.sort((a, b) => {
       const aValue = a[column];
       const bValue = b[column];
-
-      // Handle sorting based on data type
       if (typeof aValue === 'number' && typeof bValue === 'number') {
           return this.ascending ? aValue - bValue : bValue - aValue;
       } else if (typeof aValue === 'string' && typeof bValue === 'string') {

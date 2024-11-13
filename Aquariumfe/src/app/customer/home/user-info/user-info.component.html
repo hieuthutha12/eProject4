@@ -40,23 +40,23 @@
           </div>
       </div>
 
-    <!-- Ticket Table -->
+    
     <div class="ticket-table-container">
         <h2>Your Tickets</h2>
         <table *ngIf="tickets && tickets.length > 0; else noTicketsMessage">
             <thead>
               <tr class="hand">
-                <th (click)="sortTickets('ticketId')" title="Sort by Ticket ID">Ticket</th>
-                <th (click)="sortTickets('type')" title="Sort by Type">Type</th>
+                <th>Ticket</th>
+                <th>Type</th>
                 <th (click)="sortTickets('number')" title="Sort by Number">Number</th>
-                <th (click)="sortTickets('status')" title="Sort by Status">Status</th>
+                <th>Status</th>
                 <th (click)="sortTickets('buyDate')" title="Sort by Buy Date">Buy Date</th>
                 <th (click)="sortTickets('expirationDate')" title="Sort by Expiration Date">Expiration Date</th>
                 <th (click)="sortTickets('total')" title="Sort by Total">Total</th>
             </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ticket of tickets">
+                <tr *ngFor="let ticket of paginatedTickets">
                     <td>TK0{{ticket.ticketId}}</td>
                     <td>{{ticket.type}}</td>
                     <td>{{ticket.number}}</td>
@@ -67,6 +67,11 @@
                 </tr>
             </tbody>
         </table>
+        <div class="pagination-controls">
+          <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+          <span>Page {{ currentPage }} / {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= tickets.length">Next</button>
+        </div>
     </div>
     <ng-template #noTicketsMessage>
       <p>Bạn chưa có vé</p>

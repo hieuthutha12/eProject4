@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { TypeComponent } from './type/type.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
+import { TicketComponent } from './ticket/ticket.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HomeComponent } from './home/home.component';
     SpeciesComponent,
     TypeComponent,
     CustomerComponent,
-    HomeComponent
+    HomeComponent,
+    TicketComponent
   ],
   imports: [
     FormsModule,

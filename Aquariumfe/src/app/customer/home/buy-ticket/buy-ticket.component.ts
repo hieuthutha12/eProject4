@@ -93,7 +93,7 @@ export class BuyTicketComponent implements OnInit {
           this.userInfo.loyaltyPoints -= this.score;
           this.authService.setUserInfo(this.userInfo);
         }
-        this.alertService.showAlert('Booking successful', 'success');
+        this.alertService.showAlert('Booking successful','success');
         this.router.navigate(['customer']);
       },
       error => {
@@ -106,7 +106,7 @@ export class BuyTicketComponent implements OnInit {
 
   userInfo: any;
   score: number = 0;
-  //step 3
+
   
   getTypeById(id: number): any {
     return this.types.find(type => type.id === id) || null;
