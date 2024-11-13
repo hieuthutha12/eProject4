@@ -16,7 +16,7 @@ header {
     min-height: 100vh;
 }
 .side-image{
-    background: url('/Aquariumfe/public/img/imgloginadmin.jpg');
+    background: url('/assets/img/3.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

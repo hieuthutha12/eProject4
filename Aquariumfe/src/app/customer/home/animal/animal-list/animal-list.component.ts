@@ -16,6 +16,7 @@ export class AnimalListComponent implements OnInit {
   animalsPerPage: number = 8;
   totalPages: number = 0;
   selectedSpeciesId: number | null = null;
+  transitionClass: string = '';
 
   constructor(
     private router: Router,
@@ -30,6 +31,7 @@ export class AnimalListComponent implements OnInit {
       this.fetchAnimal(this.selectedSpeciesId);
     });
   }
+
 
   fetchAnimal(speciesId: number | null = null) {
     this.animalService.getAllAnimals().subscribe(
@@ -60,34 +62,17 @@ export class AnimalListComponent implements OnInit {
     this.totalPages = Math.ceil(this.filteredAnimals.length / this.animalsPerPage);
     this.updateAnimals();
   }
-  // goToNextPage() {
-  //   if (this.currentPage < this.totalPages) {
-  //     this.currentPage++;
-  //     this.updateAnimals();
-  //   }
-  // }
-
-  // goToPreviousPage() {
-  //   if (this.currentPage > 1) {
-  //     this.currentPage--;
-  //     this.updateAnimals();
-  //   }
-  // }
-
-  // updateAnimals() {
-  //   const startIndex = (this.currentPage - 1) * this.animalsPerPage;
-  //   this.animals = this.filteredAnimals.slice(startIndex, startIndex + this.animalsPerPage);
-  // }
 
   updateAnimals() {
     const startIndex = (this.currentPage - 1) * this.animalsPerPage;
     const endIndex = startIndex + this.animalsPerPage;
-    this.animals = this.filteredAnimals.slice(startIndex, startIndex + this.animalsPerPage);
+    this.animals = this.filteredAnimals.slice(startIndex, endIndex);
   }
 
   goToPreviousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.applyTransition('transition-prev');
       this.updateAnimals();
     }
   }
@@ -95,30 +80,22 @@ export class AnimalListComponent implements OnInit {
   goToNextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      this.applyTransition('transition-next');
       this.updateAnimals();
     }
   }
 
-  goToPage(page: number) {
-    this.currentPage = page;
-    this.updateAnimals();
+  applyTransition(className: string) {
+    this.transitionClass = className;
+    setTimeout(() => {
+      this.transitionClass = '';
+    }, 500);
   }
 
-  getPageNumbers(): number[] {
-    const pageNumbers = [];
-    const startPage = Math.max(1, this.currentPage - 2);
-    const endPage = Math.min(this.totalPages, this.currentPage + 2);
+  // filterBySpecies(speciesId: number | null) {
+  //   this.selectedSpeciesId = speciesId;
+  //   this.currentPage = 1;
+  //   this.fetchAnimal(this.selectedSpeciesId);
+  // }
 
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(i);
-    }
-
-    return pageNumbers;
-  }
-
-  filterBySpecies(speciesId: number | null) {
-    this.selectedSpeciesId = speciesId;
-    this.currentPage = 1;
-    this.fetchAnimal(this.selectedSpeciesId);
-  }
 }
