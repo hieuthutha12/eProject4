@@ -6,6 +6,7 @@ import { TypeComponent } from './type/type.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AuthGuard } from '../services/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { TicketComponent } from './ticket/ticket.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
       {
         path: '',
         component:HomeComponent,
+        canActivate: [AuthGuard] 
+      },
+      {
+        path: 'ticket',
+        component:TicketComponent,
         canActivate: [AuthGuard] 
       },
     ]
