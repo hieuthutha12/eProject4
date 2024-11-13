@@ -45,6 +45,6 @@ public class AquaticCreatures {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "aquaticCreatures", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "aquaticCreatures", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Img> images;
 }
