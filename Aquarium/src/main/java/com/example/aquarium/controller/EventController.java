@@ -4,16 +4,13 @@ import com.example.aquarium.bean.request.EventRequest;
 import com.example.aquarium.bean.response.EventResponse;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.exception.ResourceNotFoundException;
+import com.example.aquarium.security.interfaceRole.*;
 import com.example.aquarium.service.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,21 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventController {
     private final EventService eventService;
-
-
+    @AdminContentCustomerAccess
     @GetMapping
     public ResponseEntity<List<EventResponse>> getAllEvents() {
         List<EventResponse> events = eventService.findAll();
         return ResponseEntity.ok(events);
     }
 
+    @AdminAndContentStaffAccess
     @GetMapping("/{id}")
     public ResponseEntity<EventResponse> getEventById(@PathVariable Integer id) {
         return eventService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    @AdminAndContentStaffAccess
     @PostMapping
     public ResponseEntity<MessageResponse> createEvent(@Valid @ModelAttribute EventRequest eventRequest) {
         try {
@@ -48,7 +45,7 @@ public class EventController {
                     .body(new MessageResponse("Error occurred while saving event!"));
         }
     }
-
+    @AdminAndContentStaffAccess
     @PutMapping("/{id}")
     public ResponseEntity<MessageResponse> updateEvent(@PathVariable Integer id, @Valid @ModelAttribute EventRequest eventRequest) {
         try {
@@ -60,12 +57,10 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("An error occurred: " + e.getMessage()));
         }
     }
-
+    @AdminAndContentStaffAccess
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Integer id) {
         eventService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

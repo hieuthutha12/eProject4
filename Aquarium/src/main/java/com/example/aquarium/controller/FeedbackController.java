@@ -3,7 +3,7 @@ package com.example.aquarium.controller;
 import com.example.aquarium.bean.request.FeedbackRequest;
 import com.example.aquarium.bean.response.FeedbackResponse;
 import com.example.aquarium.bean.response.MessageResponse;
-import com.example.aquarium.model.Feedback;
+import com.example.aquarium.security.interfaceRole.CustomerAccess;
 import com.example.aquarium.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import java.util.List;
 public class FeedbackController {
 
     private final FeedbackService feedbackService;
-
+    @CustomerAccess
     @PostMapping
     public ResponseEntity<MessageResponse> addFeedback(@RequestBody FeedbackRequest feedback) {
         feedbackService.addFeedback(feedback);

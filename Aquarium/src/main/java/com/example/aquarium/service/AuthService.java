@@ -76,21 +76,16 @@ public class AuthService {
     private final Map<String, UserDTO> pendingUsers = new HashMap<>();
 
     public MessageResponse registerUser(UserDTO userDto) {
-        // Check if the email already exists in the system
         if (userRepository.existsByEmail(userDto.getEmail())) {
-            // If email exists, return an error message
+
             return new MessageResponse("Email already registered", Map.of("email", "This email is already in use"));
         }
 
         try {
-            // Send the verification code
             String verificationCode = emailService.sendVerificationCode(userDto.getEmail());
-
-            // Store the verification code and pending user for further confirmation
             verificationCodes.put(userDto.getEmail(), verificationCode);
             pendingUsers.put(userDto.getEmail(), userDto);
 
-            // Return a success message after sending the verification code
             return new MessageResponse("Verification code sent to your email. Please verify to complete registration.");
 
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 package com.example.aquarium.controller;
 
 import com.example.aquarium.bean.request.PasswordChangeRequest;
-import com.example.aquarium.bean.request.TypeRequest;
 import com.example.aquarium.bean.request.UserRequest;
 import com.example.aquarium.dto.response.BuyResponse;
 import com.example.aquarium.bean.response.MessageResponse;
@@ -10,6 +9,10 @@ import com.example.aquarium.bean.response.UserResponse;
 import com.example.aquarium.model.LoyaltyPoints;
 import com.example.aquarium.model.Role;
 import com.example.aquarium.model.User;
+import com.example.aquarium.security.interfaceRole.AdminAccess;
+import com.example.aquarium.security.interfaceRole.ContentStaffAccess;
+import com.example.aquarium.security.interfaceRole.CustomerAccess;
+import com.example.aquarium.security.interfaceRole.InvoiceStaffAccess;
 import com.example.aquarium.security.jwt.JwtTokenProvider;
 import com.example.aquarium.service.AuthService;
 import com.example.aquarium.service.UserService;
@@ -29,7 +32,6 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
     private final AuthService authService;
-
 
     @GetMapping("/info")
     public ResponseEntity<UserInfo> getUserInfo(@RequestHeader("Authorization") String authorizationHeader) {
@@ -67,10 +69,12 @@ public class UserController {
             return ResponseEntity.badRequest().body("Invalid token");
         }
     }
+    @AdminAccess
     @GetMapping("/managers")
     public List<UserResponse> getAllManagers() {
         return userService.getUsersByRole("NotCustomer");
     }
+    @AdminAccess
     @GetMapping("/customers")
     public List<UserResponse> getAllCustomers() {
         return userService.getUsersByRole("Customer");
@@ -101,6 +105,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
+    @CustomerAccess
     @GetMapping("/buy/{id}")
     public ResponseEntity<?> getBuyUser(@PathVariable Integer id){
         List<BuyResponse> buyResponses = userService.getBuyResponsesByUserId(id);
