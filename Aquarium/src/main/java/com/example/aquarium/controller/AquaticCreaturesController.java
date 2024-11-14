@@ -6,6 +6,7 @@ import com.example.aquarium.bean.response.AquaticCreaturesResponse2;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.SpeciesResponse2;
 import com.example.aquarium.model.AquaticCreatures;
+import com.example.aquarium.security.interfaceRole.*;
 import com.example.aquarium.service.AquaticCreaturesService;
 import com.example.aquarium.service.SpeciesService;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ public class AquaticCreaturesController {
     private final AquaticCreaturesService service;
     private final SpeciesService service2;
 
+    @AdminAndContentStaffAccess
     @PostMapping
     public ResponseEntity<?> createAquaticCreature(@Valid @ModelAttribute AquaticCreaturesRequest creature) {
         try {
@@ -35,25 +37,25 @@ public class AquaticCreaturesController {
             return new ResponseEntity<>(new MessageResponse("Error occurred while saving creature!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @AdminContentCustomerAccess
     @GetMapping()
     public ResponseEntity<List<AquaticCreaturesResponse>> getAllAquaticCreatures() {
         List<AquaticCreaturesResponse> response = service.getAllAquaticCreatures();
         return ResponseEntity.ok(response);
     }
-
+    @AdminContentCustomerAccess
     @GetMapping("/species")
     public ResponseEntity<List<SpeciesResponse2>> getAllSpecies() {
         List<SpeciesResponse2> response = service2.getAllSpecies2();
         return ResponseEntity.ok(response);
     }
-
+    @AdminContentCustomerAccess
     @GetMapping("/{id}")
     public ResponseEntity<AquaticCreaturesResponse> getAquaticCreatureById(@PathVariable int id) {
         AquaticCreaturesResponse response = service.getAquaticCreatureById(id);
         return ResponseEntity.ok(response);
     }
-
-
+    @AdminAndContentStaffAccess
     @PutMapping("/{id}")
     public ResponseEntity<MessageResponse> updateAquaticCreature(@PathVariable Integer id, @ModelAttribute AquaticCreaturesRequest creature) throws IOException {
         try {
@@ -63,17 +65,17 @@ public class AquaticCreaturesController {
             return new ResponseEntity<>(new MessageResponse("Error occurred while saving creature!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @AdminAndContentStaffAccess
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAquaticCreature(@PathVariable Integer id) {
         service.deleteAquaticCreature(id);
         return ResponseEntity.noContent().build();
     }
+    @CustomerAccess
     @GetMapping("/distinct-creatures")
     public ResponseEntity<List<AquaticCreaturesResponse2>> getAllDistinctCreatures() {
         List<AquaticCreaturesResponse2> response = service.getAllDistinctCreatures();
         return ResponseEntity.ok(response);
     }
-
 }
 
