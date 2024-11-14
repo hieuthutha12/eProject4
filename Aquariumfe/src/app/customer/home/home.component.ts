@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router,private alertService: AlertService) {}
 
   ngOnInit(): void {
-    this.userInfo$ = this.authService.userInfo$;
+    this.userInfo$ = this.authService.fetchUserInfo();
     console.log('User info loaded:', this.userInfo$);
     
   }

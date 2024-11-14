@@ -54,11 +54,10 @@ export class BuyTicketComponent implements OnInit {
   
   ngOnInit(): void {
     this.fetchTypes();
-    this.authService.userInfo$.subscribe((info) => {
+    this.authService.fetchUserInfo().subscribe((info) => {
       this.userInfo = info;
     });
   }
-  //step 4
   confirmStepFour() {
     const orderDetailsRequests = this.typeQuantity
       .filter(item => item.quantity > 0) 
@@ -91,7 +90,6 @@ export class BuyTicketComponent implements OnInit {
       response => {
         if (this.userInfo) {
           this.userInfo.loyaltyPoints -= this.score;
-          this.authService.setUserInfo(this.userInfo);
         }
         this.alertService.showAlert('Booking successful','success');
         this.router.navigate(['customer']);

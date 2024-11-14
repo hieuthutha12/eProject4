@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BuyController {
     private final BuyService buyService;
-
     @CustomerAccess
     @PostMapping()
     public ResponseEntity<MessageResponse> buyTicket(@Valid @RequestBody BuyRequest buyRequest) {

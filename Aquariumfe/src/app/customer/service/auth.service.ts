@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { UserInfo } from '../../models/user-info.model';
 
@@ -12,18 +12,10 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080/api/user/info'; 
   private apiUrlRegister = 'http://localhost:8080/api/auth';
 
-  private userInfoSubject: BehaviorSubject<UserInfo | null> = new BehaviorSubject<UserInfo | null>(null);
-  public userInfo$: Observable<UserInfo | null> = this.userInfoSubject.asObservable();
-
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    const storedUserInfo = this.getStoredUserInfo();
-    if (storedUserInfo) {
-      this.userInfoSubject.next(storedUserInfo);
-    }
-  }
+  ) {}
 
   login(credentials: { email: string; password: string, targetRole: string }): Observable<any> {
     return this.http.post<{ token: string }>(this.apiUrlLogin, credentials, {
@@ -33,7 +25,6 @@ export class AuthService {
     }).pipe(
       tap(response => {
         this.setCustomerToken(response.token);
-        this.fetchUserInfo().subscribe();
       }),
     );
   }
@@ -43,11 +34,7 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
-    }).pipe(
-      tap(response => {
-        console.log(response.message);
-      })
-    );
+    });
   }
 
   confirmRegistration(email: string, code: string): Observable<any> {
@@ -59,7 +46,6 @@ export class AuthService {
       tap(response => {
         if (response && response.token) {
           this.setCustomerToken(response.token);  
-          this.fetchUserInfo().subscribe();
         }
       }),
     );
@@ -68,7 +54,6 @@ export class AuthService {
   private setCustomerToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
-      sessionStorage.clear();
       localStorage.setItem('customerToken', token);
     }
   }
@@ -83,9 +68,7 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('customerToken');
-      sessionStorage.removeItem('userInfo');
     }
-    this.userInfoSubject.next(null);
   }
 
   isLoggedIn(): boolean {
@@ -93,33 +76,9 @@ export class AuthService {
   }
 
   fetchUserInfo(): Observable<UserInfo> {
-    if (this.userInfoSubject.value !== null) {
-      return this.userInfo$ as Observable<UserInfo>;
-    }
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });
-    return this.http.get<UserInfo>(this.apiUrl, { headers }).pipe(
-      tap((userInfo: UserInfo) => {
-        this.setUserInfo(userInfo);
-      }),
-    );
+    return this.http.get<UserInfo>(this.apiUrl, { headers });
   }
-
-  public setUserInfo(userInfo: UserInfo): void {
-    this.userInfoSubject.next(userInfo);
-    if (isPlatformBrowser(this.platformId)) {
-      sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-    }
-  }
-
-  private getStoredUserInfo(): UserInfo | null {
-    if (isPlatformBrowser(this.platformId)) {
-      const storedData = sessionStorage.getItem('userInfo');
-      return storedData ? JSON.parse(storedData) : null;
-    }
-    return null;
-  }
-
 }

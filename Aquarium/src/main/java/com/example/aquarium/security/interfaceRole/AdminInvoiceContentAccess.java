@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRATOR', 'ROLE_INVOICE_STAFF', 'ROLE_CONTENT_STAFF')")
+@PreAuthorize("hasAnyRole('ADMINISTRATOR', 'INVOICE_STAFF', 'CONTENT_STAFF')")
 public @interface AdminInvoiceContentAccess {
 }

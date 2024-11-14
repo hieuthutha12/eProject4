@@ -17,7 +17,6 @@ public class TicketController {
     private final TicketService ticketService;
 
 
-    @AdminInvoiceCustomerAccess
     @GetMapping("/{id}")
     public ResponseEntity<TicketResponse> getTicket(@PathVariable Integer id) {
         TicketResponse response = ticketService.getTicket(id);

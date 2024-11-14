@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRATOR', 'ROLE_CONTENT_STAFF')")
+@PreAuthorize("hasAnyRole('ADMINISTRATOR', 'CONTENT_STAFF')")
 public @interface AdminAndContentStaffAccess {
 }

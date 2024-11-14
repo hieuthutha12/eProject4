@@ -32,7 +32,7 @@ export class GetProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.adminInfo$.subscribe(user => {
+    this.authService.fetchUserInfo().subscribe(user => {
       this.userInfo = user;
       if (this.userInfo?.createdAt) {
         const createdDate = new Date(this.userInfo.createdAt); 

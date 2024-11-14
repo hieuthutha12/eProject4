@@ -23,7 +23,7 @@ export class FeedbackComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.authService.userInfo$.subscribe((info) => {
+    this.authService.fetchUserInfo().subscribe((info) => {
       this.userInfor = info;
     })
   }

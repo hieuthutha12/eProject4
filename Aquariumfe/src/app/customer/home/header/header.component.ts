@@ -19,7 +19,7 @@ export class HeaderComponent {
   species: any[] = [];
   
   ngOnInit(): void {
-    this.authService.userInfo$.subscribe(user => {
+    this.authService.fetchUserInfo().subscribe(user => {
       this.userInfo = user;
     });
     this.speciesService.getAllSpecies().subscribe(

@@ -70,7 +70,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
         this.aquaticCreaturesForm.descriptions = [];
       }
     });
-    this.authService.adminInfo$.subscribe(user => {
+    this.authService.fetchUserInfo().subscribe(user => {
       this.userInfo = user;
     });
   }
