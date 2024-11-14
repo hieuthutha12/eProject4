@@ -46,7 +46,7 @@ export class EventFormComponent implements OnInit {
         this.getEventData(this.eventId);
       }
     });
-    this.authService.userInfo$.subscribe(user => {
+    this.authService.adminInfo$.subscribe(user => {
       this.userInfo = user;
     });
   }

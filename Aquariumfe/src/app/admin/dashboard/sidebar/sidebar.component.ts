@@ -12,7 +12,7 @@ export class SidebarComponent {
   userInfo: UserInfo | null = null;
   constructor(private authService : AuthService, private router :Router){}
   ngOnInit(): void {
-    this.authService.userInfo$.subscribe(user => {
+    this.authService.adminInfo$.subscribe(user => {
       this.userInfo = user;
     });
   }

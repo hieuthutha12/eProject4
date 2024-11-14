@@ -29,7 +29,6 @@ public class SpeciesController {
         Species savedSpecies = speciesService.addSpecies(speciesRequest);
         return new ResponseEntity<>(new MessageResponse("Successfully created species!"), HttpStatus.CREATED);
     }
-    @AdminContentCustomerAccess
     @GetMapping
     public ResponseEntity<List<SpeciesResponse>> getAllSpecies() {
         List<SpeciesResponse> speciesList = speciesService.getAllSpecies();
@@ -42,7 +41,6 @@ public class SpeciesController {
         Species updatedSpecies = speciesService.update(id, speciesRequest);
         return new ResponseEntity<>(new MessageResponse("Successfully"), HttpStatus.OK);
     }
-    @AdminContentCustomerAccess
     @GetMapping("/{id}")
     public Optional<SpeciesResponse> getSpeciesById(@PathVariable int id) {
         return speciesService.findById(id);

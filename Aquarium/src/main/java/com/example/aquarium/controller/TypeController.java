@@ -25,14 +25,12 @@ public class TypeController {
         TypeResponse response = typeService.createType(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-    @AdminContentCustomerAccess
     @GetMapping("/{id}")
     public ResponseEntity<TypeResponse> getType(@PathVariable Integer id) {
         return typeService.getType(id)
                 .map(type -> new ResponseEntity<>(type, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @AdminAndContentStaffAccess
     @GetMapping
     public ResponseEntity<List<TypeResponse>> getAllTypes() {
         List<TypeResponse> responses = typeService.getAllTypes();

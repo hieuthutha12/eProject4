@@ -20,14 +20,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventController {
     private final EventService eventService;
-    @AdminContentCustomerAccess
     @GetMapping
     public ResponseEntity<List<EventResponse>> getAllEvents() {
         List<EventResponse> events = eventService.findAll();
         return ResponseEntity.ok(events);
     }
 
-    @AdminAndContentStaffAccess
     @GetMapping("/{id}")
     public ResponseEntity<EventResponse> getEventById(@PathVariable Integer id) {
         return eventService.findById(id)

@@ -37,19 +37,16 @@ public class AquaticCreaturesController {
             return new ResponseEntity<>(new MessageResponse("Error occurred while saving creature!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @AdminContentCustomerAccess
     @GetMapping()
     public ResponseEntity<List<AquaticCreaturesResponse>> getAllAquaticCreatures() {
         List<AquaticCreaturesResponse> response = service.getAllAquaticCreatures();
         return ResponseEntity.ok(response);
     }
-    @AdminContentCustomerAccess
     @GetMapping("/species")
     public ResponseEntity<List<SpeciesResponse2>> getAllSpecies() {
         List<SpeciesResponse2> response = service2.getAllSpecies2();
         return ResponseEntity.ok(response);
     }
-    @AdminContentCustomerAccess
     @GetMapping("/{id}")
     public ResponseEntity<AquaticCreaturesResponse> getAquaticCreatureById(@PathVariable int id) {
         AquaticCreaturesResponse response = service.getAquaticCreatureById(id);
@@ -71,7 +68,7 @@ public class AquaticCreaturesController {
         service.deleteAquaticCreature(id);
         return ResponseEntity.noContent().build();
     }
-    @CustomerAccess
+
     @GetMapping("/distinct-creatures")
     public ResponseEntity<List<AquaticCreaturesResponse2>> getAllDistinctCreatures() {
         List<AquaticCreaturesResponse2> response = service.getAllDistinctCreatures();

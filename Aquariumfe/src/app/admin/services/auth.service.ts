@@ -17,7 +17,7 @@ export class AuthService {
         this.userInfoSubject.next(storedUserInfo);
       }}
     private userInfoSubject: BehaviorSubject<UserInfo | null> = new BehaviorSubject<UserInfo | null>(null);
-    public userInfo$: Observable<UserInfo | null> = this.userInfoSubject.asObservable();
+    public adminInfo$: Observable<UserInfo | null> = this.userInfoSubject.asObservable();
     login(credentials: { email: string; password: string, targetRole: string }): Observable<any> {
       return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, credentials, {
         headers: new HttpHeaders({
@@ -59,7 +59,7 @@ export class AuthService {
   
     fetchUserInfo(): Observable<UserInfo> {
       if (this.userInfoSubject.value !== null) {
-        return this.userInfo$ as Observable<UserInfo>;
+        return this.adminInfo$ as Observable<UserInfo>;
       }
   
       const headers = new HttpHeaders({
@@ -75,13 +75,13 @@ export class AuthService {
     public setUserInfo(userInfo: UserInfo): void {
       this.userInfoSubject.next(userInfo);
       if (isPlatformBrowser(this.platformId)) {
-        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        sessionStorage.setItem('adminInfo', JSON.stringify(userInfo));
       }
     }
   
     private getStoredUserInfo(): UserInfo | null {
       if (isPlatformBrowser(this.platformId)) {
-        const storedData = sessionStorage.getItem('userInfo');
+        const storedData = sessionStorage.getItem('adminInfo');
         return storedData ? JSON.parse(storedData) : null;
       }
       return null;

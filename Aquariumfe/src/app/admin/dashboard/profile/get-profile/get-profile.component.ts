@@ -21,19 +21,18 @@ export class GetProfileComponent implements OnInit {
     private router: Router, 
     private fb: FormBuilder
   ) {
-    // Khởi tạo passwordForm với các trường và validator
+   
     this.passwordForm = this.fb.group({
       oldPassword: [''],
       newPassword: [''],
       confirmPassword: ['']
     }, {
-      // Tạo validator tùy chỉnh để xác nhận mật khẩu
       validator: this.passwordMatchValidator
     });
   }
 
   ngOnInit(): void {
-    this.authService.userInfo$.subscribe(user => {
+    this.authService.adminInfo$.subscribe(user => {
       this.userInfo = user;
       if (this.userInfo?.createdAt) {
         const createdDate = new Date(this.userInfo.createdAt); 

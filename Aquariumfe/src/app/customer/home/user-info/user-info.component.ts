@@ -52,7 +52,7 @@ export class UserInfoComponent implements OnInit {
   itemsPerPage: number = 15;
   paginatedTickets: Ticket[] = [];
   ngOnInit(): void {
-    this.authService.userInfo$.subscribe((info) => {
+    this.authService.fetchUserInfo().subscribe((info) => {
       if (info) {
         this.userInfo = info;
         this.userInfoForm.patchValue(info);
