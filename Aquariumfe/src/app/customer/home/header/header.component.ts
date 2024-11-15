@@ -21,6 +21,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.authService.fetchUserInfo().subscribe(user => {
       this.userInfo = user;
+      console.log(this.userInfo.firstName);
     });
     this.speciesService.getAllSpecies().subscribe(
       (data: any[]) => {

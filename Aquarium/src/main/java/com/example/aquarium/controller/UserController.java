@@ -10,9 +10,7 @@ import com.example.aquarium.model.LoyaltyPoints;
 import com.example.aquarium.model.Role;
 import com.example.aquarium.model.User;
 import com.example.aquarium.security.interfaceRole.AdminAccess;
-import com.example.aquarium.security.interfaceRole.ContentStaffAccess;
-import com.example.aquarium.security.interfaceRole.CustomerAccess;
-import com.example.aquarium.security.interfaceRole.InvoiceStaffAccess;
+import com.example.aquarium.security.interfaceRole.AdminInvoiceContentAccess;
 import com.example.aquarium.security.jwt.JwtTokenProvider;
 import com.example.aquarium.service.AuthService;
 import com.example.aquarium.service.UserService;
@@ -69,15 +67,15 @@ public class UserController {
             return ResponseEntity.badRequest().body("Invalid token");
         }
     }
-    @AdminAccess
+    @AdminInvoiceContentAccess
     @GetMapping("/managers")
     public List<UserResponse> getAllManagers() {
         return userService.getUsersByRole("NotCustomer");
     }
-    @AdminAccess
+    @AdminInvoiceContentAccess
     @GetMapping("/customers")
     public List<UserResponse> getAllCustomers() {
-        return userService.getUsersByRole("Customer");
+        return userService.getUsersByRole("CUSTOMER");
     }
     @PostMapping("update/{id}")
     public ResponseEntity<?> updateInfo(@PathVariable Integer id,@Valid @RequestBody UserRequest request){
@@ -105,11 +103,22 @@ public class UserController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
-    @CustomerAccess
     @GetMapping("/buy/{id}")
     public ResponseEntity<?> getBuyUser(@PathVariable Integer id){
         List<BuyResponse> buyResponses = userService.getBuyResponsesByUserId(id);
         return ResponseEntity.ok(buyResponses);
+    }
+    @AdminAccess
+    @PutMapping("/update-status/{id}")
+    public ResponseEntity<?> updateUserStatus(
+            @PathVariable Integer id,
+            @RequestParam String status) {
+        try {
+            userService.updateUserStatus(id, status);
+            return ResponseEntity.ok("");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid status value");
+        }
     }
 
 }

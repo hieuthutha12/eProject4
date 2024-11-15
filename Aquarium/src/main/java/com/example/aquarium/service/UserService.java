@@ -50,13 +50,13 @@ public class UserService {
     public List<UserResponse> getUsersByRole(String roleName) {
         List<User> users = userRepository.findAll();
         List<User> filteredUsers;
-        if ("Customer".equals(roleName)) {
+        if ("Customer".equalsIgnoreCase(roleName)) {
             filteredUsers = users.stream()
-                    .filter(user -> user.getRole() != null && "Customer".equals(user.getRole().getRoleName()))
+                    .filter(user -> user.getRole() != null && "Customer".equalsIgnoreCase(user.getRole().getRoleName()))
                     .collect(Collectors.toList());
         } else {
             filteredUsers = users.stream()
-                    .filter(user -> user.getRole() != null && !"Customer".equals(user.getRole().getRoleName()))
+                    .filter(user -> user.getRole() != null && !"Customer".equalsIgnoreCase(user.getRole().getRoleName()))
                     .collect(Collectors.toList());
         }
 
@@ -113,7 +113,14 @@ public class UserService {
 
         return new ArrayList<>(buyResponseMap.values());
     }
+    public void updateUserStatus(Integer userId, String statusFromFrontend) {
+        String status = statusFromFrontend.toUpperCase();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
+        user.setAccountStatus(status);
 
+        userRepository.save(user);
+    }
 }
 

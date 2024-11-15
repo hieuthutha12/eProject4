@@ -26,6 +26,5 @@ public class OrderDetailsService {
                 .map(orderDetailsMapper::toResponse)
                 .collect(Collectors.toList());
     }
-
 }
 

@@ -26,6 +26,7 @@ export class AuthService {
 
   private setAdminToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
       localStorage.setItem('adminToken', token);
     }
   }

@@ -67,7 +67,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="pagination-controls">
+        <div class="pagination-controls" *ngIf="totalPages > 1">
           <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
           <span>Page {{ currentPage }} / {{ totalPages }}</span>
           <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= tickets.length">Next</button>

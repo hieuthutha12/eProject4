@@ -1,9 +1,11 @@
 package com.example.aquarium.controller;
 
+import com.example.aquarium.bean.request.AdminDTO;
 import com.example.aquarium.bean.request.LoginRequest;
 import com.example.aquarium.bean.request.UserDTO;
 import com.example.aquarium.bean.response.AuthResponse;
 import com.example.aquarium.bean.response.MessageResponse;
+import com.example.aquarium.security.interfaceRole.AdminAccess;
 import com.example.aquarium.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -68,6 +70,20 @@ public class AuthController {
         }
     }
 
+    @AdminAccess
+    @PostMapping("/register-admin")
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody AdminDTO adminDTO) {
+        try {
+            MessageResponse response = authService.registerAdmin(adminDTO);
+            if (response.getErrors() != null) {
+                return ResponseEntity.badRequest().body(response);
+            }
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse("An error occurred during registration. Please try again later."));
+        }
+    }
 
 }
 

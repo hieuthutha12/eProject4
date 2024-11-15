@@ -56,17 +56,18 @@ export class UserInfoComponent implements OnInit {
       if (info) {
         this.userInfo = info;
         this.userInfoForm.patchValue(info);
+        this.userService.getUserTickets(this.userInfo.id).subscribe(
+          (data: any) => {
+            this.tickets = data;
+            this.paginateTickets(); 
+          },
+          error => {
+            console.error('Error fetching events:', error); 
+          }
+        );
       }
     });
-    this.userService.getUserTickets(this.userInfo.id).subscribe(
-      (data: any) => {
-        this.tickets = data;
-        this.paginateTickets(); 
-      },
-      error => {
-        console.error('Error fetching events:', error); 
-      }
-    );
+    
   }
   get totalPages(): number {
     return Math.ceil(this.tickets.length / this.itemsPerPage);

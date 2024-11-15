@@ -23,4 +23,9 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
+  logout() {
+    localStorage.removeItem('adminToken');
+    this.router.navigate(['/admin']);
+}
+
 }

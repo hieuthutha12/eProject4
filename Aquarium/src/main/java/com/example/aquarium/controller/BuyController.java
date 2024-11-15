@@ -2,7 +2,6 @@ package com.example.aquarium.controller;
 
 import com.example.aquarium.bean.request.BuyRequest;
 import com.example.aquarium.bean.response.MessageResponse;
-import com.example.aquarium.security.interfaceRole.CustomerAccess;
 import com.example.aquarium.service.BuyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BuyController {
     private final BuyService buyService;
-    @CustomerAccess
     @PostMapping()
     public ResponseEntity<MessageResponse> buyTicket(@Valid @RequestBody BuyRequest buyRequest) {
         BuyRequest buyRequest1 = buyService.buyTicket(buyRequest);

@@ -7,6 +7,8 @@ import { AdminComponent } from './admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -15,12 +17,20 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     DashboardModule,
     RouterModule     
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ]
 })
 export class AdminModule { }

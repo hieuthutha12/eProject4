@@ -23,7 +23,8 @@ import { TicketComponent } from './ticket/ticket.component';
     TypeComponent,
     CustomerComponent,
     HomeComponent,
-    TicketComponent
+    TicketComponent,
+    
   ],
   imports: [
     FormsModule,

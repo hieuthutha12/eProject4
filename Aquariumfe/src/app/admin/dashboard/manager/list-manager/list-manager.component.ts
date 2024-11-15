@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+
 @Component({
   selector: 'app-list-manager',
   templateUrl: './list-manager.component.html',
@@ -8,8 +9,10 @@ import { UserService } from '../../services/user.service';
 })
 export class ListManagerComponent {
   Listmana: any[] = [];
+  filteredListmana: any[] = [];
+  searchTerm: string = '';
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
     this.loadManagers();
@@ -19,39 +22,40 @@ export class ListManagerComponent {
     this.userService.getManagers().subscribe(
       (data) => {
         this.Listmana = data;
+        this.filteredListmana = data;
       },
       (error) => {
-        console.error('Error fetching manager', error);
+        console.error('Error fetching managers', error);
       }
     );
   }
 
-  editCreature(id: number) {
-    this.router.navigate(['/manager/update', id]);
+  addUser() {
+    this.router.navigate(['/admin/dashboard/manager/form']);
   }
-  addCreature() {
-    this.router.navigate(['/admin/dashboard/manafer/form']);
-  }
+
   searchUser(): void {
-    
-    const input: string = (document.getElementById("searchInput") as HTMLInputElement).value.toUpperCase();
-    const table: HTMLTableElement = document.getElementById("userTable") as HTMLTableElement;
-    const tr: HTMLCollectionOf<HTMLTableRowElement> = table.getElementsByTagName("tr");
+    const searchInput = this.searchTerm.toLowerCase();
+    this.filteredListmana = this.Listmana.filter((user) => {
+      return (
+        (user.firstName && user.firstName.toLowerCase().includes(searchInput)) ||
+        (user.email && user.email.toLowerCase().includes(searchInput))
+      );
+    });
+  }
+  
 
-    
-    for (let i = 1; i < tr.length; i++) {
-      const td: HTMLCollectionOf<HTMLTableCellElement> = tr[i].getElementsByTagName("td");
-      let match: boolean = false;
-      for (let j = 0; j < td.length; j++) {
-        if (td[j]) {
-          if (td[j].innerHTML.toUpperCase().indexOf(input) > -1) {
-            match = true;
-            break;
-          }
-        }
+  toggleStatus(user: any): void {
+    const newStatus = user.accountStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+    user.accountStatus = newStatus;
+
+    this.userService.updateUserStatus(user.id, newStatus).subscribe(
+      (response) => {
+        console.log('User status updated successfully', response);
+      },
+      (error) => {
+        console.error('Error updating user status', error);
       }
-
-      tr[i].style.display = match ? "" : "none";
-    }
+    );
   }
 }

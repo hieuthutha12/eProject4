@@ -89,7 +89,7 @@ export class ListOrderComponent implements OnInit {
   }
 
   viewOrderDetails(id: number) {
-    this.router.navigate(['/orders/details', id]);
+    this.router.navigate(['/admin/dashboard/ticket']);
   }
 
   onSearchTermChange() {

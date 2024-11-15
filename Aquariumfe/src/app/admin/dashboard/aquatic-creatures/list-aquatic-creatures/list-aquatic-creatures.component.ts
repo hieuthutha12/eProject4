@@ -10,11 +10,11 @@ import { AquaticCreaturesService } from '../../services/aquatic-creatures.servic
 export class ListAquaticCreaturesComponent implements OnInit {
   creatures: any[] = [];
   paginatedCreatures: any[] = [];
-  filteredCreatures: any[] = []; // Danh sách đã lọc theo tên
+  filteredCreatures: any[] = [];
   page: number = 1;
   itemsPerPage: number = 8;
   totalPages: number = 0;
-  searchQuery: string = ''; // Giá trị tìm kiếm
+  searchQuery: string = '';
 
   constructor(private router: Router, private aquaticCreaturesService: AquaticCreaturesService) {}
 

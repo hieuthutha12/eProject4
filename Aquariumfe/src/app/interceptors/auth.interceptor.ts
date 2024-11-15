@@ -1,13 +1,19 @@
-// src/app/interceptors/auth.interceptor.ts
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('customerToken');
-    console.log("hhh");
+    let token: string | null = null;
+
+    if (isPlatformBrowser(this.platformId)) {
+      token = localStorage.getItem('adminToken');
+    }
+
     if (token) {
       const clonedRequest = req.clone({
         setHeaders: {

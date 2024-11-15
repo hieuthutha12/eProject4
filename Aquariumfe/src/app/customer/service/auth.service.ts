@@ -77,8 +77,8 @@ export class AuthService {
 
   fetchUserInfo(): Observable<UserInfo> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getToken()}`
+      'Authorization': `Bearer ${this.getToken()}`,
     });
-    return this.http.get<UserInfo>(this.apiUrl, { headers });
+    return this.http.get<UserInfo>(`${this.apiUrl}`, { headers });
   }
 }

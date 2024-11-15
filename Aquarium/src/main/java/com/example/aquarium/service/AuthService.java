@@ -1,6 +1,7 @@
 package com.example.aquarium.service;
 
 
+import com.example.aquarium.bean.request.AdminDTO;
 import com.example.aquarium.bean.request.LoginRequest;
 import com.example.aquarium.bean.request.PasswordChangeRequest;
 import com.example.aquarium.bean.request.UserDTO;
@@ -89,7 +90,6 @@ public class AuthService {
             return new MessageResponse("Verification code sent to your email. Please verify to complete registration.");
 
         } catch (Exception e) {
-            // Handle any errors that occur while sending the verification code
             return new MessageResponse("An error occurred while sending the verification code. Please try again later.");
         }
     }
@@ -111,7 +111,6 @@ public class AuthService {
         Optional<Role> optionalRole = Optional.ofNullable(roleRepository.findById(1));
         Role role = optionalRole.orElseThrow(() -> new Exception("Role not found"));
 
-        // Map UserDTO to User entity
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -122,12 +121,40 @@ public class AuthService {
         user.setAccountStatus(Status.ACTIVE.toString());
         user.setRole(role);
 
-        // Save user and generate JWT token
         userRepository.save(user);
         String token = jwtTokenProvider.generateToken(user.getEmail());
 
         return new AuthResponse(token);
     }
+    public MessageResponse registerAdmin(AdminDTO adminDTO) {
+
+        if (userRepository.existsByEmail(adminDTO.getEmail())) {
+            return new MessageResponse("Email already registered", Map.of("email", "This email is already in use"));
+        }
+        try {
+            String encodedPassword = passwordEncoder.encode(adminDTO.getPassword());
+            Optional<Role> optionalRole = Optional.ofNullable(roleRepository.findById(adminDTO.getRoleId()));
+            Role role = optionalRole.orElseThrow(() -> new Exception("Role not found"));
+            User user = new User();
+            user.setFirstName(adminDTO.getFirstName());
+            user.setLastName(adminDTO.getLastName());
+            user.setEmail(adminDTO.getEmail());
+            user.setPassword(encodedPassword);
+            user.setAddress(adminDTO.getAddress());
+            user.setPhone(adminDTO.getPhone());
+            user.setAccountStatus(Status.ACTIVE.toString());
+            user.setRole(role);
+
+
+            userRepository.save(user);
+            String token = jwtTokenProvider.generateToken(user.getEmail());
+            return new MessageResponse("Admin registered successfully");
+
+        } catch (Exception e) {
+            return new MessageResponse("An error occurred during registration. Please try again later.");
+        }
+    }
+
 }
 
 
