@@ -5,8 +5,8 @@ import { FormManagerComponent } from './manager-form/manager-form.component';
 
 const routes: Routes = [
   { path: 'list', component: ListManagerComponent },
-  { path: 'form', component: FormManagerComponent },
-  { path: 'form/:id', component: FormManagerComponent },
+  { path: 'form', component: FormManagerComponent,data: { roles: ['ADMINISTRATOR']} },
+  { path: 'form/:id', component: FormManagerComponent,data: { roles: ['ADMINISTRATOR']} },
   { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 

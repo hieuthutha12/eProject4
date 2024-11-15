@@ -5,8 +5,8 @@ import { AquaticCreaturesFormComponent } from './aquatic-creatures-form/aquatic-
 
 const routes: Routes = [
   { path: 'list', component: ListAquaticCreaturesComponent },
-  { path: 'form', component: AquaticCreaturesFormComponent },
-  { path: 'form/:id', component: AquaticCreaturesFormComponent },
+  { path: 'form', component: AquaticCreaturesFormComponent,data: { roles: ['CONTENT_STAFF', 'ADMINISTRATOR']} },
+  { path: 'form/:id', component: AquaticCreaturesFormComponent,data: { roles: ['CONTENT_STAFF', 'ADMINISTRATOR']} },
   { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 

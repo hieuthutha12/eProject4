@@ -8,7 +8,7 @@
     </div>
     <a routerLink="/admin/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
     <a routerLink="/admin/dashboard/aquatic-creatures"><i class="bi bi-tencent-qq"></i> Animal</a>
-    <a routerLink="/admin/dashboard/manager"><i class="bi bi-person"></i> Manager</a>
+    <a *ngIf="hasRole(['ADMINISTRATOR'])" routerLink="/admin/dashboard/manager"><i class="bi bi-person"></i> Manager</a>
     <a routerLink="/admin/dashboard/customer"><i class="bi bi-person"></i> Customer</a>
     <a routerLink="/admin/dashboard/event"><i class="bi bi-calendar-event"></i> Event</a>
     <a routerLink="/admin/dashboard/order"><i class="bi bi-basket"></i> Orders</a>

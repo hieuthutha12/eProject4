@@ -1,6 +1,6 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { UserInfo } from '../../models/user-info.model';
 
@@ -9,8 +9,37 @@ import { UserInfo } from '../../models/user-info.model';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api';
+  private loggedInStatus = new BehaviorSubject<boolean>(false);
+  private userRoles = new BehaviorSubject<string[]>([]);
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) { 
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        this.loggedInStatus.next(true);
+        this.fetchUserInfo().subscribe(userInfo => {
+          this.userRoles.next([userInfo.roleName]); 
+        });
+      }
+    }
+  }
+
+
+  fetchUserInfo(): Observable<UserInfo> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`,
+    });
+    return this.http.get<UserInfo>(`${this.apiUrl}/user/info`, { headers });
+  }
+
+  getUserRoles(): Observable<string[]> {
+    return this.userRoles.asObservable();
+  }
+
+  hasRole(role: string): boolean {
+    const roles = this.userRoles.getValue();
+    return roles.includes(role);
+  }
 
   login(credentials: { email: string; password: string; targetRole: string }): Observable<any> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, credentials, {
@@ -20,39 +49,36 @@ export class AuthService {
     }).pipe(
       tap(response => {
         this.setAdminToken(response.token);
+        this.fetchUserInfo().subscribe(userInfo => {
+          this.userRoles.next([userInfo.roleName]);  
+        });
       }),
     );
   }
 
-  private setAdminToken(token: string) {
-    if (isPlatformBrowser(this.platformId)) {
+  private setAdminToken(token: string): void {
+    if (isPlatformBrowser(this.platformId)) {  
       localStorage.clear();
-      localStorage.setItem('adminToken', token);
+      localStorage.setItem('adminToken', token); 
     }
   }
 
   getToken(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId)) {  
       return localStorage.getItem('adminToken');
     }
     return null;
   }
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId)) { 
       localStorage.removeItem('adminToken');
     }
+    this.userRoles.next([]); 
   }
 
   isLoggedIn(): boolean {
     return !!this.getToken();
-  }
-
-  fetchUserInfo(): Observable<UserInfo> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getToken()}`,
-    });
-    return this.http.get<UserInfo>(`${this.apiUrl}/user/info`, { headers });
   }
 
   changePassword(id: number, passwordData: any): Observable<any> {

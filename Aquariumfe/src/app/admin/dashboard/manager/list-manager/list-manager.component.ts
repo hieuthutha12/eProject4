@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-manager',
@@ -12,7 +13,7 @@ export class ListManagerComponent {
   filteredListmana: any[] = [];
   searchTerm: string = '';
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadManagers();
@@ -57,5 +58,12 @@ export class ListManagerComponent {
         console.error('Error updating user status', error);
       }
     );
+  }
+  hasRole(roles: string[]): boolean {
+    let hasRole = false;
+    this.authService.getUserRoles().subscribe(userRoles => {
+      hasRole = userRoles.some(userRole => roles.includes(userRole));
+    });
+    return hasRole;
   }
 }

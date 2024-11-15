@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpeciesService } from '../services/species.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-species',
@@ -27,7 +28,7 @@ export class SpeciesComponent implements OnInit {
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;
 
-  constructor(private router: Router, private speciesService: SpeciesService) {}
+  constructor(private router: Router, private speciesService: SpeciesService, private authService : AuthService) {}
 
   ngOnInit() {
     this.fetchSpecies();
@@ -96,7 +97,13 @@ export class SpeciesComponent implements OnInit {
       }
     );
   }
-
+  hasRole(roles: string[]): boolean {
+    let hasRole = false;
+    this.authService.getUserRoles().subscribe(userRoles => {
+      hasRole = userRoles.some(userRole => roles.includes(userRole));
+    });
+    return hasRole;
+  }
   handleErrors(error: any) {
     this.resetErrorMessages();
 

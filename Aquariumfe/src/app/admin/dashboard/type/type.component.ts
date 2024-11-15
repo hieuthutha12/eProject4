@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TypeService } from '../services/type.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-type',
@@ -23,12 +24,19 @@ export class TypeComponent implements OnInit {
   generalErrorMessage: string = '';
   isUpdateMode: boolean = false;
 
-  constructor(private router: Router, private typeService: TypeService) { }
+  constructor(private router: Router, private typeService: TypeService, private authService :AuthService) { }
 
   ngOnInit() {
     this.fetchTypes();
   }
 
+  hasRole(roles: string[]): boolean {
+    let hasRole = false;
+    this.authService.getUserRoles().subscribe(userRoles => {
+      hasRole = userRoles.some(userRole => roles.includes(userRole));
+    });
+    return hasRole;
+  }
   fetchTypes() {
     this.typeService.getAllTypes().subscribe(
       (data: any) => {

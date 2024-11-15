@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AquaticCreaturesService } from '../../services/aquatic-creatures.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-aquatic-creatures',
@@ -16,7 +17,7 @@ export class ListAquaticCreaturesComponent implements OnInit {
   totalPages: number = 0;
   searchQuery: string = '';
 
-  constructor(private router: Router, private aquaticCreaturesService: AquaticCreaturesService) {}
+  constructor(private router: Router, private aquaticCreaturesService: AquaticCreaturesService, private authService : AuthService) {}
 
   ngOnInit() {
     this.loadCreatures();
@@ -75,5 +76,12 @@ export class ListAquaticCreaturesComponent implements OnInit {
     this.page = 1;
     this.totalPages = Math.ceil(this.filteredCreatures.length / this.itemsPerPage);
     this.updatePagination();
+  }
+  hasRole(roles: string[]): boolean {
+    let hasRole = false;
+    this.authService.getUserRoles().subscribe(userRoles => {
+      hasRole = userRoles.some(userRole => roles.includes(userRole));
+    });
+    return hasRole;
   }
 }
