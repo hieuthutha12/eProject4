@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListOrderComponent } from './list-order/list-order.component';
 
 const routes: Routes = [
-  { path: 'list', component: ListOrderComponent },
+  { path: 'list', component: ListOrderComponent,data: { roles: ['ADMINISTRATOR','INVOICE_STAFF']} },
   { path: '', redirectTo: 'list', pathMatch: 'full' }
 ];
 

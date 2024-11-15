@@ -5,7 +5,7 @@
     
     <input type="text" [(ngModel)]="searchQuery" (input)="searchCreatures()" class="form-control mb-3" placeholder="Search by name...">
 
-    <button (click)="addCreature()" class="btn btn-primary mb-3">Add New Aquatic Creature</button>
+    <button *ngIf="hasRole(['ADMINISTRATOR', 'CONTENT_STAFF'])" (click)="addCreature()" class="btn btn-primary mb-3">Add New Aquatic Creature</button>
 
     <table class="table table-striped table-hover">
       <thead>

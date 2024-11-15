@@ -16,7 +16,8 @@ const routes: Routes = [
       {
         path: 'event',
         loadChildren: () => import('./event/event.module').then(m => m.EventModule),
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: ['CONTENT_STAFF', 'ADMINISTRATOR']} 
       },
       {
         path: 'profile',
@@ -26,32 +27,38 @@ const routes: Routes = [
       {
         path: 'aquatic-creatures',
         loadChildren: () => import('./aquatic-creatures/aquatic-creatures.module').then(m => m.AquaticCreaturesModule),
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: ['CONTENT_STAFF', 'ADMINISTRATOR']}
       },
       {
         path: 'order',
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMINISTRATOR','INVOICE_STAFF']}
       },
       {
         path: 'manager',
         loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule),
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMINISTRATOR']}
       },
       {
         path: 'species',
         component:SpeciesComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard] ,
+        data: { roles: ['CONTENT_STAFF', 'ADMINISTRATOR']}
       },
       {
         path: 'type',
         component:TypeComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard] ,
+        data: { roles: ['CONTENT_STAFF', 'ADMINISTRATOR']}
       },
       {
         path: 'customer',
         component:CustomerComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMINISTRATOR']} 
       },
       {
         path: '',
@@ -61,7 +68,8 @@ const routes: Routes = [
       {
         path: 'ticket',
         component:TicketComponent,
-        canActivate: [AuthGuard] 
+        canActivate: [AuthGuard] ,
+        data: { roles: ['ADMINISTRATOR','INVOICE_STAFF']}
       },
     ]
   }

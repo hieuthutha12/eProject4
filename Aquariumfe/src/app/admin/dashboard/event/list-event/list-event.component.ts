@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventService } from '../../services/event.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-event',
@@ -14,7 +15,7 @@ export class ListEventComponent implements OnInit {
   itemsPerPage: number = 8;
   totalPages: number = 0;
 
-  constructor(private router: Router, private eventService: EventService) {}
+  constructor(private router: Router, private eventService: EventService, private authService: AuthService) {}
 
   ngOnInit() {
     this.fetchEvents();
@@ -59,5 +60,12 @@ export class ListEventComponent implements OnInit {
 
   addEvent() {
     this.router.navigate(['/admin/dashboard/event/form']);
+  }
+  hasRole(roles: string[]): boolean {
+    let hasRole = false;
+    this.authService.getUserRoles().subscribe(userRoles => {
+      hasRole = userRoles.some(userRole => roles.includes(userRole));
+    });
+    return hasRole;
   }
 }

@@ -1,7 +1,7 @@
 <div class="content">
   <div class="mt-5">
     <h2>Species List</h2>
-    <button class="btn btn-primary mb-3" (click)="toggleForm()">Add Species</button>
+    <button *ngIf="hasRole(['ADMINISTRATOR', 'CONTENT_STAFF'])" class="btn btn-primary mb-3" (click)="toggleForm()">Add Species</button>
     <!-- <h2>{{ isUpdateMode ? 'Edit Species' : 'Add Species' }}</h2> -->
     <div id="formContainer" class="form-container">
       <form (ngSubmit)="onSubmit()" #speciesFormDirective="ngForm">

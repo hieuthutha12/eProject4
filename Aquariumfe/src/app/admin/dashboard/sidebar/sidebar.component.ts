@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
   userInfo: UserInfo | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authService.fetchUserInfo().subscribe({
@@ -26,6 +26,13 @@ export class SidebarComponent implements OnInit {
   logout() {
     localStorage.removeItem('adminToken');
     this.router.navigate(['/admin']);
-}
+  }
+  hasRole(roles: string[]): boolean {
+    let hasRole = false;
+    this.authService.getUserRoles().subscribe(userRoles => {
+      hasRole = userRoles.some(userRole => roles.includes(userRole));
+    });
+    return hasRole;
+  }
 
 }
