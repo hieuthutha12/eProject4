@@ -48,7 +48,7 @@
             <div class="col-lg-6 col-12 item" *ngFor="let event of otherEvents">
               <div class="inner">
                 <div class="img">
-                  <img [src]="'/assets/imgUpload/'+ event.img" loading="lazy" alt="{{event.eventName}}" />
+                  <img [src]="'http://localhost:8080/image/'+ event.img" loading="lazy" alt="{{event.eventName}}" />
                 </div>
                 <div class="inner-content" [style.height]="event.startDate ? '192px' : '160px'">
                   <p class="subt">Start: {{ event.startDate | date:'EEEE d MMMM yyyy' }}</p>
@@ -65,6 +65,7 @@
       </div>
     </div>
   </div>
+  
     <div class="newsletter">
       <div class="container">
         <div class="row cta-event">
