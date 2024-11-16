@@ -309,8 +309,8 @@
   display: block; /* Keep display block for transition */
   position: absolute;
   background-color: #ffffff;
-  min-width: 510px;
-  height: 300px;
+  min-width: 350px;
+  height: 470px;
   overflow-y: auto;
   z-index: 1;
   box-shadow: 0 10px 16px rgba(0, 0, 0, 0.4);

@@ -192,3 +192,11 @@
   font-weight: bold;
   cursor: default;
 }
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
