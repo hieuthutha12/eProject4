@@ -1,6 +1,5 @@
-package com.example.aquarium.dto.response;
+package com.example.aquarium.bean.response;
 
-import com.example.aquarium.model.Ticket;
 import com.example.aquarium.model.TicketStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,8 +15,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BuyResponse {
-    private String userId;
-    private String ticketId;
+    private Integer userId;
+    private Integer ticketId;
+    private Integer orderDetailsId;
     private String type;
     private Integer number;
     private TicketStatus status;

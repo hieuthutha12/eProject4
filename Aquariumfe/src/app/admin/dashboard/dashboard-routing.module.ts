@@ -66,7 +66,7 @@ const routes: Routes = [
         canActivate: [AuthGuard] 
       },
       {
-        path: 'ticket',
+        path: 'ticket/:id',
         component:TicketComponent,
         canActivate: [AuthGuard] ,
         data: { roles: ['ADMINISTRATOR','INVOICE_STAFF']}

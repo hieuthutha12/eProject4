@@ -10,7 +10,7 @@
           <th>Email</th>
           <th>Address</th>
           <th>Phone</th>
-          <th>Role</th>
+          <th>View Order</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +20,8 @@
           <td>{{ User.email }}</td>
           <td>{{ User.address }}</td>
           <td>{{ User.phone }}</td>
-          <td>{{ User.role.roleName }}</td>
+          <td>
+            <button class="btn btn-info" (click)="viewOrder(User.id)">View</button></td>
         </tr>
       </tbody>
     </table>

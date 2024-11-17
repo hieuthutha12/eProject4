@@ -45,7 +45,6 @@ public class BuyService {
         Order savedOrder = orderRepository.save(order);
 
         List<OrderDetailsRequest> orderDetailsRequests = buyRequest.getOrderDetailsRequests();
-        System.out.println(orderDetailsRequests.size());
         if (!orderDetailsRequests.isEmpty()) {
             for (OrderDetailsRequest orderDetailsRequest : orderDetailsRequests) {
                 List<TicketRequest> ticketRequests = orderDetailsRequest.getTicketRequest();
@@ -57,7 +56,6 @@ public class BuyService {
 
                 OrderDetails savedOrderDetails = orderDetailsRepository.save(orderDetail);
 
-                System.out.println(ticketRequests.size());
                 for (TicketRequest ticket : ticketRequests) {
                     Ticket tickets = new Ticket();
                     Type type = typeRepository.findById(ticket.getTypeId())

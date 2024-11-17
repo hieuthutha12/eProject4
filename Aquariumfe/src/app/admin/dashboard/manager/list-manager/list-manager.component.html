@@ -1,7 +1,7 @@
 <div class="content">
     <div class="mt-5">
       <h2>Employee List</h2>
-      <button (click)="addUser()" class="btn btn-primary mb-3">Add New Admin</button>
+      <button *ngIf="hasRole(['ADMINISTRATOR'])" (click)="addUser()" class="btn btn-primary mb-3">Add New Admin</button>
       <input 
       type="text" 
       id="searchInput" 

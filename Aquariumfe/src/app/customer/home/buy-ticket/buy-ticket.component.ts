@@ -65,7 +65,7 @@ export class BuyTicketComponent implements OnInit {
         const tickets = Array(item.quantity).fill(0).map(() => ({
           purchaseDate: `${this.selectedDate}T${this.selectedTime}`,
           expirationDate: `${this.nextDayDate}T${this.selectedTime}`,
-          status: "ON_HOLD",
+          status: "PENDING",
           typeId: item.typeId
         }));
         

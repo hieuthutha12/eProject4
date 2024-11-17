@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findByExpirationDateBeforeAndStatus(LocalDateTime expirationDate, TicketStatus status);
+    List<Ticket> findAllByOrderDetailsId(Integer orderDetailsId);
 }

@@ -1,15 +1,17 @@
 package com.example.aquarium.service;
+
+import com.example.aquarium.bean.response.BuyResponse;
 import com.example.aquarium.bean.response.ChartData;
 import com.example.aquarium.bean.response.OrderResponse;
+import com.example.aquarium.exception.ResourceNotFoundException;
 import com.example.aquarium.mapper.OrderMapper;
-import com.example.aquarium.model.Order;
-import com.example.aquarium.model.OrderDetails;
-import com.example.aquarium.model.Ticket;
+import com.example.aquarium.model.*;
 import com.example.aquarium.repository.OrderDetailsRepository;
 import com.example.aquarium.repository.OrderRepository;
 import com.example.aquarium.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.math.BigDecimal;
@@ -34,11 +36,46 @@ public class OrderService {
         return orderRepository.findById(id)
                 .map(order -> orderMapper.toResponse(order));
     }
+
     public List<OrderResponse> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
         return orders.stream()
                 .map(orderMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public List<BuyResponse> getOrderByOrderId(Integer orderId) {
+        Iterable<Integer> ids = Collections.singletonList(orderId);
+        List<Order> orders = orderRepository.findAllById(ids);
+        Map<String, BuyResponse> buyResponseMap = new HashMap<>();
+
+        orders.forEach(order -> order.getOrderDetails().forEach(orderDetail -> orderDetail.getTickets().forEach(ticket -> {
+
+            String key = ticket.getType().getTypeName() + "_" +
+                    ticket.getPurchaseDate() + "_" +
+                    ticket.getExpirationDate() + "_" +
+                    orderDetail.getId();
+            BigDecimal quantity = BigDecimal.valueOf(orderDetail.getQuantity());
+            BigDecimal price = ticket.getType().getPrice();
+            buyResponseMap.merge(key,
+                    new BuyResponse(
+                            order.getUser().getId(),
+                            ticket.getId(),
+                            orderDetail.getId(),
+                            ticket.getType().getTypeName(),
+                            orderDetail.getQuantity(),
+                            ticket.getStatus(),
+                            ticket.getPurchaseDate(),
+                            ticket.getExpirationDate(),
+                            quantity.multiply(price)
+                    ),
+                    (existing, newResponse) -> {
+                        return existing;
+                    }
+            );
+        })));
+
+        return new ArrayList<>(buyResponseMap.values());
     }
 
     public List<ChartData> getLastSixMonthsRevenue() {
@@ -96,5 +133,25 @@ public class OrderService {
     private int getWeekOfYear(LocalDateTime expirationDate) {
         return expirationDate.get(WeekFields.of(Locale.getDefault()).weekOfYear());
     }
+
+    public boolean updateTicketStatus(Integer orderDetailsId, TicketStatus status) {
+        if (orderDetailsId == null || status == null) {
+            throw new IllegalArgumentException("OrderDetailsId and status must not be null");
+        }
+
+        List<Ticket> tickets = ticketRepository.findAllByOrderDetailsId(orderDetailsId);
+        if (tickets.isEmpty()) {
+            return false;
+        }
+
+        // Update tickets in batch to reduce database calls
+        tickets.forEach(ticket -> ticket.setStatus(status));
+        ticketRepository.saveAll(tickets); // Save all updated tickets in one call
+
+        return true;
+    }
+
+
 }
+
 

@@ -25,7 +25,9 @@ export class CustomerComponent {
        }
      );
    }
-
+   viewOrder(id: number) {
+    this.router.navigate([`/admin/dashboard/order/list/${id}`]);
+  }
   searchUser(): void {
     const input: string = (document.getElementById("searchInput") as HTMLInputElement).value.toUpperCase();
     const table: HTMLTableElement = document.getElementById("userTable") as HTMLTableElement;

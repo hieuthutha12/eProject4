@@ -3,7 +3,7 @@
     <h2>List of Orders</h2>
 
     <!-- Search Bar -->
-    <div class="d-flex justify-content-between mb-3">
+    <div *ngIf="!isUserId" class="d-flex justify-content-between mb-3">
       <input
         type="text"
         class="form-control w-50"
@@ -42,7 +42,7 @@
     </table>
 
     <!-- Pagination Controls -->
-    <div class="pagination-controls">
+    <div *ngIf="" class="pagination-controls">
       <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn btn-secondary">Previous</button>
       <span>Page {{ currentPage }} of {{ totalPages }}</span>
       <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn btn-secondary">Next</button>

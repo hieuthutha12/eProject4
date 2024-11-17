@@ -1,6 +1,7 @@
 // EmailService.java
 package com.example.aquarium.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,15 +12,13 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
-    private static final String SUBJECT = "Mã xác thực đăng ký tài khoản";
+    private static final String SUBJECT = "Account registration verification code";
 
-    @Autowired
-    private JavaMailSender mailSender;
-
-    // Phương thức tạo mã xác thực
+    private final JavaMailSender mailSender;
     public String generateVerificationCode() {
         Random random = new Random();
         int code = 100000 + random.nextInt(900000);
@@ -32,7 +31,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toEmail);
         message.setSubject(SUBJECT);
-        message.setText("Mã xác thực của bạn là: " + code);
+        message.setText("Your verification code is: " + code);
 
         try {
             mailSender.send(message);

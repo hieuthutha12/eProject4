@@ -12,7 +12,7 @@ export class ListEventComponent implements OnInit {
   events: any[] = [];
   paginatedEvents: any[] = [];
   page: number = 1;
-  itemsPerPage: number = 8;
+  itemsPerPage: number = 5;
   totalPages: number = 0;
 
   constructor(private router: Router, private eventService: EventService, private authService: AuthService) {}

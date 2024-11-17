@@ -1,10 +1,12 @@
 package com.example.aquarium.service;
 
 import com.example.aquarium.bean.request.UserRequest;
-import com.example.aquarium.dto.response.BuyResponse;
+import com.example.aquarium.bean.response.BuyResponse;
+import com.example.aquarium.bean.response.OrderResponse;
 import com.example.aquarium.bean.response.MessageResponse;
 import com.example.aquarium.bean.response.UserResponse;
 import com.example.aquarium.exception.ResourceNotFoundException;
+import com.example.aquarium.mapper.OrderMapper;
 import com.example.aquarium.mapper.UserMapper;
 import com.example.aquarium.model.*;
 import com.example.aquarium.repository.LoyaltyPointsRepository;
@@ -31,6 +33,7 @@ public class UserService {
 
     private final RoleRepository roleRepository;
     private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
 
     private final LoyaltyPointsRepository loyaltyPointsRepository;
@@ -65,9 +68,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-
-
-
     public MessageResponse updateUser(int userId, UserRequest userRequest){
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         user.setFirstName(userRequest.getFirstName());
@@ -77,6 +77,15 @@ public class UserService {
         user.setEmail(userRequest.getEmail());
         userRepository.save(user);
         return new MessageResponse("Successfully");
+    }
+
+    public List<OrderResponse> getOrderResponseByUserId(Integer userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        List<Order> orders = orderRepository.findByUser(user);
+        return orders.stream()
+                .map(orderMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     public List<BuyResponse> getBuyResponsesByUserId(Integer userId) {
@@ -96,8 +105,9 @@ public class UserService {
             BigDecimal price = ticket.getType().getPrice();
             buyResponseMap.merge(key,
                     new BuyResponse(
-                            user.getId().toString(),
-                            ticket.getId().toString(),
+                            user.getId(),
+                            ticket.getId(),
+                            orderDetail.getId(),
                             ticket.getType().getTypeName(),
                             orderDetail.getQuantity(),
                             ticket.getStatus(),

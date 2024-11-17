@@ -2,14 +2,13 @@ package com.example.aquarium.controller;
 
 import com.example.aquarium.bean.request.PasswordChangeRequest;
 import com.example.aquarium.bean.request.UserRequest;
-import com.example.aquarium.dto.response.BuyResponse;
-import com.example.aquarium.bean.response.MessageResponse;
-import com.example.aquarium.bean.response.UserInfo;
-import com.example.aquarium.bean.response.UserResponse;
+import com.example.aquarium.bean.response.*;
+import com.example.aquarium.bean.response.BuyResponse;
 import com.example.aquarium.model.LoyaltyPoints;
 import com.example.aquarium.model.Role;
 import com.example.aquarium.model.User;
 import com.example.aquarium.security.interfaceRole.AdminAccess;
+import com.example.aquarium.security.interfaceRole.AdminAndInvoiceAccess;
 import com.example.aquarium.security.interfaceRole.AdminInvoiceContentAccess;
 import com.example.aquarium.security.jwt.JwtTokenProvider;
 import com.example.aquarium.service.AuthService;
@@ -107,6 +106,12 @@ public class UserController {
     public ResponseEntity<?> getBuyUser(@PathVariable Integer id){
         List<BuyResponse> buyResponses = userService.getBuyResponsesByUserId(id);
         return ResponseEntity.ok(buyResponses);
+    }
+    @AdminAndInvoiceAccess
+    @GetMapping("/order/{id}")
+    public ResponseEntity<?> getOrderUser(@PathVariable Integer id){
+        List<OrderResponse> orderResponses = userService.getOrderResponseByUserId(id);
+        return ResponseEntity.ok(orderResponses);
     }
     @AdminAccess
     @PutMapping("/update-status/{id}")
