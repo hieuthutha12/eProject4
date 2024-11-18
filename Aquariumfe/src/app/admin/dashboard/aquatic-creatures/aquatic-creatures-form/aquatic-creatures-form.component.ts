@@ -93,7 +93,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
           weight: creatureData.weight,
           length: creatureData.length,
           exhibitStatus: creatureData.exhibitStatus,
-          userId: parseInt(this.userInfo.userId, 10),
+          userId: this.userInfo?.id || 1,
           speciesId: creatureData.speciesId,
           images: creatureData.images || [],  
           descriptions: creatureData.descriptions || [],  
@@ -153,7 +153,7 @@ export class AquaticCreaturesFormComponent implements OnInit {
     creatureObservable.subscribe(
       response => {
         console.log(`${this.isUpdateMode ? 'Aquatic creature updated' : 'Aquatic creature created'} successfully:`, response);
-        this.router.navigate(['/aquatic-creatures/list']);
+        this.router.navigate(['admin/aquatic-creatures']);
       },
       error => {
         console.error('API Error:', error);

@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const requiredRoles = route.data['roles'] as string[];
-    console.log(requiredRoles);
 
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/admin']);

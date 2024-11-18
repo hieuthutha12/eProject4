@@ -60,7 +60,7 @@ export class EventFormComponent implements OnInit {
           startDate: new Date(eventData.startDate),
           endDate: new Date(eventData.endDate),
           img: null,
-          userId: parseInt(this.userInfo.id,10),
+          userId: this.userInfo?.id || 1,
         };
       },
       error => {

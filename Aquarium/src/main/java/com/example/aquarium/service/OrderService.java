@@ -109,7 +109,7 @@ public class OrderService {
         Map<String, BigDecimal> weeklySales = tickets.stream()
                 .filter(ticket -> ticket.getExpirationDate().isAfter(startOfWeek))
                 .collect(Collectors.groupingBy(
-                        ticket -> "Tuần " + getWeekOfYear(ticket.getExpirationDate()),
+                        ticket -> "Week " + getWeekOfYear(ticket.getExpirationDate()),
                         Collectors.mapping(ticket -> {
                             Optional<OrderDetails> orderDetail = orderDetailsList.stream()
                                     .filter(od -> od.getId() == ticket.getOrderDetails().getId())
