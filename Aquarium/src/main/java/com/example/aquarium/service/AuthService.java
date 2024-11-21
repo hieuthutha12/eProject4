@@ -41,6 +41,9 @@ public class AuthService {
         if (user == null) {
             return new MessageResponse("Invalid username", Map.of("email", "User not found"));
         }
+        if ("inactive".equalsIgnoreCase(user.getAccountStatus())) {
+            return new MessageResponse("Account inactive", Map.of("status", "User account is inactive. Please contact support."));
+        }
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return new MessageResponse("Invalid password", Map.of("password", "Incorrect password"));
         }

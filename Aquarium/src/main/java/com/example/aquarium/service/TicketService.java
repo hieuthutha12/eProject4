@@ -48,7 +48,7 @@ public class TicketService {
     public void updateExpiredTickets() {
         LocalDateTime today = LocalDateTime.now();
 
-        List<Ticket> expiredTickets = ticketRepository.findByExpirationDateBeforeAndStatus(today, TicketStatus.valueOf("ON_HOLD"));
+        List<Ticket> expiredTickets = ticketRepository.findByExpirationDateBeforeAndStatus(today, TicketStatus.valueOf("CONFIRMED"));
 
         expiredTickets.forEach(ticket -> {
             ticket.setStatus(TicketStatus.EXPIRED);

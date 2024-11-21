@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
             this.emailError = error.error.errors.email || '';
             this.passwordError = error.error.errors.password || '';
             this.emailError = error.error.errors.role || '';
+            this.emailError = error.error.errors.status || '';
           }
         } else {
           this.generalErrorMessage = 'An unknown error occurred.';

@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -79,7 +80,12 @@ public class OrderService {
     }
 
     public List<ChartData> getLastSixMonthsRevenue() {
-        LocalDateTime sixMonthsAgo = LocalDateTime.now().minusMonths(6);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime sixMonthsAgo = now.minusMonths(5).withDayOfMonth(1);
+
+        List<String> lastSixMonths = IntStream.range(0, 6)
+                .mapToObj(i -> sixMonthsAgo.plusMonths(i).getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault()))
+                .collect(Collectors.toList());
 
         Map<String, BigDecimal> revenueByMonth = orderRepository.findAll().stream()
                 .filter(order -> {
@@ -94,10 +100,11 @@ public class OrderService {
                         )
                 ));
 
-        return revenueByMonth.entrySet().stream()
-                .map(entry -> new ChartData(entry.getKey(), entry.getValue().longValue()))
+        return lastSixMonths.stream()
+                .map(month -> new ChartData(month, revenueByMonth.getOrDefault(month, BigDecimal.ZERO).longValue()))
                 .collect(Collectors.toList());
     }
+
 
     public List<ChartData> getWeeklySalesData() {
         LocalDateTime currentDate = LocalDateTime.now();
@@ -107,7 +114,7 @@ public class OrderService {
         List<Ticket> tickets = ticketRepository.findAll();
 
         Map<String, BigDecimal> weeklySales = tickets.stream()
-                .filter(ticket -> ticket.getExpirationDate().isAfter(startOfWeek))
+                .filter(ticket -> ticket.getPurchaseDate().isAfter(startOfWeek))
                 .collect(Collectors.groupingBy(
                         ticket -> "Week " + getWeekOfYear(ticket.getExpirationDate()),
                         Collectors.mapping(ticket -> {
