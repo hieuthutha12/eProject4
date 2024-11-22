@@ -53,7 +53,11 @@ export class LoginComponent implements OnInit {
           if (error.error.errors) {
             this.emailError = error.error.errors.email || '';
             this.passwordError = error.error.errors.password || '';
+          }
+          if(error.error.errors.role){
             this.emailError = error.error.errors.role || '';
+          }
+          if(error.error.errors.status){
             this.emailError = error.error.errors.status || '';
           }
         } else {
